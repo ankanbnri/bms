@@ -17,10 +17,10 @@ public class Route extends AbstractBaseEntity {
     private Long routeid;
 	
 	@Column(name="startname")
-	private String startname;
+	private String startName;
 	
 	@Column(name="stopname")
-	private String stopname;
+	private String stopName;
 	
 	@Column(name="distance")
 	private int distance;
