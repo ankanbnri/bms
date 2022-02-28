@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.nrifintech.bms.util.AdminPrivileges;
+
 
 @Entity
 @Table(name="user")
@@ -29,7 +31,7 @@ public class User extends AbstractBaseEntity {
 	private String mobileNo;
 
 	@Column(name="isadmin")
-	private boolean adminPrivileges;
+	private AdminPrivileges adminPrivileges;
 
 	public Long getUserid() {
 		return userid;
@@ -71,13 +73,14 @@ public class User extends AbstractBaseEntity {
 		this.mobileNo = mobileNo;
 	}
 
-	public boolean isAdminPrivileges() {
+	public AdminPrivileges getAdminPrivileges() {
 		return adminPrivileges;
 	}
 
-	public void setAdminPrivileges(boolean adminPrivileges) {
+	public void setAdminPrivileges(AdminPrivileges adminPrivileges) {
 		this.adminPrivileges = adminPrivileges;
 	}
-	
+
+
 	
 }

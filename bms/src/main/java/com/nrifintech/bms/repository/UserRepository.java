@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.nrifintech.bms.entity.User;
 
 @Repository
-public interface UserRepository extends AbstractBaseRepository<User, Long> {
-	User findByUsernameAndPassword(String username, String password);
+public interface UserRepository extends AbstractBaseRepository<User, Integer> {
+	User findByEmailAndPassword(String email, String password);
 }

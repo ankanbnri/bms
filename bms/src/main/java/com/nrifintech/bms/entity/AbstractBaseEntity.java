@@ -20,12 +20,12 @@ public class AbstractBaseEntity implements Serializable{
 
   
     @CreationTimestamp
-    @Column(updatable = false)
+    @Column(name="createdat",updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     
     @UpdateTimestamp
-    @Column(updatable = true)
+    @Column(name="updatedat",updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
