@@ -1,5 +1,5 @@
 package com.nrifintech.bms.util;
 
-public enum facilities {
+public enum Facilities {
 	AC, NONAC
 }
