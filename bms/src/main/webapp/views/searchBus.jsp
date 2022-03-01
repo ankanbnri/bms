@@ -1,3 +1,7 @@
+<%@page import="org.springframework.web.context.annotation.SessionScope"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +30,16 @@
 </head>
 
 <body>
+	<%
+		response.setHeader("Cache-Control", "no-cache, no-store, no-revalidate");	// HTTP 1.1
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+		response.setHeader("Expires", "0"); // Proxies
+	%>
+	
+	<c:if test="${sessionScope.isValidUser != true}">
+		<%response.sendRedirect(request.getContextPath()+"/user/login");%>
+	</c:if>
+
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container nav-container">
@@ -47,7 +61,7 @@
                         <a class="nav-link" href="#">My Tickets</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0" action="/user/logout">
                     <button class="btn bg-bms-primary my-2 my-sm-0 logout-btn text-bms-secondary font-weight-bold"
                         type="submit">LOG OUT</button>
                 </form>
