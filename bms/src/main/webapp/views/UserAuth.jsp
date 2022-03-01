@@ -39,7 +39,7 @@
          <div class="form-inner">
             <form action="login" class="login" method="post">
                <div class="field">
-                  <input type="text" id="email" name="email" placeholder="Email Address" value="${email }" required>
+                  <input type="email" id="email" name="email" placeholder="Email Address" value="${email }" required>
                </div>
                <div class="field">
                   <input type="password" id="password" name="password" placeholder="Password" required>

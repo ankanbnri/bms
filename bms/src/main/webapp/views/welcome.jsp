@@ -42,7 +42,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item pl-2 pr-2">
-                        <a class="nav-link btn" href="UserAuth.html"><span class="fas fa-sign-in-alt"></span>
+                        <a class="nav-link btn" href="/user/login"><span class="fas fa-sign-in-alt"></span>
                             Login</a>
                     </li>
                 </ul>

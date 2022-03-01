@@ -61,7 +61,7 @@ public class UserController {
 	public ModelAndView doLogin(HttpServletRequest request, Model model) {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		User user = userService.FindUser(email);
+		User user = userService.findUser(email);
 		System.out.println("---" + user + "---");
 		
 		if (user == null) {

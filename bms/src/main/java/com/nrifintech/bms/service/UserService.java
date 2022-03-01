@@ -5,15 +5,16 @@ import org.springframework.stereotype.Service;
 
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.repository.UserRepository;
+import com.nrifintech.bms.util.AdminPrivileges;
 
 @Service
 public class UserService {
 	@Autowired
 	public UserRepository userRepo;
 	
-	public User FindUser(String email) {
+	public User findUser(String email) {
 		User user = userRepo.findByEmail(email);
-		if (user != null) {
+		if ((user != null) && (AdminPrivileges.NO.equals(user.getAdminPrivileges()))) {
 			return user;
 		}
 		return null;
