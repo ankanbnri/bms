@@ -67,6 +67,8 @@
 		      <span class="font-weight-bold busFound">&nbsp;${buses.get(0).getRoute().getStartName()} </span>
 		      <span>&nbsp;to</span>
 		      <span class="font-weight-bold busFound">&nbsp;${buses.get(0).getRoute().getStopName()} </span>
+		      <span>&nbsp;on</span>
+		      <span class="font-weight-bold busFound">&nbsp;${travelDate}</span>
 		    </div>
 		  </section>
 		  
@@ -83,16 +85,16 @@
 		      	<p class=" h4 my-auto">${bus.getStartTime()}</p>
 		      </div>
 		      <div class="col-sm-2 text-center text-danger my-auto h4">
-		      	<p class="h4 my-auto">Date of Travel</p>
-		      	<p class="h4 my-auto">${travelDate}</p>
+		      	<p class="h4 my-auto">Available Seats</p>
+		      	<p class="h4 my-auto">${bus.getSeatCount()}</p>
 		      </div>
 		      <div class="col-sm-2 text-center my-auto h4">
 		      	<p class="h4 my-auto">Distance</p>
-		      	<p class="h4 my-auto">${bus.getRoute().getDistance()}</p>
+		      	<p class="h4 my-auto">${bus.getRoute().getDistance()}&nbsp;km</p>
 		      </div>
 		      <div class="col-sm-2 b text-center my-auto font-weight-bold h4">
 		      	<p class="h4 my-auto">Fare Per Ticket</p>
-		      	<p class="h4 my-auto">${bus.getFare() * bus.getRoute().getDistance()}</p>
+		      	<p class="h4 my-auto">Rs.&nbsp;${bus.getFare() * bus.getRoute().getDistance()}</p>
 		      </div>
 		    </div>
 			</c:forEach>
