@@ -34,7 +34,9 @@ public class UserController {
 	@Autowired
 	public UserService userService;
 
+	@Autowired
 	private BusService busService;
+	
 	@Autowired
 	private RouteService routeService;
 	

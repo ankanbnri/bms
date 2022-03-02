@@ -32,11 +32,11 @@
 
             <body>
                 <% response.setHeader("Cache-Control", "no-cache, no-store, no-revalidate" ); // HTTP 1.1
-                    response.setHeader("Pragma", "no-cache" ); // HTTP 1.0 response.setHeader("Expires", "0" ); //
-                    Proxies %>
+                    response.setHeader("Pragma", "no-cache" ); // HTTP 1.0 
+                    response.setHeader("Expires", "0" );  //Proxies  %>
 
                     <c:if test="${sessionScope.isValidUser != true}">
-                        <%response.sendRedirect(request.getContextPath()+" /user/login");%>
+                        <%response.sendRedirect("/user/login");%>
                     </c:if>
 
                     <!-- NAVBAR -->
@@ -44,7 +44,7 @@
                         <div class="container nav-container">
                             <div class="brand">
                                 <a class="navbar-brand text-bms-yellow font-weight-bold"
-                                    href="${pageContext.request.contextPath}/user/welcome">BMS</a>
+                                    href="/user/welcome">BMS</a>
                             </div>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -57,7 +57,7 @@
                                 <ul class="navbar-nav ml-auto">
                                     <li class="nav-item active mx-2">
                                         <a class="nav-link item"
-                                            href="${pageContext.request.contextPath}/user/searchBus">Plan Journey</a>
+                                            href="/user/searchBus">Plan Journey</a>
                                     </li>
                                     <li class="nav-item mx-2">
                                         <a class="nav-link" href="#">My Tickets</a>
