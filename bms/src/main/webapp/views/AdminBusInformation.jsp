@@ -139,7 +139,7 @@
 														<span class="badge badge-warning rounded-pill">DISABLED</span>
 													</c:otherwise>
 												</c:choose></td>
-											<td><a href=""><span class="fas fa-edit pr-2"></span></a>
+											<td><a href=""><span class="fa fa-download pr-2"></span></a>
 												<a href=""><span class="fas fa-ban"></span></a></td>
 										</tr>
 									</c:forEach>
