@@ -1,7 +1,34 @@
 $(document).ready(function () {
+    //Min Date
+    var today = new Date();
+    var dd = today.getDate() + 1;
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("travelDate").setAttribute("min", today);
+    //Max Date
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 3;
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("travelDate").setAttribute("max", today);
+
     // Scroll to top on page reload
     $(this).scrollTop(0);
-    
+
     // SET BOOLEAN
     var scrolled = false;
 

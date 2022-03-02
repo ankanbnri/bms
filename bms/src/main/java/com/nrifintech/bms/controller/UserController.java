@@ -4,6 +4,7 @@ package com.nrifintech.bms.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.repository.UserRepository;
 import com.nrifintech.bms.request.UserLoginRequest;
 import com.nrifintech.bms.service.UserService;
+import com.nrifintech.bms.entity.Bus;
+import com.nrifintech.bms.service.BusService;
+import com.nrifintech.bms.service.RouteService;
 
 
 @Controller
@@ -30,11 +34,9 @@ public class UserController {
 	@Autowired
 	public UserService userService;
 
-	@GetMapping("/searchBus")
-	public ModelAndView searchBus() {
-		ModelAndView mv = new ModelAndView("searchBus");
-		return mv;
-	}
+	private BusService busService;
+	@Autowired
+	private RouteService routeService;
 	
 	@GetMapping("/welcome")
 	public String welcomeUser() {
@@ -95,4 +97,40 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/searchBus")
+	public ModelAndView showSearchBusForm() {
+		
+		List<String> startNames = routeService.getDistinctRouteStartName();
+//		System.out.println(startNames);
+		List<String> stopNames = routeService.getDistinctRouteStopName();
+//		System.out.println(stopNames);
+		
+		ModelAndView modelAndView = new ModelAndView("searchBus");
+		modelAndView.addObject("startNames",startNames);
+		modelAndView.addObject("stopNames",stopNames);
+		return modelAndView;
+	}
+	
+	@PostMapping("/searchBus")
+	public ModelAndView searchBus(@ModelAttribute("source") String source,
+								  @ModelAttribute("destination") String destination,
+								  @ModelAttribute("travelDate") String travelDate) {
+		
+//		System.out.println(source);
+//		System.out.println(destination);
+//		System.out.println(travelDate);
+		List<Bus> buses = busService.getBusWithSourceDest(source,destination);
+
+		ModelAndView modelAndView = new ModelAndView("listBus");
+		if(buses.size()>0) {
+			modelAndView.addObject("buses",buses);
+			modelAndView.addObject("travelDate",travelDate);
+			modelAndView.addObject("busFound", true);
+			return modelAndView;
+		}else {
+			modelAndView.addObject("busFound", false);
+			return modelAndView;
+		}
+	}
+		
 }
