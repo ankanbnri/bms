@@ -26,7 +26,7 @@
     <script src="/js/searchBus.js"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <title>BMS | Plan your journey</title>
+    <title><c:out value="${sessionScope.name}" /> | Plan your journey</title>
 </head>
 
 <body>
