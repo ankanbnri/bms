@@ -7,24 +7,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="route")
+@Table(name = "route")
 public class Route extends AbstractBaseEntity {
 	private static final long serialVersionUID = 6715094082833854125L;
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="routecode")
-    private int routeCode;
-	
-	@Column(name="startname")
-	private String startName;
-	
-	@Column(name="stopname")
-	private String stopName;
-	
-	@Column(name="distance_km")
-	private int distance;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "routecode")
+	private int routeCode;
 
+	@Column(name = "startname")
+	private String startName;
+
+	@Column(name = "stopname")
+	private String stopName;
+
+	@Column(name = "distance_km")
+	private int distance;
 
 	public int getRouteCode() {
 		return routeCode;
@@ -58,8 +58,4 @@ public class Route extends AbstractBaseEntity {
 		this.distance = distance;
 	}
 
-	
-
-	
-	
 }
