@@ -15,4 +15,11 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView("AdminDashboard");
 		return mv;
 	}
+	
+	@GetMapping("/displayBusInformation")
+	public ModelAndView displayBusInformation()
+	{
+		ModelAndView mv = new ModelAndView("AdminBusInformation");
+		return mv;
+	}
 }

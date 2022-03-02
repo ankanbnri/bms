@@ -38,13 +38,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav navbar-sidenav " id="exampleAccordion">
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                    <a class="nav-link" href="AdminDashboard.html">
+                    <a class="nav-link" href="/admin/dashboard">
                         <i class="fa fa-fw fa-sign-in-alt"></i>
                         <span class="nav-link-text">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                    <a class="nav-link" href="AdminBusInformation.html">
+                    <a class="nav-link" href="/admin/displayBusInformation">
                         <i class="fa fa-fw fa-table"></i>
                         <span class="nav-link-text">Display Bus Information</span>
                     </a>
