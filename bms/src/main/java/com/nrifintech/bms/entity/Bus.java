@@ -12,6 +12,7 @@ import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.nrifintech.bms.util.BusActiveStatus;
@@ -95,6 +96,22 @@ public class Bus extends AbstractBaseEntity {
 
 	public void setRoute(Route route) {
 		this.route = route;
+	}
+
+	public Facilities getFacilities() {
+		return facilities;
+	}
+
+	public void setFacilities(Facilities facilities) {
+		this.facilities = facilities;
+	}
+
+	public BusActiveStatus getActiveStatus() {
+		return activeStatus;
+	}
+
+	public void setActiveStatus(BusActiveStatus activeStatus) {
+		this.activeStatus = activeStatus;
 	}
 
 	
