@@ -34,6 +34,13 @@ footer{
 	width: 100%;
 }
 
+a{
+	color: black;
+}
+a:hover{
+	text-decoration: none;
+	color: black;
+}
 .no-bus-found-parent{
     margin: 10%;
 }

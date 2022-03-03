@@ -25,11 +25,20 @@
   <title>Available Bus</title>
 </head>
 <body>
+	<% response.setHeader("Cache-Control", "no-cache, no-store, no-revalidate" ); // HTTP 1.1
+                    response.setHeader("Pragma", "no-cache" ); // HTTP 1.0 
+                    response.setHeader("Expires", "0" );  //Proxies  %>
+
+                    <c:if test="${sessionScope.isValidUser != true}">
+                        <%response.sendRedirect("/user/login");%>
+                    </c:if>
+
+
 <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-light bg-bms-primary">
     <div class="container nav-container">
       <div class="brand">
-        <a class="navbar-brand text-bms-yellow font-weight-bold" href="${pageContext.request.contextPath}/user/welcome">BMS</a>
+        <a class="navbar-brand text-bms-yellow font-weight-bold" href="/user/welcome">BMS</a>
       </div>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -40,13 +49,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active mx-2">
-            <a class="nav-link item" href="${pageContext.request.contextPath}/user/searchBus">Plan Journey</a>
+            <a class="nav-link item" href="/user/searchBus">Plan Journey</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link" href="#">My Tickets</a>
+            <a class="nav-link" href="/user/myTickets">My Tickets</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form class="form-inline my-2 my-lg-0" action="/user/logout">
           <button class="btn bg-bms-primary my-2 my-sm-0 logout-btn text-bms-secondary font-weight-bold" type="submit">
             LOG OUT
           </button>
@@ -75,28 +84,30 @@
 		  <!-- Found Buses Details -->
 		  <section class="container">
 		  <c:forEach var="bus" items="${buses}">
-		    <div class="d-flex justify-content-between card-body details">
-		      <div class="col-sm-2 text-center my-auto">
-		        <p class="font-weight-bold h4 my-auto">${bus.getBusName()}</p>
-		        <p class="badge badge-pill badge-success my-auto">${bus.getFacilities()}</p>
-		      </div>
-		      <div class="col-sm-2 text-center my-auto h4">
-		      	<p class=" h4 my-auto">Departure Time</p>
-		      	<p class=" h4 my-auto">${bus.getStartTime()}</p>
-		      </div>
-		      <div class="col-sm-2 text-center text-danger my-auto h4">
-		      	<p class="h4 my-auto">Available Seats</p>
-		      	<p class="h4 my-auto">${bus.getSeatCount()}</p>
-		      </div>
-		      <div class="col-sm-2 text-center my-auto h4">
-		      	<p class="h4 my-auto">Distance</p>
-		      	<p class="h4 my-auto">${bus.getRoute().getDistance()}&nbsp;km</p>
-		      </div>
-		      <div class="col-sm-2 b text-center my-auto font-weight-bold h4">
-		      	<p class="h4 my-auto">Fare Per Ticket</p>
-		      	<p class="h4 my-auto">Rs.&nbsp;${bus.getFare() * bus.getRoute().getDistance()}</p>
-		      </div>
-		    </div>
+		  	<a href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
+				    <div class="d-flex justify-content-between card-body details">
+				      <div class="col-sm-2 text-center my-auto">
+				        <p class="font-weight-bold h4 my-auto">${bus.getBusName()}</p>
+				        <p class="badge badge-pill badge-success my-auto">${bus.getFacilities()}</p>
+				      </div>
+				      <div class="col-sm-2 text-center my-auto h4">
+				      	<p class=" h4 my-auto">Departure Time</p>
+				      	<p class=" h4 my-auto">${bus.getStartTime()}</p>
+				      </div>
+				      <div class="col-sm-2 text-center text-danger my-auto h4">
+				      	<p class="h4 my-auto">Available Seats</p>
+				      	<p class="h4 my-auto">${bus.getAvailableSeats()}</p>
+				      </div>
+				      <div class="col-sm-2 text-center my-auto h4">
+				      	<p class="h4 my-auto">Distance</p>
+				      	<p class="h4 my-auto">${bus.getRoute().getDistance()}&nbsp;km</p>
+				      </div>
+				      <div class="col-sm-2 b text-center my-auto font-weight-bold h4">
+				      	<p class="h4 my-auto">Fare Per Ticket</p>
+				      	<p class="h4 my-auto">Rs.&nbsp;${bus.getFare() * bus.getRoute().getDistance()}</p>
+				      </div>
+				    </div>
+				</a>
 			</c:forEach>
 		  </section>
 		  

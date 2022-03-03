@@ -6,7 +6,7 @@ body {
   width: 100%;
 }
 
----------------
+/* --------------- */
 /* NAVBAR */
 /* --------------- */
 
@@ -38,7 +38,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  background-image : url("../img/bus-inside-img.jpg");
+  background-image : url("/images/bus-inside-img.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

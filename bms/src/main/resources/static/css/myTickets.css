@@ -1,0 +1,37 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+}
+
+section{
+	margin-top: 10vh;
+}
+.expired-ticket-parent{
+	margin-bottom: 10vh;
+}
+.details {
+    margin-top: 1vh;
+    width: 100%;
+  }
+
+  #pnr{
+      color: orangered;
+  }
+
+  .card {
+    box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
+  }
+
+.expired-ticket-parent .card{
+	opacity: 0.7;
+}
+footer{
+	bottom: 0;
+    width: 100%;
+    clear: both;
+}

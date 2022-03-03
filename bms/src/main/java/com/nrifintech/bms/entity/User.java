@@ -18,7 +18,7 @@ public class User extends AbstractBaseEntity {
 	private static final long serialVersionUID = 6715094082833854125L;
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="userid")
-    private Long userid;
+    private Integer userid;
 	
 	@Column(name="name")
 	private String name;
@@ -42,11 +42,11 @@ public class User extends AbstractBaseEntity {
 				+ ", mobileNo=" + mobileNo + ", adminPrivileges=" + adminPrivileges + "]";
 	}
 
-	public Long getUserid() {
+	public Integer getUserid() {
 		return userid;
 	}
 
-	public void setUserid(Long userid) {
+	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
 

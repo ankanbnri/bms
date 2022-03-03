@@ -28,4 +28,8 @@ public class UserService {
 		return false;
 	}
 
+	public User getById(Integer id) {
+		return userRepo.getById(id);
+	}
+
 }

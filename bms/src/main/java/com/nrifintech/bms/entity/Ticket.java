@@ -8,7 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,11 +31,11 @@ public class Ticket extends AbstractBaseEntity {
 	@Column(name="date_of_travel")
 	private Date dateOfTravel;
 
-	@OneToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER , optional = false)
 	@JoinColumn(name="registration_no", foreignKey = @ForeignKey(name = "registration_no_fk"), nullable = false)
 	private Bus bus;
 	
-	@OneToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name="userid", foreignKey = @ForeignKey(name = "userid_fk"), nullable = false)
 	private User user;
 

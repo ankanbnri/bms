@@ -20,8 +20,10 @@ import com.nrifintech.bms.repository.UserRepository;
 import com.nrifintech.bms.request.UserLoginRequest;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.entity.Bus;
+import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.service.BusService;
 import com.nrifintech.bms.service.RouteService;
+import com.nrifintech.bms.service.TicketService;
 
 
 @Controller
@@ -29,16 +31,13 @@ import com.nrifintech.bms.service.RouteService;
 public class UserController {
 	
 	@Autowired
-	public UserRepository userRepo;
-	
-	@Autowired
 	public UserService userService;
-
 	@Autowired
 	private BusService busService;
-	
 	@Autowired
 	private RouteService routeService;
+	@Autowired
+	private TicketService ticketService;
 	
 	@GetMapping("/welcome")
 	public String welcomeUser() {
@@ -118,19 +117,61 @@ public class UserController {
 								  @ModelAttribute("destination") String destination,
 								  @ModelAttribute("travelDate") String travelDate) {
 		
-//		System.out.println(source);
-//		System.out.println(destination);
-//		System.out.println(travelDate);
+
 		List<Bus> buses = busService.getBusWithSourceDest(source,destination);
+		busService.setAllAvailableSeats(buses);
+		for(Bus bus: buses) {
+			if(bus.getAvailableSeats()==0)
+				buses.remove(bus);
+		}
 
 		ModelAndView modelAndView = new ModelAndView("listBus");
 		if(buses.size()>0) {
 			modelAndView.addObject("buses",buses);
 			modelAndView.addObject("travelDate",travelDate);
 			modelAndView.addObject("busFound", true);
-			return modelAndView;
 		}else {
 			modelAndView.addObject("busFound", false);
+		}
+		return modelAndView;
+	}
+	
+	@GetMapping("/myTickets")
+	public ModelAndView showTickets(HttpServletRequest request) {
+		System.out.println("my ticket get api");
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("userid")==null) {
+			ModelAndView mv = new ModelAndView("redirect:/user/login");
+			return mv;
+		}else {
+			int userId = (int)session.getAttribute("userid");
+			System.out.println(userId);
+			User user = userService.getById(userId);
+			System.out.println(user);
+	//		List<Ticket> ticketList = ticketService.getTicketsWithUser(user);
+			
+			List<Ticket> upcomingTickets = ticketService.getUpcomingTicketsWithUser(user);
+			List<Ticket> oldTickets = ticketService.getOldTicketsWithUser(user);
+			
+			ModelAndView modelAndView = new ModelAndView("myTickets");
+			
+			// Setting upcoming tickets
+			if(upcomingTickets.size()>0) {
+				modelAndView.addObject("upcomingTickets", upcomingTickets);
+				modelAndView.addObject("upcomingTicketFound", true);
+			}else {
+				modelAndView.addObject("upcomingTicketFound", false);
+			}
+			
+			// Setting old tickets
+			if(oldTickets.size()>0) {
+				modelAndView.addObject("oldTickets", oldTickets);
+				modelAndView.addObject("oldTicketFound", true);
+			}else {
+				modelAndView.addObject("oldTicketFound", false);
+			}
+			
 			return modelAndView;
 		}
 	}
