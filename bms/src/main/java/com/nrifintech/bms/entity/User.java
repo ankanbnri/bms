@@ -2,10 +2,13 @@ package com.nrifintech.bms.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 import com.nrifintech.bms.util.AdminPrivileges;
 
@@ -30,8 +33,15 @@ public class User extends AbstractBaseEntity {
 	@Column(name="phone_no")
 	private String mobileNo;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name="isadmin")
 	private AdminPrivileges adminPrivileges;
+
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", name=" + name + ", password=" + password + ", email=" + email
+				+ ", mobileNo=" + mobileNo + ", adminPrivileges=" + adminPrivileges + "]";
+	}
 
 	public Long getUserid() {
 		return userid;
