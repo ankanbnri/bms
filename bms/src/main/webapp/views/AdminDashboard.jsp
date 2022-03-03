@@ -31,17 +31,8 @@
 </head>
 <!-- NAVAR AND SIDEBAR -->
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-	
-	<%
-		response.setHeader("Cache-Control", "no-cache, no-store, no-revalidate");	// HTTP 1.1
-		response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-		response.setHeader("Expires", "0"); // Proxies
-	%>
-	
-	<c:if test="${sessionScope.isValidAdmin != true}">
-		<%response.sendRedirect(request.getContextPath()+"/admin/login");%>
-	</c:if>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">	
+	<%@ include file="adminSecurity.jsp" %>
 	
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
