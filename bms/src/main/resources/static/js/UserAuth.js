@@ -1,3 +1,4 @@
+//Script tag changes to another file
 $('document').ready(function(){			
 		
 	   var password = document.getElementById("pass")
