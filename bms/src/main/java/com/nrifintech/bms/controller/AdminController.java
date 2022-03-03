@@ -1,5 +1,8 @@
 package com.nrifintech.bms.controller;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +48,10 @@ public class AdminController {
 	{
 		List<Bus> buses = busService.findAll();
 		ModelAndView mv = new ModelAndView("AdminBusInformation");
+		Date today = new Date();
+		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+		String tmrDate = tomorrow.toString().substring(0, 10);
+		mv.addObject("tmrDate", tmrDate);
 		if(buses.isEmpty())
 		{
 			mv.addObject("busFound", false);

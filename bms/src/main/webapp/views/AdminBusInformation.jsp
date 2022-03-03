@@ -139,8 +139,18 @@
 														<span class="badge badge-warning rounded-pill">DISABLED</span>
 													</c:otherwise>
 												</c:choose></td>
-											<td><a href="" title="Download PNR Report for tomorrow"><span class="fa fa-download pr-2" ></span></a>
-												<a href="" title="Disable the bus"><span class="fas fa-ban"></span></a></td>
+											<td><c:choose>
+													<c:when test="${bus.getActiveStatus() eq 'YES'}">
+														<a href="" title="Download PNR Report for ${tmrDate }"><span
+															class="fa fa-download pr-2"></span></a>
+														<a href="" title="Disable the bus"><span
+															class="fas fa-toggle-on"></span></a>
+													</c:when>
+													<c:otherwise>
+														<a href="" title="Enable the bus"><span
+															class="fas fa-toggle-off"></span></a>
+													</c:otherwise>
+												</c:choose></td>
 										</tr>
 									</c:forEach>
 								</tbody>
