@@ -12,6 +12,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+//import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,9 +32,15 @@ import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.service.BusService;
 import com.nrifintech.bms.service.RouteService;
 
+import com.nrifintech.bms.entity.User;
+import com.nrifintech.bms.exception.RecordAlreadyExistsException;
+import com.nrifintech.bms.repository.UserRepository;
+import com.nrifintech.bms.services.UserService;
+
 
 @Controller
 @RequestMapping("/user")
+@ComponentScan(basePackages = "com")
 public class UserController {
 	
 	@Autowired
@@ -39,6 +54,7 @@ public class UserController {
 	
 	@Autowired
 	private RouteService routeService;
+
 	
 	@GetMapping("/welcome")
 	public String welcomeUser() {
@@ -135,4 +151,9 @@ public class UserController {
 		}
 	}
 		
+	@PostMapping(value="/createUser")
+	@ExceptionHandler(RecordAlreadyExistsException.class)
+	public void addUser(@RequestBody User newUser) {
+		userService.createUser(newUser);
+	}
 }
