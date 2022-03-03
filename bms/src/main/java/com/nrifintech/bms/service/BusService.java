@@ -16,4 +16,9 @@ public class BusService {
 	public List<Bus> getBusWithSourceDest(String source, String destination) {
 		return repository.findAllWithSourceDest(source, destination); 
 	}
+	
+	public List<Bus> findAll()
+	{
+		return repository.findAll();
+	}
 }

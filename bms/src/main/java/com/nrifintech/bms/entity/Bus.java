@@ -18,35 +18,37 @@ import javax.persistence.Table;
 import com.nrifintech.bms.util.BusActiveStatus;
 import com.nrifintech.bms.util.Facilities;
 
-
 @Entity
-@Table(name="bus")
+@Table(name = "bus")
 public class Bus extends AbstractBaseEntity {
 	private static final long serialVersionUID = 6715094082833854125L;
 
-	@Id @Column(name="registration_no", length=8, columnDefinition="CHAR")
-    private String registrationNo;
-	
-	@Column(name="busname")
+	@Id
+	@Column(name = "registration_no", length = 8, columnDefinition = "CHAR")
+	private String registrationNo;
+
+	@Column(name = "busname")
 	private String busName;
-	
-	@Column(name="fare_per_km")
+
+	@Column(name = "fare_per_km")
 	private int fare;
-	
-	@Column(name="totalseats")
+
+	@Column(name = "totalseats")
 	private int seatCount;
-	
-	@Column(name="starttime")
+
+	@Column(name = "starttime")
 	private Time startTime;
 
-	@Column(name="facilities") @Enumerated(EnumType.STRING)
+	@Column(name = "facilities")
+	@Enumerated(EnumType.STRING)
 	private Facilities facilities;
-	
-	@Column(name="isactive") @Enumerated(EnumType.STRING)
+
+	@Column(name = "isactive")
+	@Enumerated(EnumType.STRING)
 	private BusActiveStatus activeStatus;
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name="routecode", foreignKey = @ForeignKey(name = "routecode_fk"), nullable = false)
+	@JoinColumn(name = "routecode", foreignKey = @ForeignKey(name = "routecode_fk"), nullable = false)
 	private Route route;
 
 	public String getRegistrationNo() {
@@ -89,7 +91,6 @@ public class Bus extends AbstractBaseEntity {
 		this.startTime = startTime;
 	}
 
-
 	public Route getRoute() {
 		return route;
 	}
@@ -114,6 +115,4 @@ public class Bus extends AbstractBaseEntity {
 		this.activeStatus = activeStatus;
 	}
 
-	
-	
 }
