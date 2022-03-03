@@ -1,10 +1,8 @@
 package com.nrifintech.bms.controller;
 
-import java.time.LocalDateTime;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -114,9 +112,17 @@ public class AdminController {
 	@GetMapping("/disableBus/{registrationNo}")
 	public ModelAndView disableBus(@PathVariable("registrationNo") String registrationNo )
 	{
-		System.out.println(registrationNo);
 		Bus bus = busService.getById(registrationNo);
 		bus.setActiveStatus(BusActiveStatus.NO);
+		busService.saveOrUpdate(bus);
+		ModelAndView mv = new ModelAndView("redirect:/admin/displayBusInformation");
+		return mv;
+	}
+	@GetMapping("/enableBus/{registrationNo}")
+	public ModelAndView enableBus(@PathVariable("registrationNo") String registrationNo )
+	{
+		Bus bus = busService.getById(registrationNo);
+		bus.setActiveStatus(BusActiveStatus.YES);
 		busService.saveOrUpdate(bus);
 		ModelAndView mv = new ModelAndView("redirect:/admin/displayBusInformation");
 		return mv;
