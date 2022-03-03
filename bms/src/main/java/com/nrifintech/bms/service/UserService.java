@@ -27,5 +27,13 @@ public class UserService {
 		}
 		return false;
 	}
+	
+	public User findAdmin(String email) {
+		User user = userRepo.findByEmail(email);
+		if ((user != null) && (AdminPrivileges.YES.equals(user.getAdminPrivileges()))) {
+			return user;
+		}
+		return null;
+	}
 
 }

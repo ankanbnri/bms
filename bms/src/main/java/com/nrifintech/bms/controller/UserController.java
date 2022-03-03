@@ -71,6 +71,7 @@ public class UserController {
 	@PostMapping("/login")
 	public ModelAndView doLogin(HttpServletRequest request, Model model) {
 		String email = request.getParameter("email");
+		email = email.toLowerCase();
 		String password = request.getParameter("password");
 		User user = userService.findUser(email);
 		

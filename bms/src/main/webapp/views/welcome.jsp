@@ -30,10 +30,16 @@
 </head>
 
 <body>
-	<c:if test="${sessionScope.isValidUser == true}">
-		<%response.sendRedirect(request.getContextPath()+"/user/searchBus");%>
-	</c:if>
-    <!-- NAVBAR -->
+	<c:choose>
+		<c:when test="${sessionScope.isValidUser == true}">
+			<%response.sendRedirect(request.getContextPath()+"/user/searchBus");%>
+		</c:when>
+		<c:when test="${sessionScope.isValidAdmin == true}">
+			<%response.sendRedirect(request.getContextPath()+"/admin/dashboard");%>
+		</c:when>
+	</c:choose>
+
+	<!-- NAVBAR -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-bms-primary">
         <div class="container nav-container">
             <a class="navbar-brand" href="#">
@@ -293,7 +299,7 @@
                         Copyright © Bus Management System 2022
                     </div>
                     <div class="col-md-6 col-lg-7 text-center text-md-right">
-                        <a class="text-white" href="AdminLogin.html">Admin Login</a>
+                        <a class="text-white" href="/admin/login">Admin Login</a>
                     </div>
                 </div>
             </div>
