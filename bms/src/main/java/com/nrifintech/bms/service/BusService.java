@@ -14,11 +14,21 @@ public class BusService {
 	private BusAndRouteRepository repository;
 
 	public List<Bus> getBusWithSourceDest(String source, String destination) {
-		return repository.findAllWithSourceDest(source, destination); 
+		return repository.findAllWithSourceDest(source, destination);
+	}
+
+	public List<Bus> findAll() {
+		return repository.findAll();
+	}
+
+	public Bus getById(String registrationNo)
+
+	{
+		return repository.getById(registrationNo);
 	}
 	
-	public List<Bus> findAll()
+	public void saveOrUpdate(Bus bus)
 	{
-		return repository.findAll();
+		repository.save(bus);
 	}
 }

@@ -37,7 +37,7 @@
                     response.setHeader("Expires", "0" ); //Proxies %>
 
                     <c:if test="${sessionScope.isValidAdmin != true}">
-                        <%response.sendRedirect(request.getContextPath()+" /admin/login");%>
+                        <%response.sendRedirect(" /admin/login");%>
                     </c:if>
 
                     <!-- Navigation-->

@@ -143,11 +143,11 @@
 													<c:when test="${bus.getActiveStatus() eq 'YES'}">
 														<a href="" title="Download PNR Report for ${tmrDate }"><span
 															class="fa fa-download pr-2"></span></a>
-														<a href="" title="Disable the bus"><span
+														<a href="/admin/disableBus/${bus.getRegistrationNo() }" title="Disable the bus"><span
 															class="fas fa-toggle-on"></span></a>
 													</c:when>
 													<c:otherwise>
-														<a href="" title="Enable the bus"><span
+														<a href="/admin/enableBus/${bus.getRegistrationNo() }" title="Enable the bus"><span
 															class="fas fa-toggle-off"></span></a>
 													</c:otherwise>
 												</c:choose></td>
