@@ -42,7 +42,7 @@ public class User extends AbstractBaseEntity {
 				+ ", mobileNo=" + mobileNo + ", adminPrivileges=" + adminPrivileges + "]";
 	}
 
-	public Long getUserid() {
+	public Integer getUserid() {
 		return userid;
 	}
 

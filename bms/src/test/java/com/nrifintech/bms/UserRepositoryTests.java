@@ -1,6 +1,5 @@
 package com.nrifintech.bms;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class UserRepositoryTests {
 	public void testCreateUser() {
 		User user = new User();
 		user.setEmail("sample1@sample.com");
-		user.setUserid((long) 77);
+		user.setUserid(77);
 		user.setName("sample");
 		user.setPassword("sample");
 		user.setMobileNo("123456789");
