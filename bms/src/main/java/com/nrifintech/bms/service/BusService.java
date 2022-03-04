@@ -3,10 +3,12 @@ package com.nrifintech.bms.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.repository.BusAndRouteRepository;
+import com.nrifintech.bms.util.AdminBusSortingUtils;
 
 @Service
 public class BusService {
@@ -30,5 +32,17 @@ public class BusService {
 	public void saveOrUpdate(Bus bus)
 	{
 		repository.save(bus);
+	}
+
+	public List<Bus> getBuses(int theSortField) {
+		if(theSortField == AdminBusSortingUtils.BUS_NAME)
+		return repository.findAll(Sort.by("busName"));
+		else if(theSortField == AdminBusSortingUtils.FARE)
+			return repository.findAll(Sort.by("fare"));
+		else if(theSortField == AdminBusSortingUtils.SEAT_COUNT)
+			return repository.findAll(Sort.by("seatCount"));
+		else if(theSortField == AdminBusSortingUtils.IS_ACTIVE)
+			return repository.findAll(Sort.by("activeStatus"));
+		return repository.findAll(Sort.by("registrationNo"));
 	}
 }

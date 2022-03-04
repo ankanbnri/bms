@@ -481,3 +481,7 @@ footer.sticky-footer {
     width: calc(100% - 55px);
   }
 }
+thead tr th a
+{
+	color: black;
+}

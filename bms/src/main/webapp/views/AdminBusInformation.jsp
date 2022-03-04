@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.nrifintech.bms.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +39,27 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 	<%@ include file="adminSecurity.jsp"%>
+	
+	<c:url var="sortLinkRegistrationNumber" value="/admin/displayBusInformation">
+		<c:param name="sort"
+			value="<%=Integer.toString(AdminBusSortingUtils.REGISTRATION_NO)%>" />
+	</c:url>
+		<c:url var="sortLinkBusName" value="/admin/displayBusInformation">
+		<c:param name="sort"
+			value="<%=Integer.toString(AdminBusSortingUtils.BUS_NAME)%>" />
+	</c:url>
+		<c:url var="sortLinkSeatCount" value="/admin/displayBusInformation">
+		<c:param name="sort"
+			value="<%=Integer.toString(AdminBusSortingUtils.SEAT_COUNT)%>" />
+	</c:url>
+		<c:url var="sortLinkFare" value="/admin/displayBusInformation">
+		<c:param name="sort"
+			value="<%=Integer.toString(AdminBusSortingUtils.FARE)%>" />
+	</c:url>
+		<c:url var="sortLinkStatus" value="/admin/displayBusInformation">
+		<c:param name="sort"
+			value="<%=Integer.toString(AdminBusSortingUtils.IS_ACTIVE)%>" />
+	</c:url>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<a class="navbar-brand" href="index.html">Bus Management System </a>
@@ -98,13 +120,13 @@
 					<table class="table align-middle mb-0 bg-white">
 						<thead class="bg-light">
 							<tr>
-								<th>Registration number</th>
-								<th>Bus Name</th>
+								<th><a href="${sortLinkRegistrationNumber}">Registration number<i class="fas fa-sort"></i></a></th>
+								<th><a href="${sortLinkBusName}">Bus Name<i class="fas fa-sort"></i></a></th>
 								<th>From</th>
 								<th>To</th>
-								<th>Seat Count</th>
-								<th>Fare(per KM)</th>
-								<th>Status</th>
+								<th><a href="${sortLinkSeatCount}">Seat Count<i class="fas fa-sort"></i></a></th>
+								<th><a href="${sortLinkFare}">Fare(per KM)<i class="fas fa-sort"></i></a></th>
+								<th><a href="${sortLinkStatus}">Status<i class="fas fa-sort"></i></a></th>
 								<th>Actions</th>
 							</tr>
 						</thead>

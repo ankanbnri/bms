@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.service.BusService;
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.service.UserService;
+import com.nrifintech.bms.util.AdminBusSortingUtils;
 import com.nrifintech.bms.util.BusActiveStatus;
 
 
@@ -45,9 +47,15 @@ public class AdminController {
 	}
 	
 	@GetMapping("/displayBusInformation")
-	public ModelAndView displayBusInformation()
+	public ModelAndView displayBusInformation(@RequestParam(required = false, name = "sort") String sort)
 	{
-		List<Bus> buses = busService.findAll();
+		List<Bus> buses = null;
+		if (sort != null) {
+			int theSortField = Integer.parseInt(sort);
+			buses = busService.getBuses(theSortField);
+		} else {
+			buses= busService.getBuses(AdminBusSortingUtils.REGISTRATION_NO);
+		}
 		ModelAndView mv = new ModelAndView("AdminBusInformation");
 		Date today = new Date();
 		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
