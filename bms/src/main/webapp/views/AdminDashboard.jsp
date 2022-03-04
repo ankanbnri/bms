@@ -32,17 +32,11 @@
 
             <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 
-                <% response.setHeader("Cache-Control", "no-cache, no-store, no-revalidate" ); // HTTP 1.1
-                    response.setHeader("Pragma", "no-cache" ); // HTTP 1.0 
-                    response.setHeader("Expires", "0" ); //Proxies %>
-
-                    <c:if test="${sessionScope.isValidAdmin != true}">
-                        <%response.sendRedirect(" /admin/login");%>
-                    </c:if>
+                <%@ include file="adminSecurity.jsp" %>
 
                     <!-- Navigation-->
                     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-                        <a class="navbar-brand" href="index.html">Bus Management System </a>
+                        <a class="navbar-brand" href="/admin/dashboard">Bus Management System </a>
                         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                             aria-label="Toggle navigation">
