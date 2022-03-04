@@ -144,13 +144,13 @@ public class UserController {
 		if (userExists != null) {
 			System.out.println("userExists");
 			ModelAndView uauth = new ModelAndView("UserAuth");
-			uauth.addObject("error_msg", "Already registered user with this email");
+			uauth.addObject("error_msg", "Already registered user with this email.Please Login.");
 			return uauth;
 		}
 		userExists = userService.findByMobileNo(user.getMobileNo());
 		if (userExists != null) {
 			ModelAndView uauth = new ModelAndView("UserAuth");
-			uauth.addObject("error_msg", "Already registered user with this mobile number");
+			uauth.addObject("error_msg", "Already registered user with this mobile number.Please Login.");
 			return uauth;
 		}
 		ModelAndView modelAndView = new ModelAndView("redirect:/user/login");

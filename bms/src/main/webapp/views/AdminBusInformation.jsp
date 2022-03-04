@@ -37,6 +37,7 @@
 <!-- NAVAR AND SIDEBAR -->
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+	<%@ include file="adminSecurity.jsp"%>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<a class="navbar-brand" href="index.html">Bus Management System </a>
@@ -143,11 +144,13 @@
 													<c:when test="${bus.getActiveStatus() eq 'YES'}">
 														<a href="" title="Download PNR Report for ${tmrDate }"><span
 															class="fa fa-download pr-2"></span></a>
-														<a href="/admin/disableBus/${bus.getRegistrationNo() }" title="Disable the bus"><span
+														<a href="/admin/disableBus/${bus.getRegistrationNo() }"
+															title="Disable the bus"><span
 															class="fas fa-toggle-on"></span></a>
 													</c:when>
 													<c:otherwise>
-														<a href="/admin/enableBus/${bus.getRegistrationNo() }" title="Enable the bus"><span
+														<a href="/admin/enableBus/${bus.getRegistrationNo() }"
+															title="Enable the bus"><span
 															class="fas fa-toggle-off"></span></a>
 													</c:otherwise>
 												</c:choose></td>
@@ -203,7 +206,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+					<a class="btn btn-primary" href="/admin/logout">Logout</a>
 				</div>
 			</div>
 		</div>
