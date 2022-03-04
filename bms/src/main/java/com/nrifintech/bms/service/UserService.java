@@ -39,6 +39,11 @@ public class UserService {
 		user.setEmail(email);
 		userRepo.save(user);
 	}
+	
+	public User findByMobileNo(String mobileNo)
+	{
+		return userRepo.findByMobileNo(mobileNo);
+	}
 
 
 }
