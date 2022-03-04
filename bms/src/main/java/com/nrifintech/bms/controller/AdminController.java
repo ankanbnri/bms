@@ -1,5 +1,7 @@
 package com.nrifintech.bms.controller;
 
+
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +20,7 @@ import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.service.BusService;
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.service.UserService;
+import com.nrifintech.bms.util.BusActiveStatus;
 
 
 @Controller
@@ -45,6 +49,10 @@ public class AdminController {
 	{
 		List<Bus> buses = busService.findAll();
 		ModelAndView mv = new ModelAndView("AdminBusInformation");
+		Date today = new Date();
+		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+		String tmrDate = tomorrow.toString().substring(0, 10);
+		mv.addObject("tmrDate", tmrDate);
 		if(buses.isEmpty())
 		{
 			mv.addObject("busFound", false);
@@ -98,6 +106,25 @@ public class AdminController {
 		session.removeAttribute("name");
 		session.invalidate();
 		ModelAndView mv = new ModelAndView("redirect:/user/welcome");
+		return mv;
+	}
+	
+	@GetMapping("/disableBus/{registrationNo}")
+	public ModelAndView disableBus(@PathVariable("registrationNo") String registrationNo )
+	{
+		Bus bus = busService.getById(registrationNo);
+		bus.setActiveStatus(BusActiveStatus.NO);
+		busService.saveOrUpdate(bus);
+		ModelAndView mv = new ModelAndView("redirect:/admin/displayBusInformation");
+		return mv;
+	}
+	@GetMapping("/enableBus/{registrationNo}")
+	public ModelAndView enableBus(@PathVariable("registrationNo") String registrationNo )
+	{
+		Bus bus = busService.getById(registrationNo);
+		bus.setActiveStatus(BusActiveStatus.YES);
+		busService.saveOrUpdate(bus);
+		ModelAndView mv = new ModelAndView("redirect:/admin/displayBusInformation");
 		return mv;
 	}
 
