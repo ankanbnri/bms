@@ -71,7 +71,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <div class="row list-group-item-heading">
-                                <h4>Booking Information ${availableSeats}</h4>
+                                <h4>Booking Information</h4>
                             </div>
                         </li>
                         <li class="list-group-item">
