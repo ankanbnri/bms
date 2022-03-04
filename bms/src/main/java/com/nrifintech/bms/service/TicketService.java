@@ -2,6 +2,9 @@ package com.nrifintech.bms.service;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +56,11 @@ public class TicketService {
 //		return ticketRepository.findAllTicketsWithUser(user); 
 //	}
 
-	public int getTotalSeatsByBus(Bus bus) {
-		return ticketRepository.getTotalSeatsByBus(bus);
+	public int getTotalSeatsByBusAndDate(Bus bus, String travelDate) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsed = format.parse(travelDate);
+        java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
+		return ticketRepository.getTotalSeatsByBusAndDate(bus,dateOfTravel);
 	}
 
 	public List<Ticket> getUpcomingTicketsWithUser(User user) {

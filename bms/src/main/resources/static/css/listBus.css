@@ -6,7 +6,10 @@ body {
   width: 100%;
   min-height: 100%;
 }
-
+body{
+	padding: 0 0 70px;
+    position: relative;
+}
 .row {
   font-size: 18px;
 }
@@ -27,13 +30,6 @@ body {
   /* background-color: #fff1ce; */
 }
 
-footer{
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-}
-
 a{
 	color: black;
 }
@@ -48,4 +44,13 @@ a:hover{
     width: 36rem;
     border: 1px solid #BFBFBF;
     box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+footer{
+	bottom: 0;
+    height: 70px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+	
 }

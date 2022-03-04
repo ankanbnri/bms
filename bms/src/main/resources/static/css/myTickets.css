@@ -5,9 +5,11 @@ body {
   height: 100%;
   width: 100%;
   min-height: 100%;
-  position: relative;
 }
-
+body{
+	padding: 0 0 70px;
+    position: relative;
+}
 section{
 	margin-top: 10vh;
 }
@@ -32,6 +34,9 @@ section{
 }
 footer{
 	bottom: 0;
+    height: 70px;
+    left: 0;
+    position: absolute;
     width: 100%;
-    clear: both;
+	
 }

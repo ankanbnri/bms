@@ -4,6 +4,8 @@ package com.nrifintech.bms.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,9 +104,7 @@ public class UserController {
 	public ModelAndView showSearchBusForm() {
 		
 		List<String> startNames = routeService.getDistinctRouteStartName();
-//		System.out.println(startNames);
 		List<String> stopNames = routeService.getDistinctRouteStopName();
-//		System.out.println(stopNames);
 		
 		ModelAndView modelAndView = new ModelAndView("searchBus");
 		modelAndView.addObject("startNames",startNames);
@@ -115,11 +115,11 @@ public class UserController {
 	@PostMapping("/searchBus")
 	public ModelAndView searchBus(@ModelAttribute("source") String source,
 								  @ModelAttribute("destination") String destination,
-								  @ModelAttribute("travelDate") String travelDate) {
+								  @ModelAttribute("travelDate") String travelDate) throws ParseException {
 		
 
 		List<Bus> buses = busService.getBusWithSourceDest(source,destination);
-		busService.setAllAvailableSeats(buses);
+		busService.setAllAvailableSeatsForDate(buses,travelDate);
 		for(Bus bus: buses) {
 			if(bus.getAvailableSeats()==0)
 				buses.remove(bus);

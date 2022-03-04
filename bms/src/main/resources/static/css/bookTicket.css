@@ -5,7 +5,10 @@ body {
   height: 100%;
   width: 100%;
 }
-
+body{
+	padding: 0 0 70px;
+    position: relative;
+}
 /* --------------- */
 /* NAVBAR */
 /* --------------- */
@@ -68,4 +71,13 @@ body {
 }
 .list-group-item .btn{
     background: linear-gradient(140deg, #139487, #86c6f4);
+}
+
+footer{
+	bottom: 0;
+    height: 70px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+	
 }

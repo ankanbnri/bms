@@ -1,5 +1,6 @@
 package com.nrifintech.bms.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,10 @@ public class BusService {
 		return repository.getById(regNo);
 	}
 
-	public void setAllAvailableSeats(List<Bus> buses) {
+	public void setAllAvailableSeatsForDate(List<Bus> buses, String travelDate) throws ParseException {
 		int availableSeats;
 		for(Bus bus: buses) {
-			availableSeats = bus.getSeatCount() - ticketService.getTotalSeatsByBus(bus);
+			availableSeats = bus.getSeatCount() - ticketService.getTotalSeatsByBusAndDate(bus,travelDate);
 //			System.out.println(availableSeats);
 			bus.setAvailableSeats(availableSeats);
 		}
