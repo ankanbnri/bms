@@ -119,7 +119,9 @@ public class UserController {
 		
 
 		List<Bus> buses = busService.getBusWithSourceDest(source,destination);
-		busService.setAllAvailableSeatsForDate(buses,travelDate);
+		if(buses.size()>0) {
+			busService.setAllAvailableSeatsForDate(buses,travelDate);
+		}
 		for(Bus bus: buses) {
 			if(bus.getAvailableSeats()==0)
 				buses.remove(bus);
