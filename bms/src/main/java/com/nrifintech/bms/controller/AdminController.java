@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nrifintech.bms.entity.Bus;
+import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.service.BusService;
+import com.nrifintech.bms.service.TicketService;
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.BusActiveStatus;
@@ -31,6 +33,8 @@ public class AdminController {
 	private BusService busService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private TicketService ticketService;
 	
 	@GetMapping("/login")
 	public ModelAndView adminLogin() {
@@ -127,5 +131,24 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView("redirect:/admin/displayBusInformation");
 		return mv;
 	}
-
+	
+	@RequestMapping("ticketList/{registrationNo}")
+	public ModelAndView ticketList(@PathVariable("registrationNo") String registrationNo) {
+		Date today = new Date();
+		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+		//String tmrDate = tomorrow.toString().substring(0, 10);
+		Bus bus = busService.getById(registrationNo);
+		List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
+		ModelAndView modelAndView = new ModelAndView("ticketList");
+		modelAndView.addObject(bus);
+		System.out.println(tickets);
+		if(tickets.isEmpty()) {
+			modelAndView.addObject("ticketFound", false);
+		}
+		else {
+			modelAndView.addObject("ticketFound", true);
+			modelAndView.addObject("tickets", tickets);
+		}
+		return  modelAndView;
+	}
 }
