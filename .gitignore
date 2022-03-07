@@ -44,3 +44,6 @@ atlassian-ide-plugin.xml
 
 # VS Code
 .vscode/
+.metadata/.lock
+.metadata/.log
+.metadata/.plugins/org.eclipse.core.resources/.history/10/e0c247f33c9c001c1a3df08d95883d81
