@@ -45,7 +45,7 @@ public class TicketService {
 				  .toString().substring(0, 10);
 		System.out.println("From generate pnr........");
 		System.out.println(sha256hex);
-		return sha256hex;
+		return sha256hex.toUpperCase();
 	}
 
 	public void save(Ticket ticket) {
