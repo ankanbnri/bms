@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.nrifintech.bms.util.BusActiveStatus;
 import com.nrifintech.bms.util.Facilities;
@@ -33,8 +34,12 @@ public class Bus extends AbstractBaseEntity {
 
 	@Column(name = "totalseats")
 	private int seatCount;
+	
+	@Transient
+	private int availableSeats;
+	
 
-	@Column(name = "starttime")
+	@Column(name="starttime")
 	private Time startTime;
 
 	@Column(name = "facilities")
@@ -83,6 +88,14 @@ public class Bus extends AbstractBaseEntity {
 
 	public Time getStartTime() {
 		return startTime;
+	}
+	
+	public int getAvailableSeats() {
+		return availableSeats;
+	}
+
+	public void setAvailableSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
 	}
 
 	public void setStartTime(Time startTime) {

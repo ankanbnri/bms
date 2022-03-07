@@ -15,7 +15,7 @@ $(document).ready(function () {
     //Max Date
     var today = new Date();
     var dd = today.getDate();
-    var mm = today.getMonth() + 3;
+    var mm = today.getMonth() + 2;
     var yyyy = today.getFullYear();
     if (dd < 10) {
         dd = '0' + dd;

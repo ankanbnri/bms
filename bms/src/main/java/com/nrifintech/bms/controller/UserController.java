@@ -2,6 +2,9 @@ package com.nrifintech.bms.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +20,26 @@ import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminPrivileges;
 import com.nrifintech.bms.entity.Bus;
+import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.service.BusService;
 import com.nrifintech.bms.service.RouteService;
+import com.nrifintech.bms.service.TicketService;
 
 
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
+	
 	@Autowired
 	public UserService userService;
-
 	@Autowired
 	private BusService busService;
-
 	@Autowired
 	private RouteService routeService;
-
+	@Autowired
+	private TicketService ticketService;
+	
 	@GetMapping("/welcome")
 	public String welcomeUser() {
 		return "welcome";
@@ -94,10 +99,8 @@ public class UserController {
 	public ModelAndView showSearchBusForm() {
 
 		List<String> startNames = routeService.getDistinctRouteStartName();
-//		System.out.println(startNames);
 		List<String> stopNames = routeService.getDistinctRouteStopName();
-//		System.out.println(stopNames);
-
+		
 		ModelAndView modelAndView = new ModelAndView("searchBus");
 		modelAndView.addObject("startNames", startNames);
 		modelAndView.addObject("stopNames", stopNames);
@@ -106,21 +109,66 @@ public class UserController {
 
 	@PostMapping("/searchBus")
 	public ModelAndView searchBus(@ModelAttribute("source") String source,
-			@ModelAttribute("destination") String destination, @ModelAttribute("travelDate") String travelDate) {
+								  @ModelAttribute("destination") String destination,
+								  @ModelAttribute("travelDate") String travelDate) throws ParseException {
+		
 
-//		System.out.println(source);
-//		System.out.println(destination);
-//		System.out.println(travelDate);
-		List<Bus> buses = busService.getBusWithSourceDest(source, destination);
+		List<Bus> buses = busService.getBusWithSourceDest(source,destination);
+		if(buses.size()>0) {
+			busService.setAllAvailableSeatsForDate(buses,travelDate);
+		}
+		for(Bus bus: buses) {
+			if(bus.getAvailableSeats()==0)
+				buses.remove(bus);
+		}
 
 		ModelAndView modelAndView = new ModelAndView("listBus");
 		if (buses.size() > 0) {
 			modelAndView.addObject("buses", buses);
 			modelAndView.addObject("travelDate", travelDate);
 			modelAndView.addObject("busFound", true);
-			return modelAndView;
-		} else {
+		}else {
 			modelAndView.addObject("busFound", false);
+		}
+		return modelAndView;
+	}
+	
+	@GetMapping("/myTickets")
+	public ModelAndView showTickets(HttpServletRequest request) {
+		System.out.println("my ticket get api");
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("userid")==null) {
+			ModelAndView mv = new ModelAndView("redirect:/user/login");
+			return mv;
+		}else {
+			int userId = (int)session.getAttribute("userid");
+			System.out.println(userId);
+			User user = userService.getById(userId);
+			System.out.println(user);
+	//		List<Ticket> ticketList = ticketService.getTicketsWithUser(user);
+			
+			List<Ticket> upcomingTickets = ticketService.getUpcomingTicketsWithUser(user);
+			List<Ticket> oldTickets = ticketService.getOldTicketsWithUser(user);
+			
+			ModelAndView modelAndView = new ModelAndView("myTickets");
+			
+			// Setting upcoming tickets
+			if(upcomingTickets.size()>0) {
+				modelAndView.addObject("upcomingTickets", upcomingTickets);
+				modelAndView.addObject("upcomingTicketFound", true);
+			}else {
+				modelAndView.addObject("upcomingTicketFound", false);
+			}
+			
+			// Setting old tickets
+			if(oldTickets.size()>0) {
+				modelAndView.addObject("oldTickets", oldTickets);
+				modelAndView.addObject("oldTicketFound", true);
+			}else {
+				modelAndView.addObject("oldTicketFound", false);
+			}
+			
 			return modelAndView;
 		}
 	}

@@ -31,7 +31,7 @@ public class Ticket extends AbstractBaseEntity {
 	@Column(name="date_of_travel")
 	private Date dateOfTravel;
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER , optional = false)
 	@JoinColumn(name="registration_no", foreignKey = @ForeignKey(name = "registration_no_fk"), nullable = false)
 	private Bus bus;
 	

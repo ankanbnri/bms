@@ -55,7 +55,7 @@
                                         <a class="nav-link item" href="/user/searchBus">Plan Journey</a>
                                     </li>
                                     <li class="nav-item mx-2">
-                                        <a class="nav-link" href="#">My Tickets</a>
+                                        <a class="nav-link" href="/user/myTickets">My Tickets</a>
                                     </li>
                                 </ul>
                                 <form class="form-inline my-2 my-lg-0" action="/user/logout">
