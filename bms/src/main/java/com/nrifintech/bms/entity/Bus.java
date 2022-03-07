@@ -48,7 +48,7 @@ public class Bus extends AbstractBaseEntity {
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "routecode", foreignKey = @ForeignKey(name = "routecode_fk"), nullable = false)
 	private Route route;
-
+	
 	public String getRegistrationNo() {
 		return registrationNo;
 	}

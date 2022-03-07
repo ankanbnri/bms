@@ -1,10 +1,12 @@
 package com.nrifintech.bms.controller;
 
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nrifintech.bms.entity.Bus;
+import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.service.BusService;
+import com.nrifintech.bms.service.TicketService;
 import com.nrifintech.bms.entity.User;
+import com.nrifintech.bms.exporter.DepartureSheetExporter;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminBusSortingUtils;
 import com.nrifintech.bms.util.BusActiveStatus;
@@ -33,6 +38,8 @@ public class AdminController {
 	private BusService busService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private TicketService ticketService;
 	
 	@GetMapping("/login")
 	public ModelAndView adminLogin() {
@@ -135,5 +142,40 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView("redirect:/admin/displayBusInformation");
 		return mv;
 	}
-
+	
+	@RequestMapping("ticketList/{registrationNo}")
+	public ModelAndView ticketList(@PathVariable("registrationNo") String registrationNo) {
+		Date today = new Date();
+		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+		Bus bus = busService.getById(registrationNo);
+		List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
+		ModelAndView modelAndView = new ModelAndView("ticketList");
+		modelAndView.addObject(bus);
+		if(tickets.isEmpty()) {
+			modelAndView.addObject("ticketFound", false);
+		}
+		else {
+			modelAndView.addObject("ticketFound", true);
+			modelAndView.addObject("tickets", tickets);
+		}
+		return  modelAndView;
+	}
+	
+	@RequestMapping("/export/{registrationNo}")
+	public void exportToExcel(@PathVariable("registrationNo") String registrationNo, HttpServletResponse response) throws IOException {
+		
+		Date today = new Date();
+		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+		String tmrDate = tomorrow.toString().substring(0, 10);
+		Bus bus = busService.getById(registrationNo);
+		List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
+		
+		// DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		String file_name = bus.getBusName() + tmrDate + ".xls";
+		response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename="+file_name);
+	
+		DepartureSheetExporter excelExporter = new DepartureSheetExporter(tickets);
+		excelExporter.export(response);
+	}
 }

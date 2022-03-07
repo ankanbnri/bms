@@ -1,0 +1,89 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/ticketList.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<title>Ticket List</title>
+</head>
+<body>
+	<%@ include file="adminSecurity.jsp" %>
+	<div class="container">
+		<div>
+			<h1 class="font-weight-bold">Tickets Booked</h1>
+			<a href="/admin/export/${bus.getRegistrationNo()}">
+				<button class="btn btn-primary">Export to Excel</button>
+			</a>
+			
+		</div>
+		<hr/>
+		<div>
+			<h2 class="text-info font-weight-bold">Bus Name: ${bus.getBusName()}</h2>
+			<h3 class="text-info">Route: ${bus.getRoute().getStartName()} 
+				<i class="bi bi-arrow-right-circle-fill"></i>  -> 
+				${bus.getRoute().getStopName()}</h3>
+			<h3 class="text-info">Bus Start Time:- ${bus.getStartTime()}</h3>
+			<!-- <h3 class="text-success">Date of Travel:- ${ticket.getDateOfTravel()}</h3> -->
+			<h3 class="text-danger">Ticket Sold: ${bus.getSeatCount()}</h3>
+			<!-- to replace with a function to get ticket sold with print function -->
+		</div>
+		<table class="table table-striped table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>User ID</th>
+					<th>PNR Number</th>
+					<th>Name</th>
+					<th>Seats Booked</th>
+					<th>Date of bought</th>
+					<th>Fare</th>
+				</tr>
+			</thead>
+			<c:choose>
+				<c:when test="${ticketFound}">
+					<tbody>
+						<c:forEach var="ticket" items="${tickets}">
+						<tr>
+							<td>
+								<p class="fw-bold mb-1">${ticket.getUser().getUserid()}</p>
+							</td>
+							<td>
+								<p class="fw-bold mb-1">${ticket.getPnrNo()}</p>
+							</td>
+							<td>
+								<p class="fw-bold mb-1">${ticket.getUser().getName()}</p>
+							</td>
+							<td>
+								<p class="fw-bold mb-1">${ticket.getSeatsBooked()}</p>
+							</td>
+							<td>
+								<p class="fw-bold mb-1">${ticket.getDateBought()}</p>
+							</td>
+							<td>
+								<p class="fw-bold mb-1">${ticket.getTotalAmount()}</p>
+							</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</c:when>
+				<c:otherwise>
+					<tbody>
+						<tr>
+							<td>
+								<p class="fw-bold mb-1">NO TICKETS WERE BOOKED</p>
+							</td>
+						</tr>
+					</tbody>
+				</c:otherwise>
+			</c:choose>
+
+		</table>
+	</div>
+</body>
+</html>
