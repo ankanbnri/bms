@@ -49,9 +49,6 @@ public class BusService {
 		return repository.findAll(Sort.by("registrationNo"));
 	}
 
-	public Bus getById(String regNo) {
-		return repository.getById(regNo);
-	}
 
 	public void setAllAvailableSeatsForDate(List<Bus> buses, String travelDate) throws ParseException {
 		int availableSeats;

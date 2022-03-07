@@ -18,7 +18,7 @@ public interface TicketRepository extends AbstractBaseRepository<Ticket, String>
 	//public List<Ticket> findByRegNoAndDate(String regNo, String date);
 	
 	@Query("SELECT t FROM Ticket t where t.bus=?1 and t.dateOfTravel=?2")
-	public List<Ticket> findAllTicketsByBusAndDateBought(Bus bus, Date date);
+	public List<Ticket> findAllTicketsByBusAndDateBought(Bus bus, java.util.Date date);
 	
 	
 	//@Query("SELECT t FROM Ticket t where t.bus.registrationNo=?1 and t.dateBought='DATEADD(D,1,GETDATE())'")

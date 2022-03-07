@@ -48,6 +48,7 @@ public class UserService {
 			return user;
 		}
 		return null;
+	}
 	public User getById(Integer id) {
 		return userRepo.getById(id);
 	}
