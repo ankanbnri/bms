@@ -142,7 +142,8 @@
 												</c:choose></td>
 											<td><c:choose>
 													<c:when test="${bus.getActiveStatus() eq 'YES'}">
-														<a href="" title="Download PNR Report for ${tmrDate }"><span
+														<a href="/admin/ticketList/${bus.getRegistrationNo()}"
+															title="Download PNR Report for ${tmrDate }"><span
 															class="fa fa-download pr-2"></span></a>
 														<a href="/admin/disableBus/${bus.getRegistrationNo() }"
 															title="Disable the bus"><span
