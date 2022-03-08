@@ -172,21 +172,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>xyz</td>
-                                                    <td>xxx</td>
-                                                    <td>xxx</td>
-                                                    <td>xxx</td>
-                                                    <td>xxx</td>
+                                            <c:forEach items="${routeRevenues }" var="route">
+                                                                                            <tr>
+                                                    <td>${route.routecode }</td>
+                                                    <td>${route.source }</td>
+                                                    <td>${route.destination }</td>
+                                                    <td>${route.distance }</td>
+                                                    <td>${route.totalrevenue }</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>xyz</td>
-                                                    <td>xxx</td>
-                                                    <td>xxx</td>
-                                                    <td>xxx</td>
-                                                    <td>xxx</td>
-                                                </tr>
-
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +36,7 @@ import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.exporter.DepartureSheetExporter;
 import com.nrifintech.bms.exporter.RevenueReportExporter;
 import com.nrifintech.bms.model.Revenue;
+import com.nrifintech.bms.model.RouteRevenue;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminBusSortingUtils;
 import com.nrifintech.bms.util.BusActiveStatus;
@@ -51,9 +51,9 @@ public class AdminController {
 	private UserService userService;
 	@Autowired
 	private TicketService ticketService;
-	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private RouteService routeService;
+	
 	
 	@GetMapping("/login")
 	public ModelAndView adminLogin() {
@@ -67,11 +67,13 @@ public class AdminController {
 		long routeCount = routeService.countRoutes();
 		long ticketCount = ticketService.countTickets();
 		long userCount = userService.countUsers();
+		List<RouteRevenue> routeRevenues = ticketService.getAllRouteRevenue();
 		ModelAndView mv = new ModelAndView("AdminDashboard");
 		mv.addObject("busCount",busCount);
 		mv.addObject("routeCount", routeCount);
 		mv.addObject("ticketCount", ticketCount);
 		mv.addObject("userCount", userCount);
+		mv.addObject("routeRevenues", routeRevenues);
 		return mv;
 	}
 
