@@ -17,6 +17,7 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="/css/util.css" />
   <link rel="stylesheet" href="/css/myTickets.css" />
   <link rel="stylesheet" href="/css/navbar.css" />
@@ -113,9 +114,9 @@
                             </div>
                             <div class="row">
                                 <div class="col text-center">
-                                	<form action="/ticket/cancel">
+                                	<a href="#" data-toggle="modal" data-target="#modal${upcomingTicket.getPnrNo()}">
                                     	<button class="btn btn-primary">Cancel Ticket</button>
-                                    </form>
+                                    </a>
                                 </div>
                             </div>
 
@@ -192,6 +193,32 @@
 	 	<c:otherwise>No expired ticket yet</c:otherwise>
 	 	</c:choose>
     </section>
+	 
+	 <!-- Cancellation Modal -->
+	 <c:if test="${upcomingTicketFound}">
+	 	<c:forEach var="upcomingTicket" items="${upcomingTickets}">
+	 		<div class="modal fade" id="modal${upcomingTicket.getPnrNo()}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Cancel ticket?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    Your ticket from <b>${upcomingTicket.getBus().getRoute().getStartName()}</b> to <b>${upcomingTicket.getBus().getRoute().getStopName()}</b> 
+                                    on <b>${upcomingTicket.getDateOfTravel()}</b> with PNR No. <span class="modal-body-pnr">${upcomingTicket.getPnrNo()}</span> will be cancelled.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-primary" href="/ticket/cancel/${upcomingTicket.getPnrNo()}">Cancel Ticket</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+	 	</c:forEach>
+	 </c:if>
 	 
 	 <footer class="page-footer font-small lighten-5">
 	    <div class="">

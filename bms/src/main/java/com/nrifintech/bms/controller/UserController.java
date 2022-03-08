@@ -135,7 +135,6 @@ public class UserController {
 	
 	@GetMapping("/myTickets")
 	public ModelAndView showTickets(HttpServletRequest request) {
-		System.out.println("my ticket get api");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("userid")==null) {
@@ -143,10 +142,7 @@ public class UserController {
 			return mv;
 		}else {
 			int userId = (int)session.getAttribute("userid");
-			System.out.println(userId);
 			User user = userService.getById(userId);
-			System.out.println(user);
-	//		List<Ticket> ticketList = ticketService.getTicketsWithUser(user);
 			
 			List<Ticket> upcomingTickets = ticketService.getUpcomingTicketsWithUser(user);
 			List<Ticket> oldTickets = ticketService.getOldTicketsWithUser(user);

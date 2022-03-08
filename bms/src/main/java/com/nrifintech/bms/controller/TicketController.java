@@ -28,20 +28,17 @@ import com.nrifintech.bms.service.UserService;
 @RequestMapping("/ticket")
 public class TicketController {
 	@Autowired
-	BusService busService;
+	private BusService busService;
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Autowired
-	TicketService ticketService;
+	private TicketService ticketService;
 	
 	@GetMapping("/bookTicket/{regNo}/{travelDate}/{availableSeats}")
 	public ModelAndView showBookingInfo(@PathVariable("regNo") String regNo, 
             							@PathVariable("travelDate") String travelDate,
             							@PathVariable("availableSeats") int availableSeats) {
 		
-//		System.out.println("book ticket get api....");
-//		System.out.println(regNo);
-//		System.out.println(travelDate);
 		Bus bus = busService.getById(regNo);
 		ModelAndView modelAndView = new ModelAndView("bookTicket");
 		modelAndView.addObject("bus", bus);
@@ -65,18 +62,22 @@ public class TicketController {
         java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
         
         
-//		System.out.println(ticket.getTotalAmount());
 		ticket.setPnrNo(ticketService.generatePnrNo(userId));
 		ticket.setDateOfTravel(dateOfTravel);
 		ticket.setDateBought(java.sql.Date.valueOf(LocalDate.now()));
 		ticket.setBus(bus);
 		ticket.setUser(user);
-//		System.out.println(ticket.getPnrNo());
 		ticketService.save(ticket);
 		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
 		return modelAndView;
 	}
-
 	
+	@GetMapping("/cancel/{pnrNo}")
+	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo) {
+		
+		ticketService.deleteByID(pnrNo);
+		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
+		return modelAndView;
+	}
 
 }

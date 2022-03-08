@@ -74,5 +74,9 @@ public class TicketService {
 	public List<Ticket> findAllTicketsByBusAndDateBought(Bus bus, Date date){
 		return ticketRepository.findAllTicketsByBusAndDateBought(bus, date);
 	}
+
+	public void deleteByID(String pnrNo) {
+		ticketRepository.deleteById(pnrNo);
+	}
 	
 }

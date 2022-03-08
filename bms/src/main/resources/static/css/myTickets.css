@@ -34,6 +34,12 @@ section{
 	opacity: 0.7;
 }
 
+.modal-body-pnr{
+	 color: red;
+}
+.modal-body{
+	padding: 2rem;
+}
 footer{
 	position: fixed;
 	width: 100%;
