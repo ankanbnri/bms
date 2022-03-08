@@ -14,25 +14,34 @@
 <title>Ticket List</title>
 </head>
 <body>
-	<%@ include file="adminSecurity.jsp" %>
+	<%@ include file="adminSecurity.jsp"%>
 	<div class="container">
 		<div>
 			<h1 class="font-weight-bold">Tickets Booked</h1>
-			<a href="/admin/export/${bus.getRegistrationNo()}">
+			<a href="/admin/dashboard">
+				<button class="btn btn-primary">Back to Dashboard </button>
+			</a>
+			<a class="float-right" href="/admin/export/${bus.getRegistrationNo()}">
 				<button class="btn btn-primary">Export to Excel</button>
 			</a>
 			
 		</div>
-		<hr/>
+		<hr />
 		<div>
-			<h2 class="text-info font-weight-bold">Bus Name: ${bus.getBusName()}</h2>
-			<h3 class="text-info">Route: ${bus.getRoute().getStartName()} 
-				<i class="bi bi-arrow-right-circle-fill"></i>  -> 
-				${bus.getRoute().getStopName()}</h3>
+			<h2 class="text-info font-weight-bold">Bus Name:
+				${bus.getBusName()}</h2>
+			<h3 class="text-info">
+				Route:- ${bus.getRoute().getStartName()}
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+					fill="currentColor" class="bi bi-arrow-right-circle-fill"
+					viewBox="0 0 16 16">
+  					<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+				</svg>
+				${bus.getRoute().getStopName()}
+			</h3>
 			<h3 class="text-info">Bus Start Time:- ${bus.getStartTime()}</h3>
 			<!-- <h3 class="text-success">Date of Travel:- ${ticket.getDateOfTravel()}</h3> -->
-			<h3 class="text-danger">Ticket Sold: ${bus.getSeatCount()}</h3>
-			<!-- to replace with a function to get ticket sold with print function -->
+			<h3 class="text-danger">Ticket Sold: ${!ticketFound ? 0 : tickets.stream().map(it -> it.getSeatsBooked()).reduce(0, (acc, it) -> acc+it)}</h3>
 		</div>
 		<table class="table table-striped table-bordered">
 			<thead class="table-dark">
@@ -49,26 +58,26 @@
 				<c:when test="${ticketFound}">
 					<tbody>
 						<c:forEach var="ticket" items="${tickets}">
-						<tr>
-							<td>
-								<p class="fw-bold mb-1">${ticket.getUser().getUserid()}</p>
-							</td>
-							<td>
-								<p class="fw-bold mb-1">${ticket.getPnrNo()}</p>
-							</td>
-							<td>
-								<p class="fw-bold mb-1">${ticket.getUser().getName()}</p>
-							</td>
-							<td>
-								<p class="fw-bold mb-1">${ticket.getSeatsBooked()}</p>
-							</td>
-							<td>
-								<p class="fw-bold mb-1">${ticket.getDateBought()}</p>
-							</td>
-							<td>
-								<p class="fw-bold mb-1">${ticket.getTotalAmount()}</p>
-							</td>
-						</tr>
+							<tr>
+								<td>
+									<p class="fw-bold mb-1">${ticket.getUser().getUserid()}</p>
+								</td>
+								<td>
+									<p class="fw-bold mb-1">${ticket.getPnrNo()}</p>
+								</td>
+								<td>
+									<p class="fw-bold mb-1">${ticket.getUser().getName()}</p>
+								</td>
+								<td>
+									<p class="fw-bold mb-1">${ticket.getSeatsBooked()}</p>
+								</td>
+								<td>
+									<p class="fw-bold mb-1">${ticket.getDateBought()}</p>
+								</td>
+								<td>
+									<p class="fw-bold mb-1">${ticket.getTotalAmount()}</p>
+								</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</c:when>

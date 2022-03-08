@@ -169,21 +169,29 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/export/{registrationNo}")
-	public void exportToExcel(@PathVariable("registrationNo") String registrationNo, HttpServletResponse response) throws IOException {
+	public void exportToExcel(@PathVariable("registrationNo") String registrationNo, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		
-		Date today = new Date();
-		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
-		String tmrDate = tomorrow.toString().substring(0, 10);
-		Bus bus = busService.getById(registrationNo);
-		List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("isValidAdmin");
+		if(attribute != (Object)true) {
+			response.sendRedirect(request.getContextPath()+"/admin/login");
+		}
+		else {
+			Date today = new Date();
+			Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+			String tmrDate = tomorrow.toString().substring(0, 10);
+			Bus bus = busService.getById(registrationNo);
+			List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
+			
+			// DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+			String file_name = bus.getBusName() + tmrDate + ".xls";
+			response.setContentType("application/vnd.ms-excel");
+	        response.setHeader("Content-Disposition", "attachment; filename="+file_name);
 		
-		// DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-		String file_name = bus.getBusName() + tmrDate + ".xls";
-		response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment; filename="+file_name);
-	
-		DepartureSheetExporter excelExporter = new DepartureSheetExporter(tickets);
-		excelExporter.export(response);
+			DepartureSheetExporter excelExporter = new DepartureSheetExporter(tickets);
+			excelExporter.export(response);
+		}
+		
 	}
 	
 	
