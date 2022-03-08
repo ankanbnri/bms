@@ -23,9 +23,15 @@
   <link rel="stylesheet" href="/css/navbar.css" />
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script type="text/javascript">
+	function addClassShow() {
+		console.log("js....");
+		document.querySelector(".upcoming-ticket-parent .collapse").classList.add("show"); 
+	}
+	</script> 
   <title>My Tickets</title>
 </head>
-<body>
+<body onload="addClassShow();">
 <% response.setHeader("Cache-Control", "no-cache, no-store, no-revalidate" ); // HTTP 1.1
                     response.setHeader("Pragma", "no-cache" ); // HTTP 1.0 
                     response.setHeader("Expires", "0" );  //Proxies  %>
@@ -68,130 +74,161 @@
 	 <section class="container upcoming-ticket-parent">
 	 	<div class="row"><h3>Upcoming Tickets</h3></div>
 	 	<c:choose>
-	 	<c:when test="${upcomingTicketFound}">
-	 	<c:forEach var="upcomingTicket" items="${upcomingTickets}">
-	 		<div class="row">
-            <div class="card details">
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4><i class="fas fa-bus text-bms-primary"></i> ${upcomingTicket.getBus().getBusName()} (${upcomingTicket.getBus().getRegistrationNo()})</h4>
-                                </div>
-                                <div id="pnr" class="col-md-6">
-                                    <h4 class="float-md-right">PNR NO:(${upcomingTicket.getPnrNo()})</h4>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5><i class="fa fa-city"></i> From : ${upcomingTicket.getBus().getRoute().getStartName()}</h5>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <h5 class="float-md-right"><i class="fa fa-city"></i> To : ${upcomingTicket.getBus().getRoute().getStopName()}</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5><i class="fa fa-calendar-alt"></i> Date: ${upcomingTicket.getDateOfTravel()}</h5>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <h5 class="float-md-right"><i class="fa fa-clock"></i> Time : ${upcomingTicket.getBus().getStartTime()}</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5><i class="fas fa-chair"></i> Seats Booked : ${upcomingTicket.getSeatsBooked()}</h5>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <h5 class="float-md-right"><i class="fas fa-money-bill"></i> Total Paid: Rs. ${upcomingTicket.getTotalAmount()}</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col text-center">
-                                	<a href="#" data-toggle="modal" data-target="#modal${upcomingTicket.getPnrNo()}">
-                                    	<button class="btn btn-primary">Cancel Ticket</button>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </li>
+		 	<c:when test="${upcomingTicketFound}">
+			 	<div id="accordionUpcoming">
+				 	<c:forEach var="upcomingTicket" items="${upcomingTickets}">
+				 		<div class="card">
+						    <div class="card-header">
+						    <div class="row">
+						    	<div class="col-lg-3">
+						    		<a class="card-link" data-toggle="collapse" href="#collapse${upcomingTicket.getPnrNo()}">
+								        PNR NO: ${upcomingTicket.getPnrNo()}
+								     </a>
+						    	</div>
+						    	<div class="col-lg-3 offset-lg-6">
+						    		<a class="card-link" data-toggle="collapse" href="#collapse${upcomingTicket.getPnrNo()}">
+								        Date: ${upcomingTicket.getDateOfTravel()}
+								     </a>
+						    	</div>
+						    </div>
+						    </div>
+						    <div id="collapse${upcomingTicket.getPnrNo()}" class="collapse" data-parent="#accordionUpcoming">
+						      <div class="card-body">
+						      	<ul class="list-group list-group-flush">
+			                        <li class="list-group-item">
+			                            <div class="row">
+			                                <div class="col-md-6">
+			                                    <h4><i class="fas fa-bus text-bms-primary"></i> ${upcomingTicket.getBus().getBusName()} (${upcomingTicket.getBus().getRegistrationNo()})</h4>
+			                                </div>
+			                                <div id="pnr" class="col-md-6">
+			                                    <h4 class="float-md-right">PNR NO:(${upcomingTicket.getPnrNo()})</h4>
+			                                </div>
+			                            </div>
+			                        </li>
+			                        <li class="list-group-item">
+			                            <div class="row">
+			                                <div class="col-md-6">
+			                                    <h5><i class="fa fa-city"></i> From : ${upcomingTicket.getBus().getRoute().getStartName()}</h5>
+			                                </div>
+			
+			                                <div class="col-md-6">
+			                                    <h5 class="float-md-right"><i class="fa fa-city"></i> To : ${upcomingTicket.getBus().getRoute().getStopName()}</h5>
+			                                </div>
+			                            </div>
+			                            <div class="row">
+			                                <div class="col-md-6">
+			                                    <h5><i class="fa fa-calendar-alt"></i> Date: ${upcomingTicket.getDateOfTravel()}</h5>
+			                                </div>
+			
+			                                <div class="col-md-6">
+			                                    <h5 class="float-md-right"><i class="fa fa-clock"></i> Time : ${upcomingTicket.getBus().getStartTime()}</h5>
+			                                </div>
+			                            </div>
+			                            <div class="row">
+			                                <div class="col-md-6">
+			                                    <h5><i class="fas fa-chair"></i> Seats Booked : ${upcomingTicket.getSeatsBooked()}</h5>
+			                                </div>
+			
+			                                <div class="col-md-6">
+			                                    <h5 class="float-md-right"><i class="fas fa-money-bill"></i> Total Paid: Rs. ${upcomingTicket.getTotalAmount()}</h5>
+			                                </div>
+			                            </div>
+			                            <div class="row">
+			                                <div class="col text-center">
+			                                	<a href="#" data-toggle="modal" data-target="#modal${upcomingTicket.getPnrNo()}">
+			                                    	<button class="btn btn-primary">Cancel Ticket</button>
+			                                    </a>
+			                                </div>
+			                            </div>
+			
+			                        </li>
 	
-	                    </ul>
-	                </div>
-	            </div>
-	        </div>
-	    </c:forEach>    
-	 	</c:when>
-	 	<c:otherwise>No upcoming ticket yet</c:otherwise>
+	                    		</ul>
+						      </div>
+						    </div>
+						  </div>
+				    </c:forEach> 
+			    </div>  
+		 	</c:when>
+	 		<c:otherwise>No upcoming ticket yet</c:otherwise>
 	 	</c:choose>
         
     </section>
 	 
 	 <!-- EXPIRED TICKET SECTION -->
-	 <section class="container expired-ticket-parent">
+	<section class="container expired-ticket-parent">
 	 	<div class="row"><h3>Expired Tickets</h3></div>
 	 	<c:choose>
 	 	<c:when test="${oldTicketFound}">
-	 	<c:forEach var="oldTicket" items="${oldTickets}">
-	 		<div class="row">
-            <div class="card details">
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4><i class="fas fa-bus text-bms-primary"></i> ${oldTicket.getBus().getBusName()} (${oldTicket.getBus().getRegistrationNo()})</h4>
-                                </div>
-                                <div id="pnr" class="col-md-6">
-                                    <h4 class="float-md-right">PNR NO:(${oldTicket.getPnrNo()})</h4>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5><i class="fa fa-city"></i> From : ${oldTicket.getBus().getRoute().getStartName()}</h5>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <h5 class="float-md-right"><i class="fa fa-city"></i> To : ${oldTicket.getBus().getRoute().getStopName()}</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5><i class="fa fa-calendar-alt"></i> Date: ${oldTicket.getDateOfTravel()}</h5>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <h5 class="float-md-right"><i class="fa fa-clock"></i> Time : ${oldTicket.getBus().getStartTime()}</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5><i class="fas fa-chair"></i> Seats Booked : ${oldTicket.getSeatsBooked()}</h5>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <h5 class="float-md-right"><i class="fas fa-money-bill"></i> Total Paid: Rs. ${oldTicket.getTotalAmount()}</h5>
-                                </div>
-                            </div>
-                            
-                        </li>
-	
-	                    </ul>
-	                </div>
-	            </div>
-	        </div>
-	    </c:forEach>    
+	 		<div id="accordionOld">
+				 	<c:forEach var="oldTicket" items="${oldTickets}">
+				 		<div class="card">
+						    <div class="card-header">
+						      <div class="row">
+						    	<div class="col-lg-3">
+						    		<a class="card-link" data-toggle="collapse" href="#collapse${oldTicket.getPnrNo()}">
+								        PNR NO: ${oldTicket.getPnrNo()}
+								     </a>
+						    	</div>
+						    	<div class="col-lg-3 offset-lg-6">
+						    		<a class="card-link" data-toggle="collapse" href="#collapse${oldTicket.getPnrNo()}">
+								        Date: ${oldTicket.getDateOfTravel()}
+								     </a>
+						    	</div>
+						    </div>
+						    </div>
+						    <div id="collapse${oldTicket.getPnrNo()}" class="collapse" data-parent="#accordionOld">
+						      <div class="card-body">
+						      	<ul class="list-group list-group-flush">
+			                        <li class="list-group-item">
+			                            <div class="row">
+			                                <div class="col-md-6">
+			                                    <h4><i class="fas fa-bus text-bms-primary"></i> ${oldTicket.getBus().getBusName()} (${oldTicket.getBus().getRegistrationNo()})</h4>
+			                                </div>
+			                                <div id="pnr" class="col-md-6">
+			                                    <h4 class="float-md-right">PNR NO:(${oldTicket.getPnrNo()})</h4>
+			                                </div>
+			                            </div>
+			                        </li>
+			                        <li class="list-group-item">
+			                            <div class="row">
+			                                <div class="col-md-6">
+			                                    <h5><i class="fa fa-city"></i> From : ${oldTicket.getBus().getRoute().getStartName()}</h5>
+			                                </div>
+			
+			                                <div class="col-md-6">
+			                                    <h5 class="float-md-right"><i class="fa fa-city"></i> To : ${oldTicket.getBus().getRoute().getStopName()}</h5>
+			                                </div>
+			                            </div>
+			                            <div class="row">
+			                                <div class="col-md-6">
+			                                    <h5><i class="fa fa-calendar-alt"></i> Date: ${oldTicket.getDateOfTravel()}</h5>
+			                                </div>
+			
+			                                <div class="col-md-6">
+			                                    <h5 class="float-md-right"><i class="fa fa-clock"></i> Time : ${oldTicket.getBus().getStartTime()}</h5>
+			                                </div>
+			                            </div>
+			                            <div class="row">
+			                                <div class="col-md-6">
+			                                    <h5><i class="fas fa-chair"></i> Seats Booked : ${oldTicket.getSeatsBooked()}</h5>
+			                                </div>
+			
+			                                <div class="col-md-6">
+			                                    <h5 class="float-md-right"><i class="fas fa-money-bill"></i> Total Paid: Rs. ${oldTicket.getTotalAmount()}</h5>
+			                                </div>
+			                            </div>
+			                        </li>
+	                    		</ul>
+						      </div>
+						    </div>
+						  </div>
+				    </c:forEach> 
+			    </div> 
 	 	</c:when>
 	 	<c:otherwise>No expired ticket yet</c:otherwise>
 	 	</c:choose>
+        
     </section>
 	 
 	 <!-- Cancellation Modal -->
@@ -231,6 +268,6 @@
 	      </div>
 	    </div>
   </footer>
- 
+	
 </body>
 </html>
