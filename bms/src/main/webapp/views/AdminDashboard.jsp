@@ -56,7 +56,7 @@
                                         <span class="nav-link-text">Display Bus Information</span>
                                     </a>
                                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                                    <a class="nav-link" href="AdminAddBus.html">
+                                    <a class="nav-link" href="/admin/addBus">
                                         <i class="fa fa-fw fa-wrench"></i>
                                         <span class="nav-link-text">Add New Bus</span>
                                     </a>

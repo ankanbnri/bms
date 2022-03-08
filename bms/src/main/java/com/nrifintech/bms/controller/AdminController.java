@@ -2,7 +2,6 @@ package com.nrifintech.bms.controller;
 
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -196,16 +195,22 @@ public class AdminController {
 	
 	
 	// For calling admin add bus form
-	@GetMapping("/addBus")
-	public ModelAndView welcomeUser() {
-		ModelAndView mv= new ModelAndView("AdminAddBus");
-		return mv;
-	}
+		@GetMapping("/addBus")
+		public ModelAndView welcomeUser() {
+			ModelAndView mv= new ModelAndView("AdminAddBus");
+			return mv;
+		}
 	
      // For saving the data in database after getting from form
 	@PostMapping("/saveBus")
 	public ModelAndView addUser(@ModelAttribute("bus") Bus bus, @ModelAttribute("startTimeForm") String startTimeForm , @ModelAttribute("routeCode") int routeCode )
 	{
+		Bus busExists = busService.findByRegistrationNo(bus.getRegistrationNo());
+		if(busExists != null) {
+			ModelAndView uauth = new ModelAndView("AdminAddBus");
+			uauth.addObject("error_msg", "Already registered bus with this Registration Number!");
+			return uauth;
+		}
 		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/addBus");
 		
 		Route route = routeService.getById(routeCode);

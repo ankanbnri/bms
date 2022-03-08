@@ -100,7 +100,11 @@
                                     <input type="text" name="registrationNo" class="form-control" placeholder="Registration Number"
                                         aria-describedby="basic-addon1">
                                 </div>
+                                
                             </div>
+                            <div class="pass-link text-center">
+									<span class="text-danger">${error_msg }</span>
+							</div>
                             <div class="form-group col-md-6">
                                 <div class="input-group mb-3 my-auto search-element">
                                     <div class="input-group-prepend">
