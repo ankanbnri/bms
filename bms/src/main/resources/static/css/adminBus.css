@@ -20,9 +20,6 @@ body.sticky-footer .content-wrapper {
   min-height: calc(100vh - 56px - 56px);
 }
 
-body.fixed-nav {
-  padding-top: 56px;
-}
 
 .content-wrapper {
   min-height: calc(100vh - 56px);
@@ -480,8 +477,4 @@ footer.sticky-footer {
   body.sidenav-toggled footer.sticky-footer {
     width: calc(100% - 55px);
   }
-}
-thead tr th a
-{
-	color: black;
 }

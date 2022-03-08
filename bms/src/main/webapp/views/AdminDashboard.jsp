@@ -35,7 +35,7 @@
                 <%@ include file="adminSecurity.jsp" %>
 
                     <!-- Navigation-->
-                    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+                    <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
                         <a class="navbar-brand" href="/admin/dashboard">Bus Management System </a>
                         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"

@@ -61,7 +61,7 @@
 			value="<%=Integer.toString(AdminBusSortingUtils.IS_ACTIVE)%>" />
 	</c:url>
 	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+	<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
 		<a class="navbar-brand" href="index.html">Bus Management System </a>
 		<button class="navbar-toggler navbar-toggler-right" type="button"
 			data-toggle="collapse" data-target="#navbarResponsive"
