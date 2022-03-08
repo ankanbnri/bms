@@ -97,7 +97,6 @@ public class UserController {
 
 	@GetMapping("/searchBus")
 	public ModelAndView showSearchBusForm() {
-
 		List<String> startNames = routeService.getDistinctRouteStartName();
 		List<String> stopNames = routeService.getDistinctRouteStopName();
 		
