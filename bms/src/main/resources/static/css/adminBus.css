@@ -478,3 +478,8 @@ footer.sticky-footer {
     width: calc(100% - 55px);
   }
 }
+
+table thead tr th a
+{
+	color:black;
+}
