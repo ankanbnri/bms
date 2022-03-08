@@ -63,7 +63,7 @@
                                 </li>
                                 </li>
                                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-                                    <a class="nav-link" href="#collapseExamplePages" data-parent="#exampleAccordion">
+                                    <a class="nav-link" href="/admin/download/revenueReport.xlsx" data-parent="#exampleAccordion">
                                         <i class="fa fa-fw fa-file"></i>
                                         <span class="nav-link-text">Generate Revenue Report</span>
                                     </a>

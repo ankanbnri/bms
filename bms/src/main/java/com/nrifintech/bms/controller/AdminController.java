@@ -1,15 +1,22 @@
 package com.nrifintech.bms.controller;
 
+
+import java.io.ByteArrayInputStream;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +35,8 @@ import com.nrifintech.bms.service.RouteService;
 import com.nrifintech.bms.service.TicketService;
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.exporter.DepartureSheetExporter;
+import com.nrifintech.bms.exporter.RevenueReportExporter;
+import com.nrifintech.bms.model.Revenue;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminBusSortingUtils;
 import com.nrifintech.bms.util.BusActiveStatus;
@@ -42,10 +51,10 @@ public class AdminController {
 	private UserService userService;
 	@Autowired
 	private TicketService ticketService;
-
+	
 	@Autowired
-	private RouteService routeService;
-
+    private JdbcTemplate jdbcTemplate;
+	
 	@GetMapping("/login")
 	public ModelAndView adminLogin() {
 		ModelAndView mv = new ModelAndView("AdminLogin");
@@ -216,5 +225,31 @@ public class AdminController {
 
 		busService.saveOrUpdate(bus);
 		return modelAndView;
+	}
+	
+	@GetMapping("/download/revenueReport.xlsx")
+	public void getRevenueReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("isValidAdmin");
+		if(attribute != (Object)true) {
+			response.sendRedirect(request.getContextPath()+"/admin/login");
+		}
+		else {
+			List<Revenue> revenueList = ticketService.getRevenue();
+			
+			response.setContentType("application/octet-stream");
+			Date date = new Date();
+	        SimpleDateFormat df  = new SimpleDateFormat("YYYY-MM-dd");
+	        Calendar c1 = Calendar.getInstance();
+	        String currentDate = df.format(date);
+	        c1.add(Calendar.DAY_OF_YEAR, -30);
+	        df = new SimpleDateFormat("yyyy-MM-dd");
+	        Date resultDate = c1.getTime();
+	        String prevDate = df.format(resultDate);
+			String filename="Revenue_"+prevDate+"_"+currentDate+".xlsx";
+			response.setHeader("Content-Disposition", "attachment; filename="+filename);
+	        ByteArrayInputStream stream = RevenueReportExporter.exportRevenueReport(revenueList);
+	        IOUtils.copy(stream, response.getOutputStream());
+		}
 	}
 }
