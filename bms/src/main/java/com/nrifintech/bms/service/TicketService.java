@@ -75,4 +75,10 @@ public class TicketService {
 		return ticketRepository.findAllTicketsByBusAndDateBought(bus, date);
 	}
 	
+	public long countTickets()
+	{
+		return ticketRepository.count();
+	}
+	
+		
 }

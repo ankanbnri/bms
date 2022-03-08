@@ -33,4 +33,6 @@ public interface TicketRepository extends AbstractBaseRepository<Ticket, String>
 	
 	@Query("SELECT t FROM Ticket t where t.user=?1 and t.dateOfTravel < CURRENT_DATE() ORDER BY t.dateOfTravel DESC")
 	List<Ticket> findAllOldTicketsWithUser(User user);
+	
+	
 }

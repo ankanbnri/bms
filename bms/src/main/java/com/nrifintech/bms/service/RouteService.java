@@ -25,6 +25,11 @@ public class RouteService {
 	public Route getById(int id){
 		return repository.getById(id);
 	}
+	
+	public long countRoutes()
+	{
+		return repository.count();
+	}
 
 	
 	

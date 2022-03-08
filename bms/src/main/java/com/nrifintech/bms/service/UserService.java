@@ -53,4 +53,8 @@ public class UserService {
 		return userRepo.getById(id);
 	}
 
+	public long countUsers()
+	{
+		return userRepo.count();
+	}
 }

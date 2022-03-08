@@ -95,7 +95,7 @@
                                             <div class="card-body-icon">
                                                 <i class="fa fa-fw fa-comments"></i>
                                             </div>
-                                            <div class="mr-5">100+ Bus Running</div>
+                                            <div class="mr-5">${busCount }+ Bus Running</div>
                                         </div>
                                         <a class="card-footer text-white clearfix small z-1" href="#">
                                             <span class="float-left">View Details</span>
@@ -111,7 +111,7 @@
                                             <div class="card-body-icon">
                                                 <i class="fa fa-fw fa-list"></i>
                                             </div>
-                                            <div class="mr-5">11 Routes Currently Serving</div>
+                                            <div class="mr-5">${RouteCount } Routes Currently Serving</div>
                                         </div>
                                         <a class="card-footer text-white clearfix small z-1" href="#">
                                             <span class="float-left">View Details</span>
@@ -127,7 +127,7 @@
                                             <div class="card-body-icon">
                                                 <i class="fa fa-fw fa-shopping-cart"></i>
                                             </div>
-                                            <div class="mr-5">1200K Rupees Revenue</div>
+                                            <div class="mr-5">${userCount }+ Users Served Till Date</div>
                                         </div>
                                         <a class="card-footer text-white clearfix small z-1" href="#">
                                             <span class="float-left">View Details</span>
@@ -143,7 +143,7 @@
                                             <div class="card-body-icon">
                                                 <i class="fa fa-fw fa-support"></i>
                                             </div>
-                                            <div class="mr-5">13 New Tickets!</div>
+                                            <div class="mr-5">${ticketCount } Tickets Sold!</div>
                                         </div>
                                         <a class="card-footer text-white clearfix small z-1" href="#">
                                             <span class="float-left">View Details</span>
@@ -157,7 +157,7 @@
                             <!-- Example DataTables Card-->
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <i class="fa fa-table"></i> Top 10 Most Profitable Routes
+                                    <i class="fa fa-table"></i> Top 5 Most Profitable Routes
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -199,7 +199,7 @@
                         <footer class="sticky-footer">
                             <div class="container">
                                 <div class="text-center">
-                                    <small>Copyright Â© Bus Management System 2022</small>
+                                    <small>Copyright © Bus Management System 2022</small>
                                 </div>
                             </div>
                         </footer>

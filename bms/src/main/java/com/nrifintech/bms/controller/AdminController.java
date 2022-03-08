@@ -1,6 +1,5 @@
 package com.nrifintech.bms.controller;
 
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,75 +32,78 @@ import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminBusSortingUtils;
 import com.nrifintech.bms.util.BusActiveStatus;
 
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	
+
 	@Autowired
 	private BusService busService;
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private TicketService ticketService;
-	
+
 	@Autowired
 	private RouteService routeService;
-	
+
 	@GetMapping("/login")
 	public ModelAndView adminLogin() {
 		ModelAndView mv = new ModelAndView("AdminLogin");
 		return mv;
 	}
-	
+
 	@GetMapping("/dashboard")
 	public ModelAndView adminDashboard() {
+		long busCount = busService.countBuses();
+		long routeCount = routeService.countRoutes();
+		long ticketCount = ticketService.countTickets();
+		long userCount = userService.countUsers();
 		ModelAndView mv = new ModelAndView("AdminDashboard");
+		mv.addObject("busCount",busCount);
+		mv.addObject("routeCount", routeCount);
+		mv.addObject("ticketCount", ticketCount);
+		mv.addObject("userCount", userCount);
 		return mv;
 	}
-	
+
 	@GetMapping("/displayBusInformation")
-	public ModelAndView displayBusInformation(@RequestParam(required = false, name = "sort") String sort)
-	{
+	public ModelAndView displayBusInformation(@RequestParam(required = false, name = "sort") String sort) {
 		List<Bus> buses = null;
 		if (sort != null) {
 			int theSortField = Integer.parseInt(sort);
 			buses = busService.getBuses(theSortField);
 		} else {
-			buses= busService.getBuses(AdminBusSortingUtils.REGISTRATION_NO);
+			buses = busService.getBuses(AdminBusSortingUtils.REGISTRATION_NO);
 		}
 		ModelAndView mv = new ModelAndView("AdminBusInformation");
 		Date today = new Date();
 		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
 		String tmrDate = tomorrow.toString().substring(0, 10);
 		mv.addObject("tmrDate", tmrDate);
-		if(buses.isEmpty())
-		{
+		if (buses.isEmpty()) {
 			mv.addObject("busFound", false);
-		}
-		else
-		{
+		} else {
 			mv.addObject("busFound", true);
-			mv.addObject("buses",buses);
-		}		
+			mv.addObject("buses", buses);
+		}
 		return mv;
 	}
+
 	@PostMapping("/login")
 	public ModelAndView doAdminLogin(HttpServletRequest request, Model model) {
 		String email = request.getParameter("email");
 		email = email.toLowerCase();
 		String password = request.getParameter("password");
 		User user = userService.findAdmin(email);
-		
+
 		if (user == null) {
 			ModelAndView uauth = new ModelAndView("AdminLogin");
 			uauth.addObject("error_msg", "Please provide correct admin email");
 			uauth.addObject("email", email);
 			return uauth;
-		}
-		else {
+		} else {
 			boolean isValidAdmin = userService.isValidUser(user, password);
-			if(isValidAdmin) {
+			if (isValidAdmin) {
 				HttpSession session = request.getSession();
 				session.setAttribute("isValidAdmin", true);
 				session.setAttribute("userid", user.getUserid());
@@ -109,8 +111,7 @@ public class AdminController {
 				session.setAttribute("name", user.getName());
 				ModelAndView mv = new ModelAndView("redirect:/admin/dashboard");
 				return mv;
-			}
-			else {
+			} else {
 				ModelAndView uauth = new ModelAndView("AdminLogin");
 				uauth.addObject("error_msg", "Invalid Password. Please try again");
 				uauth.addObject("email", email);
@@ -118,7 +119,7 @@ public class AdminController {
 			}
 		}
 	}
-	
+
 	@GetMapping("/logout")
 	public ModelAndView doLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -130,26 +131,25 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView("redirect:/user/welcome");
 		return mv;
 	}
-	
+
 	@GetMapping("/disableBus/{registrationNo}")
-	public ModelAndView disableBus(@PathVariable("registrationNo") String registrationNo )
-	{
+	public ModelAndView disableBus(@PathVariable("registrationNo") String registrationNo) {
 		Bus bus = busService.getById(registrationNo);
 		bus.setActiveStatus(BusActiveStatus.NO);
 		busService.saveOrUpdate(bus);
 		ModelAndView mv = new ModelAndView("redirect:/admin/displayBusInformation");
 		return mv;
 	}
+
 	@GetMapping("/enableBus/{registrationNo}")
-	public ModelAndView enableBus(@PathVariable("registrationNo") String registrationNo )
-	{
+	public ModelAndView enableBus(@PathVariable("registrationNo") String registrationNo) {
 		Bus bus = busService.getById(registrationNo);
 		bus.setActiveStatus(BusActiveStatus.YES);
 		busService.saveOrUpdate(bus);
 		ModelAndView mv = new ModelAndView("redirect:/admin/displayBusInformation");
 		return mv;
 	}
-	
+
 	@RequestMapping("ticketList/{registrationNo}")
 	public ModelAndView ticketList(@PathVariable("registrationNo") String registrationNo) {
 		Date today = new Date();
@@ -158,67 +158,63 @@ public class AdminController {
 		List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
 		ModelAndView modelAndView = new ModelAndView("ticketList");
 		modelAndView.addObject(bus);
-		if(tickets.isEmpty()) {
+		if (tickets.isEmpty()) {
 			modelAndView.addObject("ticketFound", false);
-		}
-		else {
+		} else {
 			modelAndView.addObject("ticketFound", true);
 			modelAndView.addObject("tickets", tickets);
 		}
-		return  modelAndView;
+		return modelAndView;
 	}
-	
+
 	@RequestMapping("/export/{registrationNo}")
-	public void exportToExcel(@PathVariable("registrationNo") String registrationNo, HttpServletResponse response, HttpServletRequest request) throws IOException {
-		
+	public void exportToExcel(@PathVariable("registrationNo") String registrationNo, HttpServletResponse response,
+			HttpServletRequest request) throws IOException {
+
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("isValidAdmin");
-		if(attribute != (Object)true) {
-			response.sendRedirect(request.getContextPath()+"/admin/login");
-		}
-		else {
+		if (attribute != (Object) true) {
+			response.sendRedirect(request.getContextPath() + "/admin/login");
+		} else {
 			Date today = new Date();
 			Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
 			String tmrDate = tomorrow.toString().substring(0, 10);
 			Bus bus = busService.getById(registrationNo);
 			List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
-			
+
 			// DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 			String file_name = bus.getBusName() + tmrDate + ".xls";
 			response.setContentType("application/vnd.ms-excel");
-	        response.setHeader("Content-Disposition", "attachment; filename="+file_name);
-		
+			response.setHeader("Content-Disposition", "attachment; filename=" + file_name);
+
 			DepartureSheetExporter excelExporter = new DepartureSheetExporter(tickets);
 			excelExporter.export(response);
 		}
-		
+
 	}
-	
-	
+
 	// For calling admin add bus form
 	@GetMapping("/addBus")
 	public ModelAndView welcomeUser() {
-		ModelAndView mv= new ModelAndView("AdminAddBus");
+		ModelAndView mv = new ModelAndView("AdminAddBus");
 		return mv;
 	}
-	
-     // For saving the data in database after getting from form
+
+	// For saving the data in database after getting from form
 	@PostMapping("/saveBus")
-	public ModelAndView addUser(@ModelAttribute("bus") Bus bus, @ModelAttribute("startTimeForm") String startTimeForm , @ModelAttribute("routeCode") int routeCode )
-	{
-		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/addBus");
-		
+	public ModelAndView addUser(@ModelAttribute("bus") Bus bus, @ModelAttribute("startTimeForm") String startTimeForm,
+			@ModelAttribute("routeCode") int routeCode) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/admin/addBus");
+
 		Route route = routeService.getById(routeCode);
 		bus.setRoute(route);
 		bus.setActiveStatus(BusActiveStatus.YES);
-		
-		
+
 		startTimeForm = startTimeForm.concat(":00");
-		java.sql.Time time =  java.sql.Time.valueOf(startTimeForm);
+		java.sql.Time time = java.sql.Time.valueOf(startTimeForm);
 		bus.setStartTime(time);
-		
-	
+
 		busService.saveOrUpdate(bus);
 		return modelAndView;
-	} 
+	}
 }
