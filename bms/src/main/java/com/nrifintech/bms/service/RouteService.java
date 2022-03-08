@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nrifintech.bms.entity.Route;
 import com.nrifintech.bms.repository.RouteRepository;
 
 @Service
@@ -19,6 +20,10 @@ public class RouteService {
 
 	public List<String> getDistinctRouteStopName() {
 		return repository.findDistinctRouteStopName();
+	}
+	
+	public Route getById(int id){
+		return repository.getById(id);
 	}
 
 	

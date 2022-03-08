@@ -126,4 +126,12 @@ public class Bus extends AbstractBaseEntity {
 		this.activeStatus = activeStatus;
 	}
 
+	@Override
+	public String toString() {
+		return "Bus [registrationNo=" + registrationNo + ", busName=" + busName + ", fare=" + fare + ", seatCount="
+				+ seatCount + ", availableSeats=" + availableSeats + ", startTime=" + startTime + ", facilities="
+				+ facilities + ", activeStatus=" + activeStatus + ", route=" + route + "]";
+	}
+	
+
 }

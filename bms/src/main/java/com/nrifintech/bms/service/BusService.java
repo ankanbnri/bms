@@ -17,6 +17,8 @@ public class BusService {
 	private BusAndRouteRepository repository;
 	@Autowired
 	private TicketService ticketService;
+	
+	
 
 	public List<Bus> getBusWithSourceDest(String source, String destination) {
 		return repository.findAllWithSourceDest(source, destination);
@@ -56,6 +58,13 @@ public class BusService {
 			availableSeats = bus.getSeatCount() - ticketService.getTotalSeatsByBusAndDate(bus,travelDate);
 //			System.out.println(availableSeats);
 			bus.setAvailableSeats(availableSeats);
+			
+		
 		}
 	}
+	
+	public Bus findByRegistrationNo(String registrationNo)
+	{ 
+		return repository.findByRegistrationNo(registrationNo);
+		} 
 }

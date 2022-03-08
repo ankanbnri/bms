@@ -58,4 +58,11 @@ public class Route extends AbstractBaseEntity {
 		this.distance = distance;
 	}
 
+	@Override
+	public String toString() {
+		return "Route [routeCode=" + routeCode + ", startName=" + startName + ", stopName=" + stopName + ", distance="
+				+ distance + "]";
+	}
+	
+
 }

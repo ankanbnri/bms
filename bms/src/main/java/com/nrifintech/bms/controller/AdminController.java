@@ -2,6 +2,7 @@ package com.nrifintech.bms.controller;
 
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nrifintech.bms.entity.Bus;
+import com.nrifintech.bms.entity.Route;
 import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.service.BusService;
+import com.nrifintech.bms.service.RouteService;
 import com.nrifintech.bms.service.TicketService;
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.exporter.DepartureSheetExporter;
@@ -40,6 +44,9 @@ public class AdminController {
 	private UserService userService;
 	@Autowired
 	private TicketService ticketService;
+	
+	@Autowired
+	private RouteService routeService;
 	
 	@GetMapping("/login")
 	public ModelAndView adminLogin() {
@@ -178,4 +185,32 @@ public class AdminController {
 		DepartureSheetExporter excelExporter = new DepartureSheetExporter(tickets);
 		excelExporter.export(response);
 	}
+	
+	
+	// For calling admin add bus form
+	@GetMapping("/addBus")
+	public ModelAndView welcomeUser() {
+		ModelAndView mv= new ModelAndView("AdminAddBus");
+		return mv;
+	}
+	
+     // For saving the data in database after getting from form
+	@PostMapping("/saveBus")
+	public ModelAndView addUser(@ModelAttribute("bus") Bus bus, @ModelAttribute("startTimeForm") String startTimeForm , @ModelAttribute("routeCode") int routeCode )
+	{
+		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/addBus");
+		
+		Route route = routeService.getById(routeCode);
+		bus.setRoute(route);
+		bus.setActiveStatus(BusActiveStatus.YES);
+		
+		
+		startTimeForm = startTimeForm.concat(":00");
+		java.sql.Time time =  java.sql.Time.valueOf(startTimeForm);
+		bus.setStartTime(time);
+		
+	
+		busService.saveOrUpdate(bus);
+		return modelAndView;
+	} 
 }
