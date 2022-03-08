@@ -33,4 +33,12 @@ public interface TicketRepository extends AbstractBaseRepository<Ticket, String>
 	
 	@Query("SELECT t FROM Ticket t where t.user=?1 and t.dateOfTravel < CURRENT_DATE() ORDER BY t.dateOfTravel DESC")
 	List<Ticket> findAllOldTicketsWithUser(User user);
+	
+//	@Query("select r.routecode, sum(t.total_amount) revenue "
+//			+ "from ticket t inner join t.bus b inner join b.route r "
+//			+ "group by r.routecode")
+//	List<Revenue> getRevenue();
+
+	@Query(value = "select routecode, startname, stopname, sum(total_amount) from ticket join bus using(registration_no) join route using(routecode) where DATEDIFF(curdate(),date_bought) < 31 group by routecode", nativeQuery = true)
+	List<Object[]> getRevenue();
 }

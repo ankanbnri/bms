@@ -1,9 +1,11 @@
 package com.nrifintech.bms.service;
 
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import com.google.common.hash.Hashing;
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.entity.User;
+import com.nrifintech.bms.model.Revenue;
 import com.nrifintech.bms.repository.TicketRepository;
 
 @Service
@@ -73,6 +76,20 @@ public class TicketService {
 	
 	public List<Ticket> findAllTicketsByBusAndDateBought(Bus bus, Date date){
 		return ticketRepository.findAllTicketsByBusAndDateBought(bus, date);
+	}
+	
+	public List<Revenue> getRevenue(){
+		List<Revenue> list = new ArrayList<>();
+		List<Object[]> revenueDetails = ticketRepository.getRevenue();
+		revenueDetails.forEach(revRow -> {
+			Revenue revenue = new Revenue(revRow[0]+"",revRow[1]+"",revRow[2]+"",revRow[3]+"");
+//			revenue.setRoutecode(revRow[0]+"");
+//			revenue.setSource(revRow[1]+"");
+//			revenue.setDestination(revRow[2]+"");
+//			revenue.setTotalrevenue(revRow[3]+"");
+			list.add(revenue);
+		});
+		return list;
 	}
 	
 }
