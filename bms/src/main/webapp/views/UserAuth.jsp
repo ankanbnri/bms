@@ -76,8 +76,8 @@
 							</div>
 							<div class="field">
 								<input type="password" id="pass" name="password" placeholder="Password"
-									pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$"
-									oninvalid="this.setCustomValidity('Password must be of minimum 8 and maximum of 15 characters and must contain one uppercase and one lowercase and one number ')"
+									pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}"
+									oninvalid="this.setCustomValidity('Must contain at least one number and one uppercase and lowercase letter, and at least 8 and at max 15 characters')"
 									oninput="setCustomValidity('')" required>
 							</div>
 							<!-- <%-- <div><input type="checkbox" onclick="showPassword()">Show Password</div>--%> -->
