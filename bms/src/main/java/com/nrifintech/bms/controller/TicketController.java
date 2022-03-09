@@ -76,7 +76,7 @@ public class TicketController {
 	
 	@GetMapping("/cancel/{pnrNo}")
 	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo, HttpServletResponse response,
-			HttpServletRequest request) throws IOException {
+			HttpServletRequest request)  {
 		
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("isValidUser");
