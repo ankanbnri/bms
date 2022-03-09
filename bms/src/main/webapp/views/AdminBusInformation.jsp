@@ -83,14 +83,14 @@
 							Bus Information</span>
 				</a>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Tables"><a class="nav-link" href="AdminAddBus.html">
+					title="Tables"><a class="nav-link" href="/admin/addBus">
 						<i class="fa fa-fw fa-wrench"></i> <span class="nav-link-text">Add
 							New Bus</span>
 				</a></li>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
 					title="Example Pages"><a class="nav-link"
-					href="#collapseExamplePages" data-parent="#exampleAccordion"> <i
+					href="/admin/download/revenueReport.xlsx" data-parent="#exampleAccordion"> <i
 						class="fa fa-fw fa-file"></i> <span class="nav-link-text">Generate
 							Revenue Report</span>
 				</a></li>

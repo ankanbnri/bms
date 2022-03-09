@@ -32,6 +32,13 @@ public class UserService {
 		}
 		return false;
 	}
+	public boolean isValidAdmin(User user, String password) {
+		String userPassword = decrypt(user.getPassword());
+		if (userPassword.equals(password)) {
+			return true;
+		}
+		return false;
+	}
 
 	public void save(User user) {
 

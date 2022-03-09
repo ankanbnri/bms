@@ -113,7 +113,7 @@ public class AdminController {
 			uauth.addObject("email", email);
 			return uauth;
 		} else {
-			boolean isValidAdmin = userService.isValidUser(user, password);
+			boolean isValidAdmin = userService.isValidAdmin(user, password);
 			if (isValidAdmin) {
 				HttpSession session = request.getSession();
 				session.setAttribute("isValidAdmin", true);
@@ -221,7 +221,7 @@ public class AdminController {
 			uauth.addObject("error_msg", "Already registered bus with this Registration Number!");
 			return uauth;
 		}
-		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/addBus");
+		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/displayBusInformation");
 		
 		Route route = routeService.getById(routeCode);
 		bus.setRoute(route);

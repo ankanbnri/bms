@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -35,6 +37,8 @@ public class DepartureSheetExporter {
 		font.setBold(true);
 		font.setFontHeight(16);
 		style.setFont(font);
+		style.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		
 		Cell cell = row.createCell(0);
 		cell.setCellValue("User ID");	
