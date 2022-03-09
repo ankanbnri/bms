@@ -1,5 +1,9 @@
 package com.nrifintech.bms.service;
 
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -22,7 +26,7 @@ public class UserService {
 	}
 
 	public boolean isValidUser(User user, String password) {
-		String userPassword = user.getPassword();
+		String userPassword = decrypt(user.getPassword());
 		if (userPassword.equals(password)) {
 			return true;
 		}
@@ -51,6 +55,21 @@ public class UserService {
 	}
 	public User getById(Integer id) {
 		return userRepo.getById(id);
+	}
+	
+	public String encrypt(String originalString) {
+		
+		Encoder encoder = Base64.getEncoder();
+		String encodedString = encoder.encodeToString(originalString.getBytes());
+		return encodedString;
+	}
+	
+	public String decrypt(String originalString) {
+		Decoder decoder = Base64.getDecoder();
+		byte[] bytes = decoder.decode(originalString);
+		String decoded= new String(bytes);
+		return decoded;
+		
 	}
 
 }

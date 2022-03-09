@@ -191,6 +191,7 @@ public class UserController {
 			return uauth;
 		}
 		ModelAndView modelAndView = new ModelAndView("redirect:/user/login");
+		user.setPassword(userService.encrypt(user.getPassword()));
 		userService.save(user);
 		return modelAndView;
 	}
