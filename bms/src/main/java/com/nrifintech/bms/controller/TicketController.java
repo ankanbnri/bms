@@ -74,7 +74,7 @@ public class TicketController {
 		ticket.setUser(user);
 //		System.out.println(ticket.getPnrNo());
 		ticketService.save(ticket);
-		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate(ticket.getPnrNo(),
+		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate(user.getName(),ticket.getPnrNo(),
 				ticket.getDateBought().toString(), ticket.getDateOfTravel().toString(), bus.getRegistrationNo(),
 				bus.getBusName(), bus.getFacilities().toString(), bus.getStartTime().toString(),
 				bus.getRoute().getStartName(), bus.getRoute().getStopName(), ticket.getSeatsBooked(),
