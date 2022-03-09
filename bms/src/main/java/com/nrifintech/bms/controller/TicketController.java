@@ -88,7 +88,6 @@ public class TicketController {
 			int userIdOfTicket = ticket.getUser().getUserid();
 			
 			if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
-				System.out.println("cancel ticket api...");
 				ticketService.deleteByID(pnrNo);
 			}
 			
