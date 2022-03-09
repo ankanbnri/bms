@@ -128,68 +128,6 @@
 					</c:otherwise>
 				</c:choose>
 
-
-				<c:choose>
-					<c:when test="${busFound}">
-
-						<!-- Result Page  -->
-						<section class="container result-page">
-							<!-- Number of buses found from abc to xyz -->
-							<div class="row">
-								<span class="font-weight-bold busFound">${buses.size()} Bus
-								</span> <span>&nbsp;found from</span> <span
-									class="font-weight-bold busFound">&nbsp;${buses.get(0).getRoute().getStartName()}
-								</span> <span>&nbsp;to</span> <span
-									class="font-weight-bold busFound">&nbsp;${buses.get(0).getRoute().getStopName()}
-								</span> <span>&nbsp;on</span> <span
-									class="font-weight-bold busFound">&nbsp;${travelDate}</span>
-							</div>
-						</section>
-
-						<!-- Found Buses Details -->
-						<section class="container">
-							<c:forEach var="bus" items="${buses}">
-								<div class="d-flex justify-content-between card-body details">
-									<div class="col-sm-2 text-center my-auto">
-										<p class="font-weight-bold h4 my-auto">${bus.getBusName()}</p>
-										<p class="badge badge-pill badge-success my-auto">${bus.getFacilities()}</p>
-									</div>
-									<div class="col-sm-2 text-center my-auto h4">
-										<p class=" h4 my-auto">Departure Time</p>
-										<p class=" h4 my-auto">${bus.getStartTime()}</p>
-									</div>
-									<div class="col-sm-2 text-center text-danger my-auto h4">
-										<p class="h4 my-auto">Available Seats</p>
-										<p class="h4 my-auto">${bus.getSeatCount()}</p>
-									</div>
-									<div class="col-sm-2 text-center my-auto h4">
-										<p class="h4 my-auto">Distance</p>
-										<p class="h4 my-auto">${bus.getRoute().getDistance()}&nbsp;km</p>
-									</div>
-									<div class="col-sm-2 b text-center my-auto font-weight-bold h4">
-										<p class="h4 my-auto">Fare Per Ticket</p>
-										<p class="h4 my-auto">Rs.&nbsp;${bus.getFare() * bus.getRoute().getDistance()}
-										</p>
-									</div>
-								</div>
-							</c:forEach>
-						</section>
-
-					</c:when>
-					<c:otherwise>
-						<section class="container">
-							<div class="row no-bus-found-parent justify-content-lg-center justify-content-md-center">
-								<div class="card">
-									<div class="card-body">No bus found in this Route. Kindly
-										select a different route and plan your journey accordingly.</div>
-								</div>
-							</div>
-						</section>
-					</c:otherwise>
-				</c:choose>
-
-
-
 				<footer class="page-footer font-small lighten-5">
 					<div class="">
 						<div class="container">

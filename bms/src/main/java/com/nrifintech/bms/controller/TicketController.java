@@ -30,9 +30,9 @@ import com.nrifintech.bms.util.TicketEmailTemplate;
 @RequestMapping("/ticket")
 public class TicketController {
 	@Autowired
-	BusService busService;
+	private BusService busService;
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Autowired
 	TicketService ticketService;
 	@Autowired
@@ -63,16 +63,15 @@ public class TicketController {
 		User user = userService.getById(userId);
 		Bus bus = busService.getById(regNo);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date parsed = format.parse(travelDate);
-		java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
-
-//		System.out.println(ticket.getTotalAmount());
+        Date parsed = format.parse(travelDate);
+        java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
+        
+        
 		ticket.setPnrNo(ticketService.generatePnrNo(userId));
 		ticket.setDateOfTravel(dateOfTravel);
 		ticket.setDateBought(java.sql.Date.valueOf(LocalDate.now()));
 		ticket.setBus(bus);
 		ticket.setUser(user);
-//		System.out.println(ticket.getPnrNo());
 		ticketService.save(ticket);
 		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate(user.getName(),ticket.getPnrNo(),
 				ticket.getDateBought().toString(), ticket.getDateOfTravel().toString(), bus.getRegistrationNo(),
@@ -80,6 +79,14 @@ public class TicketController {
 				bus.getRoute().getStartName(), bus.getRoute().getStopName(), ticket.getSeatsBooked(),
 				ticket.getTotalAmount());
 		emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString());
+		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
+		return modelAndView;
+	}
+	
+	@GetMapping("/cancel/{pnrNo}")
+	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo) {
+		
+		ticketService.deleteByID(pnrNo);
 		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
 		return modelAndView;
 	}

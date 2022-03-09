@@ -2,17 +2,16 @@ html,
 body {
   padding: 0;
   margin: 0;
-  /* height: 100%;*/
   width: 100%;
-  min-height: 100%;
-  position: relative;
 }
-/*
+
 body{
-	padding: 0 0 70px;
-}*/  
+	 min-height: 100vh;
+ 	 position: relative;
+ 	 padding-bottom: 70px;
+} 
 section{
-	margin-top: 10vh;
+	margin-top: 7vh;
 }
 .expired-ticket-parent{
 	margin-bottom: 10vh;
@@ -34,17 +33,15 @@ section{
 	opacity: 0.7;
 }
 
-footer{
-	position: fixed;
-	width: 100%;
-	bottom: 0;
+.modal-body-pnr{
+	 color: red;
 }
-/*
+.modal-body{
+	padding: 2rem;
+}
 footer{
+	position: absolute;
 	bottom: 0;
-    height: 70px;
-    left: 0;
-    position: absolute;
-    width: 100%;
-	
-}*/
+	width: 100%;
+	height: 70px;
+}
