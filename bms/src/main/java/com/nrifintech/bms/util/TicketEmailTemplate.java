@@ -35,7 +35,7 @@ public class TicketEmailTemplate {
 
 	@Override
 	public String toString() {
-		return "Dear " + name + ",\n" + "Thank you For Using BMS Application For Ticket Booking.Your Booking Details are as follows :" + "\n" + "PNRNO : " + pnrNo + "\n" + "Date of Booking : " + dateBought
+		return "Dear " + name + ",\n" + "Thank you For Using BMS Application For Ticket Booking.Your Booking Details are as follows :" + "\n\n" + "PNRNO : " + pnrNo + "\n" + "Date of Booking : " + dateBought
 				+ "\n" + " Date Of Travel : " + dateofTravel + "\n" + "Bus Registration No : " + registrationNo + "\n"
 				+ " Bus Name : " + busName + "\n" + " Facilities : " + facilities + "\n" + " Onboarding Time : "
 				+ startTime + "\n" + " Onboarding Point : " + startName + "\n" + " Departure Point : " + stopName + "\n"
