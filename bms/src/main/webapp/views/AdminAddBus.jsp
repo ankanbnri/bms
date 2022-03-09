@@ -29,6 +29,7 @@
 <!-- NAVAR AND SIDEBAR -->
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<%@ include file="adminSecurity.jsp" %>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
         <a class="navbar-brand" href="index.html">Bus Management System </a>
