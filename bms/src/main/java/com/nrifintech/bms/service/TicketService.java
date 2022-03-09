@@ -78,5 +78,9 @@ public class TicketService {
 	public void deleteByID(String pnrNo) {
 		ticketRepository.deleteById(pnrNo);
 	}
+
+	public Ticket getById(String pnrNo) {
+		return ticketRepository.getById(pnrNo);
+	}
 	
 }
