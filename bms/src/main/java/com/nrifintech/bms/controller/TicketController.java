@@ -64,47 +64,48 @@ public class TicketController {
 		User user = userService.getById(userId);
 		Bus bus = busService.getById(regNo);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = format.parse(travelDate);
-        java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
-        
-        
+		Date parsed = format.parse(travelDate);
+		java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
+
 		ticket.setPnrNo(ticketService.generatePnrNo(userId));
 		ticket.setDateOfTravel(dateOfTravel);
 		ticket.setDateBought(java.sql.Date.valueOf(LocalDate.now()));
 		ticket.setBus(bus);
 		ticket.setUser(user);
 		ticketService.save(ticket);
-		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate(user.getName(),ticket.getPnrNo(),
-				ticket.getDateBought().toString(), ticket.getDateOfTravel().toString(), bus.getRegistrationNo(),
-				bus.getBusName(), bus.getFacilities().toString(), bus.getStartTime().toString(),
-				bus.getRoute().getStartName(), bus.getRoute().getStopName(), ticket.getSeatsBooked(),
-				ticket.getTotalAmount());
+		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate.TicketEmailTemplateBuilder(ticket.getPnrNo(),
+				ticket.getSeatsBooked()).busName(bus.getBusName()).dateBought(ticket.getDateBought().toString())
+						.dateofTravel(ticket.getDateOfTravel().toString()).name(user.getName())
+						.registrationNo(bus.getRegistrationNo()).busName(bus.getBusName())
+						.facilities(bus.getFacilities().toString()).startTime(bus.getStartTime().toString())
+						.startName(bus.getRoute().getStartName()).totalPaid(ticket.getTotalAmount())
+						.stopName(bus.getRoute().getStopName()).build();
 		emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString());
 		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/cancel/{pnrNo}")
 	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo, HttpServletResponse response,
-			HttpServletRequest request)  {
-		
+			HttpServletRequest request) {
+
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("isValidUser");
-		
+
 		if (attribute != (Object) true) {
 			return new ModelAndView("redirect:/user/login");
 		} else {
 			Ticket ticket = ticketService.getById(pnrNo);
 			int userIdOfTicket = ticket.getUser().getUserid();
-			
-			if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
+
+			if (userIdOfTicket == (Integer) session.getAttribute("userid")) {
 				ticketService.deleteByID(pnrNo);
 			}
-			
+
 			ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
 			return modelAndView;
 		}
-		
+
 	}
 
 }
