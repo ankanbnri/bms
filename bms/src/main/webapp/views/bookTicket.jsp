@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.lang.Math"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,7 +112,8 @@
 
 
 								<button type="submit" class="btn b g-bms-primary m-2 btn-block"
-									id="book-btn">Book Ticket</button>
+									data-target="#loadingModal" data-toggle="modal" id="book-btn">Book
+									Ticket</button>
 							</form>
 						</li>
 
@@ -122,6 +123,17 @@
 		</div>
 
 	</section>
+
+	<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content d-flex justify-content-center align-items-center">
+				<div class="modal-header">
+					<img id="spinner" alt="spinner" src="/images/spinner.gif"/>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<%@ include file="userFooter.jsp"%>
