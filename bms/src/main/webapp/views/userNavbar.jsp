@@ -15,7 +15,10 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active mx-2"><a class="nav-link item"
+				<li class=" mx-2"><a class="nav-link item">Hi,<c:out
+							value="${sessionScope.name}" />
+				</a></li>
+				<li class="nav-item mx-2"><a class="nav-link item"
 					href="/user/searchBus">Plan Journey</a></li>
 				<li class="nav-item mx-2"><a class="nav-link"
 					href="/user/myTickets">My Tickets</a></li>
