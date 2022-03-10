@@ -33,6 +33,8 @@ public class BusService {
 	}
 
 	public void saveOrUpdate(Bus bus) {
+		String reg_no = bus.getRegistrationNo().toUpperCase();
+		bus.setRegistrationNo(reg_no);
 		repository.save(bus);
 	}
 
