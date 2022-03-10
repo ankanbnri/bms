@@ -175,7 +175,7 @@
 						<div class="form-group">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" name="facilities"
-									id="inlineRadio1" value="AC"> <label
+									id="inlineRadio1" value="AC" required> <label
 									class="form-check-label" for="inlineRadio1"><span
 									class="badge badge-success">AC</span></label>
 							</div>
