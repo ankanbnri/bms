@@ -124,12 +124,12 @@
 
 	</section>
 
-	<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog"
+	<div class="modal fade" id="loadingModal"  tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content d-flex justify-content-center align-items-center">
-				<div class="modal-header">
-					<img id="spinner" alt="spinner" src="/images/spinner.gif"/>
+		<div class="modal-dialog modal-dialog-centered"  role="document">
+			<div class="modal-content d-flex justify-content-center align-items-center" style="background-color: transparent; border: none">
+				<div class="modal-header" style="background-color: transparent; border: none">
+					<img id="spinner" style="border: 2px solid black" alt="spinner" src="/images/spinner.gif"/>
 				</div>
 			</div>
 		</div>
