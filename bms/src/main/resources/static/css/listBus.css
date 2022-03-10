@@ -2,7 +2,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  height: 100%;
   width: 100%;
 }
 body{
@@ -15,6 +14,10 @@ body{
 }
 .busFound {
   color: #3e3e52;
+}
+#listsection
+{
+	margin-bottom:20px;
 }
 .result-page {
   padding-top: 15vh;

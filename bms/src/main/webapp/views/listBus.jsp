@@ -53,7 +53,7 @@
 			</section>
 
 			<!-- Found Buses Details -->
-			<section class="container">
+			<section class="container" id="listsection">
 				<c:forEach var="bus" items="${buses}">
 					<a
 						href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
