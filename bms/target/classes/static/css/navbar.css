@@ -22,3 +22,7 @@
   footer {
     background: linear-gradient(140deg, #139487, #86c6f4);
   }
+  
+.navbar-brand{
+	color : white; 
+}

@@ -43,7 +43,7 @@
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-bms-primary">
         <div class="container nav-container">
             <a class="navbar-brand" href="#">
-                <div class="font-weight-bold">BMS</div>
+                <div class="font-weight-bold"><i class="fas fa-bus"></i> BMS</div>
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

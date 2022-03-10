@@ -34,7 +34,7 @@
 	<div class="container nav-container">
 		<div class="brand">
 			<a class="navbar-brand text-bms-yellow font-weight-bold"
-				href="/user/welcome">BMS</a>
+				href="/user/welcome"><i class="fas fa-bus"></i> BMS</a>
 		</div>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
