@@ -105,7 +105,9 @@
 										<span class="input-group-text" id="basic-addon1"><i
 											class="fas fa-registered form-icon text-bms-primary"></i></span>
 									</div>
-									<input type="text" name="registrationNo" class="form-control"
+									<input type="text" name="registrationNo" class="form-control" pattern="^[a-zA-Z0-9]{8}$"
+									oninvalid="this.setCustomValidity('Registration number must contain 8 characters')"
+									oninput="setCustomValidity('')"
 										placeholder="Registration Number"
 										aria-describedby="basic-addon1">
 								</div>

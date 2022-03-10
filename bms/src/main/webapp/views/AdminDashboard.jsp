@@ -127,7 +127,7 @@
 							<div class="card-body-icon">
 								<i class="fa fa-fw fa-shopping-cart"></i>
 							</div>
-							<div class="mr-5">${userCount } Users Served Till Date</div>
+							<div class="mr-5">${userCount } Users Registered Currently</div>
 						</div>
 						<a class="card-footer text-white clearfix small z-1" href="#">
 							<span class="float-left"></span> <span class="float-right">
@@ -165,7 +165,7 @@
 									<th>Start Name</th>
 									<th>Stop Name</th>
 									<th>Distance(in KM)</th>
-									<th>Total Revenue till Date(in Rupees)</th>
+									<th>Bus Count</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -175,7 +175,8 @@
 										<td>${route.source }</td>
 										<td>${route.destination }</td>
 										<td>${route.distance }</td>
-										<td>${route.totalrevenue }</td>
+										<%-- <td>${route.totalrevenue }</td> --%>
+										<td>${route.buscount }</td>										
 									</tr>
 								</c:forEach>
 							</tbody>

@@ -38,6 +38,7 @@ import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.exporter.DepartureSheetExporter;
 import com.nrifintech.bms.exporter.RevenueReportExporter;
 import com.nrifintech.bms.model.Revenue;
+import com.nrifintech.bms.model.RouteInfo;
 import com.nrifintech.bms.model.RouteRevenue;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminBusSortingUtils;
@@ -69,7 +70,7 @@ public class AdminController {
 		long routeCount = routeService.countRoutes();
 		long ticketCount = ticketService.countTickets();
 		long userCount = userService.countUsers();
-		List<RouteRevenue> routeRevenues = ticketService.getAllRouteRevenue();
+		List<RouteInfo> routeRevenues = ticketService.getBusCountPerRoute();
 		ModelAndView mv = new ModelAndView("AdminDashboard");
 		mv.addObject("busCount",busCount);
 		mv.addObject("routeCount", routeCount);
@@ -234,7 +235,7 @@ public class AdminController {
 		}
 		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/displayBusInformation");
 		Route route = routeService.getById(routeCode);
-		String busAddMsg = "Bus with registration no. " + bus.getRegistrationNo() + " on route " + route.getStartName() + "-->" + route.getStopName() + " added successfully" ;
+		String busAddMsg = "Bus with registration no. " + bus.getRegistrationNo() + " on route " + route.getStartName() + " to " + route.getStopName() + " added successfully" ;
 		redirectAttributes.addFlashAttribute("busAddMsg", busAddMsg);
 		bus.setRoute(route);
 		bus.setActiveStatus(BusActiveStatus.YES);
