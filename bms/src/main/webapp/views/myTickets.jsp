@@ -140,7 +140,7 @@
 												<div class="col-md-6">
 													<h5 class="float-md-right">
 														<i class="fa fa-clock"></i> Time :
-														${upcomingTicket.getBus().getStartTime()}
+														${fn:substring(upcomingTicket.getBus().getStartTime(),0,5)}
 													</h5>
 												</div>
 											</div>
@@ -252,7 +252,7 @@
 												<div class="col-md-6">
 													<h5 class="float-md-right">
 														<i class="fa fa-clock"></i> Time :
-														${oldTicket.getBus().getStartTime()}
+														${fn:substring(oldTicket.getBus().getStartTime(),0,5)}
 													</h5>
 												</div>
 											</div>
