@@ -101,13 +101,16 @@ public class TicketController {
 		} else {
 			Ticket ticket = ticketService.getById(pnrNo);
 			int userIdOfTicket = ticket.getUser().getUserid();
-			redirectAttributes.addFlashAttribute("pnrNo",ticket.getPnrNo());
-			redirectAttributes.addFlashAttribute("source",ticket.getBus().getRoute().getStartName());
-			redirectAttributes.addFlashAttribute("dest",ticket.getBus().getRoute().getStopName());
-			redirectAttributes.addFlashAttribute("date",ticket.getDateOfTravel());
 			
 			if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
+				redirectAttributes.addFlashAttribute("pnrNo",ticket.getPnrNo());
+				redirectAttributes.addFlashAttribute("source",ticket.getBus().getRoute().getStartName());
+				redirectAttributes.addFlashAttribute("dest",ticket.getBus().getRoute().getStopName());
+				redirectAttributes.addFlashAttribute("date",ticket.getDateOfTravel());
+				redirectAttributes.addFlashAttribute("validCancel","YES");
 				ticketService.deleteByID(pnrNo);
+			}else {
+				redirectAttributes.addFlashAttribute("validCancel","NO");
 			}
 			
 			ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");

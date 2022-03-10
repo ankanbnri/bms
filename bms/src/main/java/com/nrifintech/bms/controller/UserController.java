@@ -143,7 +143,8 @@ public class UserController {
 			@ModelAttribute("pnrNo") String pnrNo,
 			@ModelAttribute("source") String source,
 			@ModelAttribute("dest") String dest,
-			@ModelAttribute("date") String date) {
+			@ModelAttribute("date") String date,
+			@ModelAttribute("validCancel") String validCancel) {
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("userid")==null) {
@@ -162,6 +163,7 @@ public class UserController {
 			modelAndView.addObject("source", source);
 			modelAndView.addObject("dest", dest);
 			modelAndView.addObject("date", date);
+			modelAndView.addObject("validCancel", validCancel);
 			
 			// Setting upcoming tickets
 			if(upcomingTickets.size()>0) {

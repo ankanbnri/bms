@@ -46,9 +46,17 @@
 	<%@ include file="userNavbar.jsp"%>
 	
 	<section class="container">
-		<c:if test="${fn:length(pnrNo) > 0}">
+		<c:if test="${validCancel == 'YES'}">
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				  Your ticket from <b>${source}</b> to <b>${dest}</b> on <b>${date}</b> with PNR No: <b>${pnrNo}</b> is cancelled successfully.
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		</c:if>
+		<c:if test="${validCancel == 'NO'}">
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				  Unauthorized cancel operation.
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			    <span aria-hidden="true">&times;</span>
 			  </button>
@@ -59,7 +67,7 @@
 				<div class="book-success-mssg">
 				  <strong>Success!</strong> Your ticket from <b>${bookedTicket.getBus().getRoute().getStartName()}</b>
 				  to <b>${bookedTicket.getBus().getRoute().getStopName()}</b> on <b>${bookedTicket.getDateOfTravel()}</b> with 
-				  <b>${bookedTicket.getSeatsBooked()}</b> seats is booked successfully.
+				  <b>${bookedTicket.getSeatsBooked()}</b> seats is booked successfully. An email is sent to you.
 				  <p>PNR No: <b>${bookedTicket.getPnrNo()}</b><br/>
 				  Bus Number: <b>${bookedTicket.getBus().getRegistrationNo()}</b></p>
 				</div>
