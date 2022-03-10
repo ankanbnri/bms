@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.text.ParseException;
+import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -116,10 +118,14 @@ public class UserController {
 		if(buses.size()>0) {
 			busService.setAllAvailableSeatsForDate(buses,travelDate);
 		}
-		for(Bus bus: buses) {
-			if(bus.getAvailableSeats()==0)
-				buses.remove(bus);
-		}
+		Iterator<Bus> itr = buses.iterator();
+        while (itr.hasNext())
+        {
+            Bus bus = itr.next();
+            if (bus.getAvailableSeats()==0) {
+                itr.remove();
+            }
+        }
 
 		ModelAndView modelAndView = new ModelAndView("listBus");
 		if (buses.size() > 0) {
