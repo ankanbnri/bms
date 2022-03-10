@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <!DOCTYPE html>
 <html>
 
@@ -64,7 +65,7 @@
 							</div>
 							<div class="col-sm-2 text-center my-auto h4">
 								<p class=" h4 my-auto">Departure Time</p>
-								<p class=" h4 my-auto">${bus.getStartTime()}</p>
+								<p class=" h4 my-auto">${fn:substring(bus.getStartTime(),0,5)}</p>
 							</div>
 							<div class="col-sm-2 text-center text-danger my-auto h4">
 								<p class="h4 my-auto">Available Seats</p>

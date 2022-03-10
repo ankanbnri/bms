@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.entity.Ticket;
@@ -54,10 +55,41 @@ public class TicketController {
 		return modelAndView;
 	}
 
+//	@PostMapping("/bookTicket/{regNo}/{travelDate}")
+//	public ModelAndView saveBookingInfo(@PathVariable("regNo") String regNo,
+//			@PathVariable("travelDate") String travelDate, @ModelAttribute("ticket") Ticket ticket,
+//			HttpServletRequest request) throws ParseException {
+//
+//		HttpSession session = request.getSession();
+//		int userId = (int) session.getAttribute("userid");
+//		User user = userService.getById(userId);
+//		Bus bus = busService.getById(regNo);
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        Date parsed = format.parse(travelDate);
+//        java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
+//        
+//        
+//		ticket.setPnrNo(ticketService.generatePnrNo(userId));
+//		ticket.setDateOfTravel(dateOfTravel);
+//		ticket.setDateBought(java.sql.Date.valueOf(LocalDate.now()));
+//		ticket.setBus(bus);
+//		ticket.setUser(user);
+//		ticketService.save(ticket);
+//		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate(user.getName(),ticket.getPnrNo(),
+//				ticket.getDateBought().toString(), ticket.getDateOfTravel().toString(), bus.getRegistrationNo(),
+//				bus.getBusName(), bus.getFacilities().toString(), bus.getStartTime().toString(),
+//				bus.getRoute().getStartName(), bus.getRoute().getStopName(), ticket.getSeatsBooked(),
+//				ticket.getTotalAmount());
+//		emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString());
+//		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
+//		return modelAndView;
+//	}
+	
 	@PostMapping("/bookTicket/{regNo}/{travelDate}")
 	public ModelAndView saveBookingInfo(@PathVariable("regNo") String regNo,
 			@PathVariable("travelDate") String travelDate, @ModelAttribute("ticket") Ticket ticket,
-			HttpServletRequest request) throws ParseException {
+			HttpServletRequest request,
+			RedirectAttributes redirectAttributes) throws ParseException {
 
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userid");
@@ -81,12 +113,38 @@ public class TicketController {
 				ticket.getTotalAmount());
 		emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString());
 		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
+		redirectAttributes.addFlashAttribute("bookedTicket",ticket);
 		return modelAndView;
 	}
 	
+//	@GetMapping("/cancel/{pnrNo}")
+//	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo, HttpServletResponse response,
+//			HttpServletRequest request)  {
+//		
+//		HttpSession session = request.getSession();
+//		Object attribute = session.getAttribute("isValidUser");
+//		
+//		if (attribute != (Object) true) {
+//			return new ModelAndView("redirect:/user/login");
+//		} else {
+//			Ticket ticket = ticketService.getById(pnrNo);
+//			int userIdOfTicket = ticket.getUser().getUserid();
+//			
+//			if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
+//				ticketService.deleteByID(pnrNo);
+//			}
+//			
+//			ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
+//			return modelAndView;
+//		}
+//		
+//	}
+	
 	@GetMapping("/cancel/{pnrNo}")
-	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo, HttpServletResponse response,
-			HttpServletRequest request)  {
+	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo,
+			HttpServletResponse response,
+			HttpServletRequest request,
+			RedirectAttributes redirectAttributes)  {
 		
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("isValidUser");
@@ -96,6 +154,10 @@ public class TicketController {
 		} else {
 			Ticket ticket = ticketService.getById(pnrNo);
 			int userIdOfTicket = ticket.getUser().getUserid();
+			redirectAttributes.addFlashAttribute("pnrNo",ticket.getPnrNo());
+			redirectAttributes.addFlashAttribute("source",ticket.getBus().getRoute().getStartName());
+			redirectAttributes.addFlashAttribute("dest",ticket.getBus().getRoute().getStopName());
+			redirectAttributes.addFlashAttribute("date",ticket.getDateOfTravel());
 			
 			if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
 				ticketService.deleteByID(pnrNo);

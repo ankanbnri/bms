@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.text.ParseException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +108,32 @@ public class UserController {
 		return modelAndView;
 	}
 
+//	@PostMapping("/searchBus")
+//	public ModelAndView searchBus(@ModelAttribute("source") String source,
+//								  @ModelAttribute("destination") String destination,
+//								  @ModelAttribute("travelDate") String travelDate) throws ParseException {
+//		
+//
+//		List<Bus> buses = busService.getBusWithSourceDest(source,destination);
+//		if(buses.size()>0) {
+//			busService.setAllAvailableSeatsForDate(buses,travelDate);
+//		}
+//		for(Bus bus: buses) {
+//			if(bus.getAvailableSeats()==0)
+//				buses.remove(bus);
+//		}
+//
+//		ModelAndView modelAndView = new ModelAndView("listBus");
+//		if (buses.size() > 0) {
+//			modelAndView.addObject("buses", buses);
+//			modelAndView.addObject("travelDate", travelDate);
+//			modelAndView.addObject("busFound", true);
+//		}else {
+//			modelAndView.addObject("busFound", false);
+//		}
+//		return modelAndView;
+//	}
+	
 	@PostMapping("/searchBus")
 	public ModelAndView searchBus(@ModelAttribute("source") String source,
 								  @ModelAttribute("destination") String destination,
@@ -117,10 +144,14 @@ public class UserController {
 		if(buses.size()>0) {
 			busService.setAllAvailableSeatsForDate(buses,travelDate);
 		}
-		for(Bus bus: buses) {
-			if(bus.getAvailableSeats()==0)
-				buses.remove(bus);
-		}
+		Iterator<Bus> itr = buses.iterator();
+        while (itr.hasNext())
+        {
+            Bus bus = itr.next();
+            if (bus.getAvailableSeats()==0) {
+                itr.remove();
+            }
+        }
 
 		ModelAndView modelAndView = new ModelAndView("listBus");
 		if (buses.size() > 0) {
@@ -133,8 +164,48 @@ public class UserController {
 		return modelAndView;
 	}
 	
+//	@GetMapping("/myTickets")
+//	public ModelAndView showTickets(HttpServletRequest request) {
+//		HttpSession session = request.getSession();
+//		
+//		if(session.getAttribute("userid")==null) {
+//			ModelAndView mv = new ModelAndView("redirect:/user/login");
+//			return mv;
+//		}else {
+//			int userId = (int)session.getAttribute("userid");
+//			User user = userService.getById(userId);
+//			
+//			List<Ticket> upcomingTickets = ticketService.getUpcomingTicketsWithUser(user);
+//			List<Ticket> oldTickets = ticketService.getOldTicketsWithUser(user);
+//			
+//			ModelAndView modelAndView = new ModelAndView("myTickets");
+//			
+//			// Setting upcoming tickets
+//			if(upcomingTickets.size()>0) {
+//				modelAndView.addObject("upcomingTickets", upcomingTickets);
+//				modelAndView.addObject("upcomingTicketFound", true);
+//			}else {
+//				modelAndView.addObject("upcomingTicketFound", false);
+//			}
+//			
+//			// Setting old tickets
+//			if(oldTickets.size()>0) {
+//				modelAndView.addObject("oldTickets", oldTickets);
+//				modelAndView.addObject("oldTicketFound", true);
+//			}else {
+//				modelAndView.addObject("oldTicketFound", false);
+//			}
+//			
+//			return modelAndView;
+//		}
+//	}
+	
 	@GetMapping("/myTickets")
-	public ModelAndView showTickets(HttpServletRequest request) {
+	public ModelAndView showTickets(HttpServletRequest request,@ModelAttribute("bookedTicket") Ticket ticket,
+			@ModelAttribute("pnrNo") String pnrNo,
+			@ModelAttribute("source") String source,
+			@ModelAttribute("dest") String dest,
+			@ModelAttribute("date") String date) {
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("userid")==null) {
@@ -148,6 +219,11 @@ public class UserController {
 			List<Ticket> oldTickets = ticketService.getOldTicketsWithUser(user);
 			
 			ModelAndView modelAndView = new ModelAndView("myTickets");
+			modelAndView.addObject("bookedTicket", ticket);
+			modelAndView.addObject("pnrNo", pnrNo);
+			modelAndView.addObject("source", source);
+			modelAndView.addObject("dest", dest);
+			modelAndView.addObject("date", date);
 			
 			// Setting upcoming tickets
 			if(upcomingTickets.size()>0) {

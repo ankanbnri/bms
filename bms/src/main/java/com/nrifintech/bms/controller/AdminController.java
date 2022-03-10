@@ -80,7 +80,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/displayBusInformation")
-	public ModelAndView displayBusInformation(@RequestParam(required = false, name = "sort") String sort, HttpServletRequest request) {
+	public ModelAndView displayBusInformation(@RequestParam(required = false, name = "sort") String sort, @ModelAttribute("busAddMsg") String busAddMsg) {
 		List<Bus> buses = null;
 		if (sort != null) {
 			int theSortField = Integer.parseInt(sort);
@@ -89,6 +89,8 @@ public class AdminController {
 			buses = busService.getBuses(AdminBusSortingUtils.REGISTRATION_NO);
 		}
 		ModelAndView mv = new ModelAndView("AdminBusInformation");
+		System.out.println(busAddMsg);
+		mv.addObject("busAddMsg", busAddMsg);
 //		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 //        String busAddMsg =  (String) flashMap.get("busAddMsg");
 		Date today = new Date();
@@ -100,7 +102,6 @@ public class AdminController {
 		} else {
 			mv.addObject("busFound", true);
 			mv.addObject("buses", buses);
-//			mv.addObject("busAddMsg", busAddMsg);
 		}
 		return mv;
 	}
@@ -233,9 +234,9 @@ public class AdminController {
 			return mv;
 		}
 		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/displayBusInformation");
-//		String msg = "Success";
-//		redirectAttributes.addFlashAttribute("busAddMsg", msg );
 		Route route = routeService.getById(routeCode);
+		String busAddMsg = "Bus with registration no. " + bus.getRegistrationNo() + " on route " + route.getStartName() + "-->" + route.getStopName() + " added successfully" ;
+		redirectAttributes.addFlashAttribute("busAddMsg", busAddMsg);
 		bus.setRoute(route);
 		bus.setActiveStatus(BusActiveStatus.YES);
 

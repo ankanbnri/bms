@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.nrifintech.bms.util.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,14 +118,16 @@
 				<div class="card-header">
 					<i class="fa fa-table"></i> Bus Information
 				</div>
-				<%-- <div class="alert alert-warning alert-dismissible fade show"
-					role="alert">
-					${busAddMsg }
-					<button type="button" class="close" data-dismiss="alert"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div> --%>
+				<c:if test="${fn:length(busAddMsg) > 0}">
+					<div class="alert alert-success alert-dismissible fade show"
+						role="alert">
+						${busAddMsg}
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</c:if>
 				<div class="card-body">
 					<table class="table align-middle mb-0 bg-white">
 						<thead class="bg-light">
