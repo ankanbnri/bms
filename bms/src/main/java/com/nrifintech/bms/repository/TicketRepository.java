@@ -42,6 +42,6 @@ public interface TicketRepository extends AbstractBaseRepository<Ticket, String>
 	@Query(value = "select routecode, startname, stopname, sum(total_amount) from ticket join bus using(registration_no) join route using(routecode) where DATEDIFF(curdate(),date_bought) < 31 group by routecode order by sum(total_amount) desc", nativeQuery = true)
 	List<Object[]> getRevenue();
 	
-	@Query(value = "select routecode, startname, stopname, distance_km,sum(total_amount) from ticket join bus using(registration_no) join route using(routecode) where DATEDIFF(curdate(),date_bought) < 31 group by routecode order by routecode", nativeQuery = true)
-	List<Object[]> getAllRoutesRevenue();
+	@Query(value = "SELECT r.routecode,r.startname,r.stopname,r.distance_km,count(b.registration_no) as bus_count FROM bus b join route r on b.routecode=r.routecode group by r.routecode", nativeQuery = true)
+	List<Object[]> getBusCountPerRoute();
 }

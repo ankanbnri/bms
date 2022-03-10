@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +35,7 @@ import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.exporter.DepartureSheetExporter;
 import com.nrifintech.bms.exporter.RevenueReportExporter;
 import com.nrifintech.bms.model.Revenue;
-import com.nrifintech.bms.model.RouteRevenue;
+import com.nrifintech.bms.model.RouteInfo;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminBusSortingUtils;
 import com.nrifintech.bms.util.BusActiveStatus;
@@ -67,7 +66,7 @@ public class AdminController {
 		long routeCount = routeService.countRoutes();
 		long ticketCount = ticketService.countTickets();
 		long userCount = userService.countUsers();
-		List<RouteRevenue> routeRevenues = ticketService.getAllRouteRevenue();
+		List<RouteInfo> routeRevenues = ticketService.getBusCountPerRoute();
 		ModelAndView mv = new ModelAndView("AdminDashboard");
 		mv.addObject("busCount",busCount);
 		mv.addObject("routeCount", routeCount);

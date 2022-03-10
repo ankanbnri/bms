@@ -164,8 +164,8 @@
 									<th>Route Code</th>
 									<th>Start Name</th>
 									<th>Stop Name</th>
-									<th>Distance(in KM)</th>
-									<th>Total Revenue till Date(in Rupees)</th>
+									<th>Distance(in Km)</th>
+									<th>Bus Count</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -175,7 +175,7 @@
 										<td>${route.source }</td>
 										<td>${route.destination }</td>
 										<td>${route.distance }</td>
-										<td>${route.totalrevenue }</td>
+										<td>${route.buscount }</td>
 									</tr>
 								</c:forEach>
 							</tbody>

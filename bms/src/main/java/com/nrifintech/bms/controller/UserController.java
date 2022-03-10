@@ -21,7 +21,6 @@ import com.nrifintech.bms.util.AdminPrivileges;
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.service.BusService;
-import com.nrifintech.bms.service.EmailSenderService;
 import com.nrifintech.bms.service.RouteService;
 import com.nrifintech.bms.service.TicketService;
 

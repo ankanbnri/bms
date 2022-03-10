@@ -17,7 +17,7 @@ import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.model.Revenue;
-import com.nrifintech.bms.model.RouteRevenue;
+import com.nrifintech.bms.model.RouteInfo;
 import com.nrifintech.bms.repository.TicketRepository;
 
 @Service
@@ -98,17 +98,17 @@ public class TicketService {
 		return list;
 	}
 
-	public List<RouteRevenue> getAllRouteRevenue() {
-		List<RouteRevenue> list = new ArrayList<>();
-		List<Object[]> revenueDetails = ticketRepository.getAllRoutesRevenue();
-		revenueDetails.forEach(revRow -> {
-			RouteRevenue revenue = new RouteRevenue();
-			revenue.setRoutecode(revRow[0] + "");
-			revenue.setSource(revRow[1] + "");
-			revenue.setDestination(revRow[2] + "");
-			revenue.setDistance(revRow[3] + "");
-			revenue.setTotalrevenue(revRow[4] + "");
-			list.add(revenue);
+	public List<RouteInfo> getBusCountPerRoute() {
+		List<RouteInfo> list = new ArrayList<>();
+		List<Object[]> routeDetails = ticketRepository.getBusCountPerRoute();
+		routeDetails.forEach(revRow -> {
+			RouteInfo info = new RouteInfo();
+			info.setRoutecode(revRow[0] + "");
+			info.setSource(revRow[1] + "");
+			info.setDestination(revRow[2] + "");
+			info.setDistance(revRow[3] + "");
+			info.setBuscount(revRow[4] + "");
+			list.add(info);
 		});
 		return list;
 	}
