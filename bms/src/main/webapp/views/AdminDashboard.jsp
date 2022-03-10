@@ -127,7 +127,7 @@
 							<div class="card-body-icon">
 								<i class="fa fa-fw fa-shopping-cart"></i>
 							</div>
-							<div class="mr-5">${userCount } Users Served Till Date</div>
+							<div class="mr-5">${userCount } Users Registered Currently</div>
 						</div>
 						<a class="card-footer text-white clearfix small z-1" href="#">
 							<span class="float-left"></span> <span class="float-right">
