@@ -32,7 +32,7 @@ import com.nrifintech.bms.service.TicketService;
 public class UserController {
 	
 	@Autowired
-	public UserService userService;
+	private UserService userService;
 	@Autowired
 	private BusService busService;
 	@Autowired

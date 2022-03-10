@@ -269,14 +269,14 @@
                 mentioned
                 below.</p>
             <ul>
-                <li>Enter the Source and Destination details in the “leaving from” and “Going to” tab respectively</li>
-                <li>Select the “Journey date” from calendar icon and click on the “Search” button</li>
+                <li>Enter the Source and Destination details in the leaving from and Going to tab respectively</li>
+                <li>Select the ��Journey date from calendar icon and click on the Search button</li>
                 <li>Select any bus operator of your choice from the list of buses which are displayed</li>
-                <li>Select a seat, boarding and dropping points and hit “Continue to Confirm Booking”</li>
+                <li>Select a seat, boarding and dropping points and hit Continue to Confirm Booking.</li>
                 <li>Enter all the required information including contact number &amp; passenger details</li>
             </ul>
             <p class="mt-3 ">Once the booking is confirmed, you will receive a E-ticket on your My Ticket Section of
-                your dashboard”</p>
+                your dashboard.Also a Ticket Confirmation will be sent to your Registered Email.��</p>
             <h2 style="font-size: 1.5rem;" class="mb-4">Last Hour Ticket Booking</h2>
             <p>Most of the online bus bookings are more than 50% unplanned, with 32% of the people reserving tickets on
                 the
@@ -296,7 +296,7 @@
             <div class="container">
                 <div class="row py-4 d-flex align-items-center">
                     <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-                        Copyright © Bus Management System 2022
+                        Copyright � Bus Management System 2022
                     </div>
                     <div class="col-md-6 col-lg-7 text-center text-md-right">
                         <a class="text-white" href="/admin/login">Admin Login</a>

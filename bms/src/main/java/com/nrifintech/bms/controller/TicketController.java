@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,11 +85,26 @@ public class TicketController {
 	}
 	
 	@GetMapping("/cancel/{pnrNo}")
-	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo) {
+	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo, HttpServletResponse response,
+			HttpServletRequest request)  {
 		
-		ticketService.deleteByID(pnrNo);
-		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
-		return modelAndView;
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("isValidUser");
+		
+		if (attribute != (Object) true) {
+			return new ModelAndView("redirect:/user/login");
+		} else {
+			Ticket ticket = ticketService.getById(pnrNo);
+			int userIdOfTicket = ticket.getUser().getUserid();
+			
+			if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
+				ticketService.deleteByID(pnrNo);
+			}
+			
+			ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
+			return modelAndView;
+		}
+		
 	}
 
 }

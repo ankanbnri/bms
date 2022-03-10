@@ -109,7 +109,7 @@ public class AdminController {
 
 		if (user == null) {
 			ModelAndView uauth = new ModelAndView("AdminLogin");
-			uauth.addObject("error_msg", "Please provide correct admin email");
+			uauth.addObject("error_msg", "Please Provide Correct Credentials");
 			uauth.addObject("email", email);
 			return uauth;
 		} else {
@@ -194,7 +194,7 @@ public class AdminController {
 			List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
 
 			// DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-			String file_name = bus.getBusName() + tmrDate + ".xls";
+			String file_name = bus.getBusName() + tmrDate + ".xlsx";
 			response.setContentType("application/vnd.ms-excel");
 			response.setHeader("Content-Disposition", "attachment; filename=" + file_name);
 

@@ -102,7 +102,7 @@ public class DepartureSheetExporter {
 			
 			cell = row.createCell(5);
 			cell.setCellValue(ticket.getTotalAmount());
-			sheet.autoSizeColumn(5);
+			sheet.setColumnWidth(5, 10 * 256);
 			cell.setCellStyle(style);
 		}
 	}

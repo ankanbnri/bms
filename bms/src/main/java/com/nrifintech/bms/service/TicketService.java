@@ -22,7 +22,7 @@ import com.nrifintech.bms.repository.TicketRepository;
 
 @Service
 public class TicketService {
-	
+
 	@Autowired
 	TicketRepository ticketRepository;
 	@Autowired
@@ -31,22 +31,19 @@ public class TicketService {
 	public String generatePnrNo(Integer userId) {
 		User user = userService.getById(userId);
 		String email = user.getEmail();
-		
-		//Getting the suffix for original string
-		int idx = email.indexOf("@"); 
-		String suffix=null;
-		if (idx != -1) 
-		{
-			suffix= email.substring(0 , idx); 
+
+		// Getting the suffix for original string
+		int idx = email.indexOf("@");
+		String suffix = null;
+		if (idx != -1) {
+			suffix = email.substring(0, idx);
 		}
-		
+
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		StringBuilder str = new StringBuilder(timestamp.toString());
 		str.append(suffix);
-		
-		String sha256hex = Hashing.sha256()
-				  .hashString(str, StandardCharsets.UTF_8)
-				  .toString().substring(0, 10);
+
+		String sha256hex = Hashing.sha256().hashString(str, StandardCharsets.UTF_8).toString().substring(0, 10);
 		System.out.println("From generate pnr........");
 		System.out.println(sha256hex);
 		return sha256hex.toUpperCase();
@@ -62,9 +59,9 @@ public class TicketService {
 
 	public int getTotalSeatsByBusAndDate(Bus bus, String travelDate) throws ParseException {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = format.parse(travelDate);
-        java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
-		return ticketRepository.getTotalSeatsByBusAndDate(bus,dateOfTravel);
+		Date parsed = format.parse(travelDate);
+		java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
+		return ticketRepository.getTotalSeatsByBusAndDate(bus, dateOfTravel);
 	}
 
 	public List<Ticket> getUpcomingTicketsWithUser(User user) {
@@ -74,26 +71,24 @@ public class TicketService {
 	public List<Ticket> getOldTicketsWithUser(User user) {
 		return ticketRepository.findAllOldTicketsWithUser(user);
 	}
-	
-	public List<Ticket> findAllTicketsByBusAndDateBought(Bus bus, Date date){
+
+	public List<Ticket> findAllTicketsByBusAndDateBought(Bus bus, Date date) {
 		return ticketRepository.findAllTicketsByBusAndDateBought(bus, date);
 	}
 
 	public void deleteByID(String pnrNo) {
 		ticketRepository.deleteById(pnrNo);
 	}
-	
-	public long countTickets()
-	{
+
+	public long countTickets() {
 		return ticketRepository.count();
 	}
-	
-		
-	public List<Revenue> getRevenue(){
+
+	public List<Revenue> getRevenue() {
 		List<Revenue> list = new ArrayList<>();
 		List<Object[]> revenueDetails = ticketRepository.getRevenue();
 		revenueDetails.forEach(revRow -> {
-			Revenue revenue = new Revenue(revRow[0]+"",revRow[1]+"",revRow[2]+"",revRow[3]+"");
+			Revenue revenue = new Revenue(revRow[0] + "", revRow[1] + "", revRow[2] + "", revRow[3] + "");
 //			revenue.setRoutecode(revRow[0]+"");
 //			revenue.setSource(revRow[1]+"");
 //			revenue.setDestination(revRow[2]+"");
@@ -102,19 +97,23 @@ public class TicketService {
 		});
 		return list;
 	}
-	public List<RouteRevenue> getAllRouteRevenue(){
+
+	public List<RouteRevenue> getAllRouteRevenue() {
 		List<RouteRevenue> list = new ArrayList<>();
 		List<Object[]> revenueDetails = ticketRepository.getAllRoutesRevenue();
 		revenueDetails.forEach(revRow -> {
 			RouteRevenue revenue = new RouteRevenue();
-			revenue.setRoutecode(revRow[0]+"");
-			revenue.setSource(revRow[1]+"");
-			revenue.setDestination(revRow[2]+"");
-			revenue.setDistance(revRow[3]+"");
-			revenue.setTotalrevenue(revRow[4]+"");
+			revenue.setRoutecode(revRow[0] + "");
+			revenue.setSource(revRow[1] + "");
+			revenue.setDestination(revRow[2] + "");
+			revenue.setDistance(revRow[3] + "");
+			revenue.setTotalrevenue(revRow[4] + "");
 			list.add(revenue);
 		});
 		return list;
 	}
-	
+
+	public Ticket getById(String pnrNo) {
+		return ticketRepository.getById(pnrNo);
+	}
 }
