@@ -89,7 +89,6 @@ public class AdminController {
 			buses = busService.getBuses(AdminBusSortingUtils.REGISTRATION_NO);
 		}
 		ModelAndView mv = new ModelAndView("AdminBusInformation");
-		System.out.println(busAddMsg);
 		mv.addObject("busAddMsg", busAddMsg);
 //		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 //        String busAddMsg =  (String) flashMap.get("busAddMsg");
