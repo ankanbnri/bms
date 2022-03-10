@@ -1,3 +1,7 @@
+<%@page import="org.springframework.web.context.annotation.SessionScope"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +39,7 @@
 <!-- NAVAR AND SIDEBAR -->
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+	<%@ include file="adminSecurity.jsp"%>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
 		<a class="navbar-brand" href="index.html">Bus Management System </a>
@@ -62,7 +67,6 @@
 						class="fa fa-fw fa-wrench"></i> <span class="nav-link-text">Add
 							New Bus</span>
 				</a></li>
-				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
 					title="Example Pages"><a class="nav-link"
 					href="/admin/download/revenueReport.xlsx"
@@ -93,7 +97,7 @@
 				<div class="card-body">
 					<h5 class="card-title font-weight-bold">Add a new Bus</h5>
 					<p class="card-text">
-					<form action="/admin/saveBus" method="post">
+					<form action="/admin/addBus" method="post">
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<div class="input-group mb-3 my-auto search-element">
@@ -112,7 +116,7 @@
 										<span class="input-group-text" id="basic-addon1"><i
 											class="fas fa-bus form-icon text-bms-primary"></i></span>
 									</div>
-									<input type="text" name="busName" class="form-control"
+									<input type="text" name="busName" class="form-control" value="${bus.getBusName() }"
 										placeholder="Bus Name" aria-describedby="basic-addon1">
 								</div>
 							</div>
@@ -124,7 +128,7 @@
 										<span class="input-group-text" id="basic-addon1"><i
 											class="fas fa-chair form-icon text-bms-primary"></i></span>
 									</div>
-									<input type="number" name="seatCount" class="form-control"
+									<input type="number" name="seatCount" class="form-control" value="${bus.getSeatCount() }"
 										placeholder="Totals seats" aria-describedby="basic-addon1">
 								</div>
 							</div>
@@ -134,7 +138,7 @@
 										<span class="input-group-text" id="basic-addon1"><i
 											class="fas fa-clock form-icon text-bms-primary"></i></span>
 									</div>
-									<input type="time" name="startTimeForm" class="form-control"
+									<input type="time" name="startTimeForm" class="form-control" 
 										placeholder="Departure time" aria-describedby="basic-addon1">
 								</div>
 							</div>
@@ -146,7 +150,7 @@
 										<span class="input-group-text" id="basic-addon1"><i
 											class="fas fa-rupee-sign form-icon text-bms-primary"></i></span>
 									</div>
-									<input type="number" name="fare" class="form-control"
+									<input type="number" name="fare" class="form-control" value="${bus.getFare() }"
 										placeholder="Fare per km" aria-describedby="basic-addon1">
 								</div>
 							</div>
@@ -158,19 +162,9 @@
 									</div>
 									<select class="form-select form-control"
 										aria-label="Default select example" name="routeCode" required>
-										<option value="">Select Route</option>
-										<option value="1">1-Kolkata-Delhi</option>
-										<option value="2">2-Delhi-Kolkata</option>
-										<option value="3">3-Kolkata-Mumbai</option>
-										<option value="4">4-Mumbai-Kolkata</option>
-										<option value="5">5-Mumbai-Delhi</option>
-										<option value="6">6-Delhi-Mumbai</option>
-
-										<!-- Use forEach loop from JSTL to populate these options.   -->
-
-										<!-- <c:forEach var="route" items="${routes}">
-                                                <option value="${routeode}-${startName}-${lastName}">${startName}</option>
-                                            </c:forEach> -->
+										<c:forEach var="route" items="${routes}">
+											<option value="${route.getRouteCode()}">${route.getRouteCode()}-${route.getStartName()}-${route.getStopName()}</option>
+										</c:forEach>
 									</select>
 								</div>
 							</div>
@@ -195,46 +189,45 @@
 						</div>
 						<button type="submit" class="btn btn-add">ADD BUS</button>
 					</form>
-
-					</p>
 				</div>
 			</div>
+		</div>
 
-			<footer class="sticky-footer">
-				<div class="container">
-					<div class="text-center">
-						<small>Copyright © Bus Management System 2022</small>
-					</div>
+		<footer class="sticky-footer">
+			<div class="container">
+				<div class="text-center">
+					<small>Copyright � Bus Management System 2022</small>
 				</div>
-			</footer>
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top"> <i
-				class="fa fa-angle-up"></i>
-			</a>
-			<!-- Logout Modal-->
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Ready to
-								Leave?</h5>
-							<button class="close" type="button" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">Select "Logout" below if you are
-							ready to end your current session.</div>
-						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button"
-								data-dismiss="modal">Cancel</button>
-							<a class="btn btn-primary" href="/admin/login">Logout</a>
-						</div>
+			</div>
+		</footer>
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fa fa-angle-up"></i>
+		</a>
+		<!-- Logout Modal-->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to
+							Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are
+						ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="/admin/login">Logout</a>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 
 

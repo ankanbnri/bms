@@ -39,24 +39,25 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 	<%@ include file="adminSecurity.jsp"%>
-	
-	<c:url var="sortLinkRegistrationNumber" value="/admin/displayBusInformation">
+
+	<c:url var="sortLinkRegistrationNumber"
+		value="/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.REGISTRATION_NO)%>" />
 	</c:url>
-		<c:url var="sortLinkBusName" value="/admin/displayBusInformation">
+	<c:url var="sortLinkBusName" value="/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.BUS_NAME)%>" />
 	</c:url>
-		<c:url var="sortLinkSeatCount" value="/admin/displayBusInformation">
+	<c:url var="sortLinkSeatCount" value="/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.SEAT_COUNT)%>" />
 	</c:url>
-		<c:url var="sortLinkFare" value="/admin/displayBusInformation">
+	<c:url var="sortLinkFare" value="/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.FARE)%>" />
 	</c:url>
-		<c:url var="sortLinkStatus" value="/admin/displayBusInformation">
+	<c:url var="sortLinkStatus" value="/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.IS_ACTIVE)%>" />
 	</c:url>
@@ -83,16 +84,16 @@
 							Bus Information</span>
 				</a>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Tables"><a class="nav-link" href="/admin/addBus">
-						<i class="fa fa-fw fa-wrench"></i> <span class="nav-link-text">Add
+					title="Tables"><a class="nav-link" href="/admin/addBus"> <i
+						class="fa fa-fw fa-wrench"></i> <span class="nav-link-text">Add
 							New Bus</span>
 				</a></li>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
 					title="Example Pages"><a class="nav-link"
-					href="/admin/download/revenueReport.xlsx" data-parent="#exampleAccordion"> <i
-						class="fa fa-fw fa-file"></i> <span class="nav-link-text">Generate
-							Revenue Report</span>
+					href="/admin/download/revenueReport.xlsx"
+					data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
+						<span class="nav-link-text">Generate Revenue Report</span>
 				</a></li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
@@ -116,17 +117,31 @@
 				<div class="card-header">
 					<i class="fa fa-table"></i> Bus Information
 				</div>
+				<%-- <div class="alert alert-warning alert-dismissible fade show"
+					role="alert">
+					${busAddMsg }
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div> --%>
 				<div class="card-body">
 					<table class="table align-middle mb-0 bg-white">
 						<thead class="bg-light">
 							<tr>
-								<th><a href="${sortLinkRegistrationNumber}">Registration number<i class="fas fa-sort"></i></a></th>
-								<th><a href="${sortLinkBusName}">Bus Name<i class="fas fa-sort"></i></a></th>
+								<th><a href="${sortLinkRegistrationNumber}">Registration
+										number<i class="fas fa-sort"></i>
+								</a></th>
+								<th><a href="${sortLinkBusName}">Bus Name<i
+										class="fas fa-sort"></i></a></th>
 								<th>From</th>
 								<th>To</th>
-								<th><a href="${sortLinkSeatCount}">Seat Count<i class="fas fa-sort"></i></a></th>
-								<th><a href="${sortLinkFare}">Fare(per KM)<i class="fas fa-sort"></i></a></th>
-								<th><a href="${sortLinkStatus}">Status<i class="fas fa-sort"></i></a></th>
+								<th><a href="${sortLinkSeatCount}">Seat Count<i
+										class="fas fa-sort"></i></a></th>
+								<th><a href="${sortLinkFare}">Fare(per KM)<i
+										class="fas fa-sort"></i></a></th>
+								<th><a href="${sortLinkStatus}">Status<i
+										class="fas fa-sort"></i></a></th>
 								<th>Actions</th>
 							</tr>
 						</thead>

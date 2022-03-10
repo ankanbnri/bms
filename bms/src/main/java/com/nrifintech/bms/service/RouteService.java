@@ -33,9 +33,10 @@ public class RouteService {
 	{
 		return repository.count();
 	}
-
 	
-	
+	public List<Route> findAll(){
+		return repository.findAll();
+	}
 	
 	
 }

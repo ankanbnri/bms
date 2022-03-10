@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.entity.Route;
@@ -78,7 +80,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/displayBusInformation")
-	public ModelAndView displayBusInformation(@RequestParam(required = false, name = "sort") String sort) {
+	public ModelAndView displayBusInformation(@RequestParam(required = false, name = "sort") String sort, HttpServletRequest request) {
 		List<Bus> buses = null;
 		if (sort != null) {
 			int theSortField = Integer.parseInt(sort);
@@ -87,6 +89,8 @@ public class AdminController {
 			buses = busService.getBuses(AdminBusSortingUtils.REGISTRATION_NO);
 		}
 		ModelAndView mv = new ModelAndView("AdminBusInformation");
+//		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+//        String busAddMsg =  (String) flashMap.get("busAddMsg");
 		Date today = new Date();
 		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
 		String tmrDate = tomorrow.toString().substring(0, 10);
@@ -96,6 +100,7 @@ public class AdminController {
 		} else {
 			mv.addObject("busFound", true);
 			mv.addObject("buses", buses);
+//			mv.addObject("busAddMsg", busAddMsg);
 		}
 		return mv;
 	}
@@ -208,21 +213,28 @@ public class AdminController {
 		@GetMapping("/addBus")
 		public ModelAndView welcomeUser() {
 			ModelAndView mv= new ModelAndView("AdminAddBus");
+			List<Route> routes = routeService.findAll();
+			mv.addObject("routes", routes);
 			return mv;
 		}
 	
      // For saving the data in database after getting from form
-	@PostMapping("/saveBus")
-	public ModelAndView addUser(@ModelAttribute("bus") Bus bus, @ModelAttribute("startTimeForm") String startTimeForm , @ModelAttribute("routeCode") int routeCode )
+	@PostMapping("/addBus")
+	public ModelAndView addBus(@ModelAttribute("bus") Bus bus, @ModelAttribute("startTimeForm") String startTimeForm , @ModelAttribute("routeCode") int routeCode, RedirectAttributes redirectAttributes )
 	{
 		Bus busExists = busService.findByRegistrationNo(bus.getRegistrationNo());
 		if(busExists != null) {
-			ModelAndView uauth = new ModelAndView("AdminAddBus");
-			uauth.addObject("error_msg", "Already registered bus with this Registration Number!");
-			return uauth;
+			ModelAndView mv = new ModelAndView("AdminAddBus");
+			System.out.println(bus);
+			mv.addObject("bus",bus);
+			List<Route> routes = routeService.findAll();
+			mv.addObject("routes", routes);
+			mv.addObject("error_msg", "Already registered bus with this Registration Number!");
+			return mv;
 		}
 		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/displayBusInformation");
-		
+//		String msg = "Success";
+//		redirectAttributes.addFlashAttribute("busAddMsg", msg );
 		Route route = routeService.getById(routeCode);
 		bus.setRoute(route);
 		bus.setActiveStatus(BusActiveStatus.YES);

@@ -15,5 +15,7 @@ public interface RouteRepository extends AbstractBaseRepository<Route, Integer>{
 	
 	@Query("SELECT DISTINCT r.stopName FROM Route r")
 	List<String> findDistinctRouteStopName();
+	
+	List<Route> findAll();
 
 }
