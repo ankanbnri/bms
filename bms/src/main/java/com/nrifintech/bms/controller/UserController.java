@@ -139,7 +139,11 @@ public class UserController {
 	}
 	
 	@GetMapping("/myTickets")
-	public ModelAndView showTickets(HttpServletRequest request) {
+	public ModelAndView showTickets(HttpServletRequest request,@ModelAttribute("bookedTicket") Ticket ticket,
+			@ModelAttribute("pnrNo") String pnrNo,
+			@ModelAttribute("source") String source,
+			@ModelAttribute("dest") String dest,
+			@ModelAttribute("date") String date) {
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("userid")==null) {
@@ -153,6 +157,11 @@ public class UserController {
 			List<Ticket> oldTickets = ticketService.getOldTicketsWithUser(user);
 			
 			ModelAndView modelAndView = new ModelAndView("myTickets");
+			modelAndView.addObject("bookedTicket", ticket);
+			modelAndView.addObject("pnrNo", pnrNo);
+			modelAndView.addObject("source", source);
+			modelAndView.addObject("dest", dest);
+			modelAndView.addObject("date", date);
 			
 			// Setting upcoming tickets
 			if(upcomingTickets.size()>0) {

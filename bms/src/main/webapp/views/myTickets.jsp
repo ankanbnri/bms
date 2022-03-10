@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,11 +44,36 @@
 
 	<!-- NAVBAR -->
 	<%@ include file="userNavbar.jsp"%>
-
+	
+	<section class="container">
+		<c:if test="${fn:length(pnrNo) > 0}">
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				  Your ticket from <b>${source}</b> to <b>${dest}</b> on <b>${date}</b> with PNR No: <b>${pnrNo}</b> is cancelled successfully.
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		</c:if>
+		<c:if test="${fn:length(bookedTicket.getPnrNo()) > 0}">
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<div class="book-success-mssg">
+				  <strong>Success!</strong> Your ticket from <b>${bookedTicket.getBus().getRoute().getStartName()}</b>
+				  to <b>${bookedTicket.getBus().getRoute().getStopName()}</b> on <b>${bookedTicket.getDateOfTravel()}</b> with 
+				  <b>${bookedTicket.getSeatsBooked()}</b> seats is booked successfully.
+				  <p>PNR No: <b>${bookedTicket.getPnrNo()}</b><br/>
+				  Bus Number: <b>${bookedTicket.getBus().getRegistrationNo()}</b></p>
+				</div>
+				<div>Please find your ticket below.</div>
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		</c:if>
+	</section>
 	<!-- UPCOMING TICKET SECTION -->
 	<section class="container upcoming-ticket-parent">
 		<div class="row">
-			<h3>Upcoming Tickets</h3>
+			<h3>Upcoming Tickets </h3>
 		</div>
 		<c:choose>
 			<c:when test="${upcomingTicketFound}">
@@ -277,7 +303,7 @@
 							Your ticket from <b>${upcomingTicket.getBus().getRoute().getStartName()}</b>
 							to <b>${upcomingTicket.getBus().getRoute().getStopName()}</b> on
 							<b>${upcomingTicket.getDateOfTravel()}</b> with PNR No. <span
-								class="modal-body-pnr">${upcomingTicket.getPnrNo()}</span> will
+								class="text-red">${upcomingTicket.getPnrNo()}</span> will
 							be cancelled.
 						</div>
 						<div class="modal-footer">

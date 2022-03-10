@@ -16,9 +16,9 @@ section{
 .expired-ticket-parent{
 	margin-bottom: 10vh;
 }
+
 .details {
     margin-top: 1vh;
-    width: 100%;
   }
 
   #pnr{
@@ -33,8 +33,11 @@ section{
 	opacity: 0.7;
 }
 
-.modal-body-pnr{
+.text-red{
 	 color: red;
+}
+.book-success-mssg{
+	border-bottom: 1px solid black;
 }
 .modal-body{
 	padding: 2rem;

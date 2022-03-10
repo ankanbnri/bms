@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.entity.Ticket;
@@ -57,7 +58,8 @@ public class TicketController {
 	@PostMapping("/bookTicket/{regNo}/{travelDate}")
 	public ModelAndView saveBookingInfo(@PathVariable("regNo") String regNo,
 			@PathVariable("travelDate") String travelDate, @ModelAttribute("ticket") Ticket ticket,
-			HttpServletRequest request) throws ParseException {
+			HttpServletRequest request,
+			RedirectAttributes redirectAttributes) throws ParseException {
 
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userid");
@@ -81,12 +83,15 @@ public class TicketController {
 				ticket.getTotalAmount());
 		emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString());
 		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
+		redirectAttributes.addFlashAttribute("bookedTicket",ticket);
 		return modelAndView;
 	}
 	
 	@GetMapping("/cancel/{pnrNo}")
-	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo, HttpServletResponse response,
-			HttpServletRequest request)  {
+	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo,
+			HttpServletResponse response,
+			HttpServletRequest request,
+			RedirectAttributes redirectAttributes)  {
 		
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("isValidUser");
@@ -96,6 +101,10 @@ public class TicketController {
 		} else {
 			Ticket ticket = ticketService.getById(pnrNo);
 			int userIdOfTicket = ticket.getUser().getUserid();
+			redirectAttributes.addFlashAttribute("pnrNo",ticket.getPnrNo());
+			redirectAttributes.addFlashAttribute("source",ticket.getBus().getRoute().getStartName());
+			redirectAttributes.addFlashAttribute("dest",ticket.getBus().getRoute().getStopName());
+			redirectAttributes.addFlashAttribute("date",ticket.getDateOfTravel());
 			
 			if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
 				ticketService.deleteByID(pnrNo);
