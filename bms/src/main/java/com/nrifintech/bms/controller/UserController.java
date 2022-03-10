@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.service.UserService;
@@ -50,7 +51,7 @@ public class UserController {
 		ModelAndView mv = new ModelAndView("UserAuth");
 		return mv;
 	}
-
+	
 	@PostMapping("/login")
 	public ModelAndView doLogin(HttpServletRequest request, Model model) {
 		String email = request.getParameter("email");
@@ -185,9 +186,17 @@ public class UserController {
 			uauth.addObject("error_msg", "Already registered user with this mobile number.Please Login.");
 			return uauth;
 		}
-		ModelAndView modelAndView = new ModelAndView("redirect:/user/login");
+		ModelAndView modelAndView = new ModelAndView("successPage");
+		modelAndView.addObject("name", user.getName());
 		user.setPassword(userService.encrypt(user.getPassword()));
 		userService.save(user);
 		return modelAndView;
 	}
+	
+	@GetMapping("/signUp")
+	public ModelAndView signup() {
+		ModelAndView mv = new ModelAndView("UserAuth");
+		return mv;
+	}
+
 }
