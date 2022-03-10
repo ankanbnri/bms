@@ -124,9 +124,10 @@
 										<span class="input-group-text" id="basic-addon1"><i
 											class="fas fa-chair form-icon text-bms-primary"></i></span>
 									</div>
-									<input type="number" name="seatCount" class="form-control"
-										placeholder="Totals seats" aria-describedby="basic-addon1">
+									<input type="number" name="seatCount" class="form-control" id="totalSeats"
+										placeholder="Totals seats" min="20" value="20" aria-describedby="basic-addon1">
 								</div>
+									
 							</div>
 							<div class="form-group col-md-6">
 								<div class="input-group mb-3 my-auto search-element">
@@ -190,13 +191,16 @@
 									class="badge badge-primary">NON AC</span></label>
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<div class="text-danger" id="seat_error"></div>
+						</div>
+						
 						<div class="pass-link text-center">
 							<span class="text-danger">${error_msg }</span>
 						</div>
-						<button type="submit" class="btn btn-add">ADD BUS</button>
+						<button type="submit" class="btn btn-add" id="add-btn">ADD BUS</button>
 					</form>
-
-					</p>
 				</div>
 			</div>
 
@@ -235,6 +239,7 @@
 				</div>
 			</div>
 		</div>
+		<script src="/js/adminAddBus.js"></script>
 </body>
 
 

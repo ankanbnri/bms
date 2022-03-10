@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -194,7 +193,7 @@ public class AdminController {
 			List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
 
 			// DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-			String file_name = bus.getBusName() + tmrDate + ".xls";
+			String file_name = bus.getBusName() + tmrDate + ".xlsx";
 			response.setContentType("application/vnd.ms-excel");
 			response.setHeader("Content-Disposition", "attachment; filename=" + file_name);
 

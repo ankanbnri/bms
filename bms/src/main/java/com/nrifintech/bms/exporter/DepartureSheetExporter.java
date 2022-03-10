@@ -39,28 +39,24 @@ public class DepartureSheetExporter {
 		style.setFont(font);
 		style.setFillForegroundColor(IndexedColors.AQUA.getIndex());
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		
+				
 		Cell cell = row.createCell(0);
-		cell.setCellValue("User ID");	
-		cell.setCellStyle(style);
-		
-		cell = row.createCell(1);
 		cell.setCellValue("PNR Number");
 		cell.setCellStyle(style);
 		
-		cell = row.createCell(2);
+		cell = row.createCell(1);
 		cell.setCellValue("Name");
 		cell.setCellStyle(style);
 		
-		cell = row.createCell(3);
+		cell = row.createCell(2);
 		cell.setCellValue("Seats Booked");
 		cell.setCellStyle(style);
 		
-		cell = row.createCell(4);
+		cell = row.createCell(3);
 		cell.setCellValue("Date of bought");
 		cell.setCellStyle(style);
 		
-		cell = row.createCell(5);
+		cell = row.createCell(4);
 		cell.setCellValue("Fare");
 		cell.setCellStyle(style);
 	}
@@ -76,34 +72,30 @@ public class DepartureSheetExporter {
 			Row row = sheet.createRow(rowCount++);
 			
 			Cell cell = row.createCell(0);
-			cell.setCellValue(ticket.getUser().getUserid());
+			cell.setCellValue(ticket.getPnrNo());
 			sheet.autoSizeColumn(0);
 			cell.setCellStyle(style);
 			
 			cell = row.createCell(1);
-			cell.setCellValue(ticket.getPnrNo());
+			cell.setCellValue(ticket.getUser().getName());
 			sheet.autoSizeColumn(1);
 			cell.setCellStyle(style);
 			
 			cell = row.createCell(2);
-			cell.setCellValue(ticket.getUser().getName());
+			cell.setCellValue(ticket.getSeatsBooked());
 			sheet.autoSizeColumn(2);
 			cell.setCellStyle(style);
 			
 			cell = row.createCell(3);
-			cell.setCellValue(ticket.getSeatsBooked());
+			cell.setCellValue(ticket.getDateBought().toString());
 			sheet.autoSizeColumn(3);
 			cell.setCellStyle(style);
 			
 			cell = row.createCell(4);
-			cell.setCellValue(ticket.getDateBought().toString());
-			sheet.autoSizeColumn(4);
+			cell.setCellValue(ticket.getTotalAmount());
+			sheet.setColumnWidth(4, 10 * 256);
 			cell.setCellStyle(style);
 			
-			cell = row.createCell(5);
-			cell.setCellValue(ticket.getTotalAmount());
-			sheet.autoSizeColumn(5);
-			cell.setCellStyle(style);
 		}
 	}
 	public void export(HttpServletResponse response) throws IOException{

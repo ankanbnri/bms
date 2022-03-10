@@ -41,10 +41,7 @@ public class UserService {
 	}
 
 	public void save(User user) {
-
-		// set email to lowercase and save
 		String email = user.getEmail().toLowerCase();
-		// System.out.println(email);
 		user.setEmail(email);
 		userRepo.save(user);
 	}

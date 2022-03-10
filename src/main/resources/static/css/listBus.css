@@ -1,0 +1,56 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+}
+body{
+	padding: 0 0 70px;
+    position: relative;
+}
+.row {
+  font-size: 18px;
+}
+.busFound {
+  color: #3e3e52;
+}
+.result-page {
+  padding-top: 15vh;
+  padding-left: 4vh;
+}
+.details {
+  /* display: flex; */
+  margin-top: 5vh;
+  height: 120px;
+  width: 100%;
+  background-color: #f0f3f5;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 10px;
+  /* background-color: #fff1ce; */
+}
+
+a{
+	color: black;
+}
+a:hover{
+	text-decoration: none;
+	color: black;
+}
+.no-bus-found-parent{
+    margin: 10%;
+}
+.no-bus-found-parent .card{
+    width: 36rem;
+    border: 1px solid #BFBFBF;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+footer{
+	bottom: 0;
+    height: 70px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+	
+}

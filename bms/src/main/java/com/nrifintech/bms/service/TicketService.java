@@ -1,6 +1,5 @@
 package com.nrifintech.bms.service;
 
-import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -47,18 +46,12 @@ public class TicketService {
 		String sha256hex = Hashing.sha256()
 				  .hashString(str, StandardCharsets.UTF_8)
 				  .toString().substring(0, 10);
-		System.out.println("From generate pnr........");
-		System.out.println(sha256hex);
 		return sha256hex.toUpperCase();
 	}
 
 	public void save(Ticket ticket) {
 		ticketRepository.save(ticket);
 	}
-
-//	public List<Ticket> getTicketsWithUser(User user) {
-//		return ticketRepository.findAllTicketsWithUser(user); 
-//	}
 
 	public int getTotalSeatsByBusAndDate(Bus bus, String travelDate) throws ParseException {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -94,10 +87,6 @@ public class TicketService {
 		List<Object[]> revenueDetails = ticketRepository.getRevenue();
 		revenueDetails.forEach(revRow -> {
 			Revenue revenue = new Revenue(revRow[0]+"",revRow[1]+"",revRow[2]+"",revRow[3]+"");
-//			revenue.setRoutecode(revRow[0]+"");
-//			revenue.setSource(revRow[1]+"");
-//			revenue.setDestination(revRow[2]+"");
-//			revenue.setTotalrevenue(revRow[3]+"");
 			list.add(revenue);
 		});
 		return list;
