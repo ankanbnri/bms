@@ -101,7 +101,7 @@ public class TicketController {
 		if (attribute != (Object) true) {
 			return new ModelAndView("redirect:/user/login");
 		} else {
-			Optional<Ticket> optionalTicket = ticketService.getById(pnrNo);
+			Optional<Ticket> optionalTicket = ticketService.findById(pnrNo);
 			Ticket ticket;
 			if (optionalTicket.isPresent()) {
 			    ticket = optionalTicket.get();

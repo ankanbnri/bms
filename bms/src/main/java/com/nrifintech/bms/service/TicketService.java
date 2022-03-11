@@ -116,7 +116,7 @@ public class TicketService {
 		return list;
 	}
 
-	public Optional<Ticket> getById(String pnrNo) {
+	public Optional<Ticket> findById(String pnrNo) {
 		return ticketRepository.findById(pnrNo);
 	}
 }
