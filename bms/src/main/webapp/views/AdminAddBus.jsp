@@ -181,7 +181,7 @@
 							</div>
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" name="facilities"
-									id="inlineRadio2" value="NONAC"> <label
+									id="inlineRadio2" value="NONAC" checked> <label
 									class="form-check-label" for="inlineRadio2"><span
 									class="badge badge-primary">NON AC</span></label>
 							</div>

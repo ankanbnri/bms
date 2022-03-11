@@ -56,7 +56,7 @@
 			<!-- Found Buses Details -->
 			<section class="container" id="listsection">
 				<c:forEach var="bus" items="${buses}">
-					<a
+					<a  
 						href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
 						<div class="d-flex justify-content-between card-body details">
 							<div class="col-sm-2 text-center my-auto">

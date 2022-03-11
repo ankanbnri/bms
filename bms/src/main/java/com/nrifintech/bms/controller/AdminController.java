@@ -211,13 +211,13 @@ public class AdminController {
 	}
 
 	// For calling admin add bus form
-		@GetMapping("/addBus")
-		public ModelAndView welcomeUser() {
-			ModelAndView mv= new ModelAndView("AdminAddBus");
-			List<Route> routes = routeService.findAll();
-			mv.addObject("routes", routes);
-			return mv;
-		}
+	@GetMapping("/addBus")
+	public ModelAndView welcomeUser() {
+		ModelAndView mv= new ModelAndView("AdminAddBus");
+		List<Route> routes = routeService.findAll();
+		mv.addObject("routes", routes);
+		return mv;
+	}
 	
      // For saving the data in database after getting from form
 	@PostMapping("/addBus")
@@ -230,7 +230,7 @@ public class AdminController {
 			mv.addObject("bus",bus);
 			List<Route> routes = routeService.findAll();
 			mv.addObject("routes", routes);
-			mv.addObject("error_msg", "Already registered bus with this Registration Number!");
+			mv.addObject("error_msg", "Registration number already exists!");
 			return mv;
 		}
 		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/displayBusInformation");

@@ -129,7 +129,7 @@
 		<div class="modal-dialog modal-dialog-centered"  role="document">
 			<div class="modal-content d-flex justify-content-center align-items-center" style="background-color: transparent; border: none">
 				<div class="modal-header" style="background-color: transparent; border: none">
-					<img id="spinner" style="border: 2px solid black" alt="spinner" src="/images/spinner.gif"/>
+					<img id="spinner" style="width: 250px" alt="spinner" src="/images/loading.gif"/>
 				</div>
 			</div>
 		</div>
