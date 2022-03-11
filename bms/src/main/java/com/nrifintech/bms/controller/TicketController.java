@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -99,18 +101,27 @@ public class TicketController {
 		if (attribute != (Object) true) {
 			return new ModelAndView("redirect:/user/login");
 		} else {
-			Ticket ticket = ticketService.getById(pnrNo);
-			int userIdOfTicket = ticket.getUser().getUserid();
+			Optional<Ticket> optionalTicket = ticketService.getById(pnrNo);
+			Ticket ticket;
+			if (optionalTicket.isPresent()) {
+			    ticket = optionalTicket.get();
+			} else {
+				ticket = null;
+			}
 			
-			if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
-				redirectAttributes.addFlashAttribute("pnrNo",ticket.getPnrNo());
-				redirectAttributes.addFlashAttribute("source",ticket.getBus().getRoute().getStartName());
-				redirectAttributes.addFlashAttribute("dest",ticket.getBus().getRoute().getStopName());
-				redirectAttributes.addFlashAttribute("date",ticket.getDateOfTravel());
-				redirectAttributes.addFlashAttribute("validCancel","YES");
-				ticketService.deleteByID(pnrNo);
-			}else {
-				redirectAttributes.addFlashAttribute("validCancel","NO");
+			if(ticket != null) {
+				int userIdOfTicket = ticket.getUser().getUserid();
+				
+				if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
+					redirectAttributes.addFlashAttribute("pnrNo",ticket.getPnrNo());
+					redirectAttributes.addFlashAttribute("source",ticket.getBus().getRoute().getStartName());
+					redirectAttributes.addFlashAttribute("dest",ticket.getBus().getRoute().getStopName());
+					redirectAttributes.addFlashAttribute("date",ticket.getDateOfTravel());
+					redirectAttributes.addFlashAttribute("validCancel","YES");
+					ticketService.deleteByID(pnrNo);
+				}else {
+					redirectAttributes.addFlashAttribute("validCancel","NO");
+				}
 			}
 			
 			ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
