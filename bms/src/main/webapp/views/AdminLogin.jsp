@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -25,10 +25,26 @@
 </head>
 
 <body>
-	
-	<c:if test="${sessionScope.isValidAdmin == true}">
+
+	<%-- <c:if test="${sessionScope.isValidAdmin == true}">
 		<%response.sendRedirect(request.getContextPath()+"/admin/dashboard");%>
-	</c:if>
+	</c:if> --%>
+
+	<c:choose>
+		<c:when test="${sessionScope.isValidUser == true}">
+			<%
+			System.out.println("inside admin");
+			%>
+			<%
+			response.sendRedirect(request.getContextPath() + "/user/searchBus");
+			%>
+		</c:when>
+		<c:when test="${sessionScope.isValidAdmin == true}">
+			<%
+			response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+			%>
+		</c:when>
+	</c:choose>
 
 	<div class="wrapper">
 		<div class="title-text">
@@ -40,12 +56,12 @@
 			<div class="form-inner">
 				<form action="login" class="login" method="post">
 					<div class="field">
-						<input type="email" id="email" name="email" placeholder="Email Address" value="${email }"
-							required>
+						<input type="email" id="email" name="email"
+							placeholder="Email Address" value="${email }" required>
 					</div>
 					<div class="field">
-						<input type="password" id="password" name="password" placeholder="Password"
-							required>
+						<input type="password" id="password" name="password"
+							placeholder="Password" required>
 					</div>
 					<div class="pass-link text-center">
 						<span class="text-danger">${error_msg }</span>

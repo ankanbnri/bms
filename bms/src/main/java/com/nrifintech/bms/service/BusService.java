@@ -47,9 +47,13 @@ public class BusService {
 			return repository.findAll(Sort.by("seatCount"));
 		else if (theSortField == AdminBusSortingUtils.IS_ACTIVE)
 			return repository.findAll(Sort.by("activeStatus"));
+		else if (theSortField == AdminBusSortingUtils.FROM)
+			return repository.findAll(Sort.by("route.startName"));
+		else if (theSortField == AdminBusSortingUtils.TO)
+			return repository.findAll(Sort.by("route.stopName"));
 		return repository.findAll(Sort.by("registrationNo"));
 	}
-
+	
 	public void setAllAvailableSeatsForDate(List<Bus> buses, String travelDate) throws ParseException {
 		int availableSeats;
 		for (Bus bus : buses) {

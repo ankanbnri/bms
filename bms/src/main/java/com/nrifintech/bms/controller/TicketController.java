@@ -107,11 +107,13 @@ public class TicketController {
 		ticket.setBus(bus);
 		ticket.setUser(user);
 		ticketService.save(ticket);
-		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate(user.getName(),ticket.getPnrNo(),
-				ticket.getDateBought().toString(), ticket.getDateOfTravel().toString(), bus.getRegistrationNo(),
-				bus.getBusName(), bus.getFacilities().toString(), bus.getStartTime().toString(),
-				bus.getRoute().getStartName(), bus.getRoute().getStopName(), ticket.getSeatsBooked(),
-				ticket.getTotalAmount());
+		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate.TicketEmailTemplateBuilder(ticket.getPnrNo(),
+				ticket.getSeatsBooked()).busName(bus.getBusName()).dateBought(ticket.getDateBought().toString())
+						.dateofTravel(ticket.getDateOfTravel().toString()).name(user.getName())
+						.registrationNo(bus.getRegistrationNo()).busName(bus.getBusName())
+						.facilities(bus.getFacilities().toString()).startTime(bus.getStartTime().toString())
+						.startName(bus.getRoute().getStartName()).totalPaid(ticket.getTotalAmount())
+						.stopName(bus.getRoute().getStopName()).build();
 		emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString());
 		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
 		redirectAttributes.addFlashAttribute("bookedTicket",ticket);

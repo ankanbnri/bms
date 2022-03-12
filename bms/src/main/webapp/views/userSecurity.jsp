@@ -3,7 +3,19 @@
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 		response.setHeader("Expires", "0"); // Proxies
 %>
-	
+<%-- <c:if test="${sessionScope.isValidAdmin == true}">
+	<% System.out.println("inside admin"); %>
+	<%response.sendRedirect(request.getContextPath()+"/admin/dashboard");%>
+</c:if>	
 <c:if test="${sessionScope.isValidUser != true}">
 	<%response.sendRedirect(request.getContextPath()+"/user/login");%>
-</c:if>
+</c:if> --%>
+
+<c:choose>
+	<c:when test="${sessionScope.isValidAdmin == true}">
+		<%response.sendRedirect(request.getContextPath()+"/admin/dashboard");%>
+	</c:when>
+	<c:when test="${sessionScope.isValidUser != true}">
+		<%response.sendRedirect(request.getContextPath()+"/user/login");%>
+	</c:when>
+</c:choose>
