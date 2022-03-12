@@ -60,6 +60,14 @@
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.IS_ACTIVE)%>" />
 	</c:url>
+	<c:url var="sortLinkFrom" value="/admin/displayBusInformation">
+		<c:param name="sort"
+			value="<%=Integer.toString(AdminBusSortingUtils.FROM)%>" />
+	</c:url>
+	<c:url var="sortLinkTo" value="/admin/displayBusInformation">
+		<c:param name="sort"
+			value="<%=Integer.toString(AdminBusSortingUtils.TO)%>" />
+	</c:url>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
 		<a class="navbar-brand" href="index.html">Bus Management System </a>
@@ -120,13 +128,21 @@
 					<table class="table align-middle mb-0 bg-white">
 						<thead class="bg-light">
 							<tr>
-								<th><a href="${sortLinkRegistrationNumber}">Registration number<i class="fas fa-sort"></i></a></th>
-								<th><a href="${sortLinkBusName}">Bus Name<i class="fas fa-sort"></i></a></th>
-								<th>From</th>
-								<th>To</th>
-								<th><a href="${sortLinkSeatCount}">Seat Count<i class="fas fa-sort"></i></a></th>
-								<th><a href="${sortLinkFare}">Fare(per KM)<i class="fas fa-sort"></i></a></th>
-								<th><a href="${sortLinkStatus}">Status<i class="fas fa-sort"></i></a></th>
+								<th title="Sort Alphabetically By Registration Number"><a href="${sortLinkRegistrationNumber}">Registration
+										number<i class="fas fa-sort"></i>
+								</a></th>
+								<th title="Sort Alphabetically By Bus Name"><a href="${sortLinkBusName}">Bus Name<i
+										class="fas fa-sort"></i></a></th>
+								<th title="Sort Alphabetically By Sourcer"><a href="${sortLinkFrom}">From<i
+										class="fas fa-sort"></i></a></th>
+								<th title="Sort Alphabetically By Destination"><a href="${sortLinkTo}">To<i
+										class="fas fa-sort"></i></a></th>
+								<th title="Sort By Seat Count"><a href="${sortLinkSeatCount}">Seat Count<i
+										class="fas fa-sort"></i></a></th>
+								<th title="Sort By Fare"><a href="${sortLinkFare}">Fare(per KM)<i
+										class="fas fa-sort"></i></a></th>
+								<th title="Show Disabled Buses First"><a href="${sortLinkStatus}">Status<i
+										class="fas fa-sort"></i></a></th>
 								<th>Actions</th>
 							</tr>
 						</thead>
