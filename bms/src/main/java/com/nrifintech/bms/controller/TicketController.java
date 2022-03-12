@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,11 +26,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.entity.User;
+import com.nrifintech.bms.model.PaytmDetails;
 import com.nrifintech.bms.service.BusService;
 import com.nrifintech.bms.service.EmailSenderService;
 import com.nrifintech.bms.service.TicketService;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.TicketEmailTemplate;
+
+import com.paytm.pg.merchant.PaytmChecksum;
 
 @Controller
 @RequestMapping("/ticket")
@@ -41,6 +46,8 @@ public class TicketController {
 	TicketService ticketService;
 	@Autowired
 	private EmailSenderService emailSenderService;
+	@Autowired
+	private PaytmDetails paytmDetails;
 
 	@GetMapping("/bookTicket/{regNo}/{travelDate}/{availableSeats}")
 	public ModelAndView showBookingInfo(@PathVariable("regNo") String regNo,
@@ -106,27 +113,75 @@ public class TicketController {
 		ticket.setBus(bus);
 		ticket.setUser(user);
 		request.setAttribute("ticket", ticket);
-		ModelAndView modelAndView = new ModelAndView("forward:/ticket/payment");
-		redirectAttributes.addFlashAttribute("bookedTicket", ticket);
+		ModelAndView modelAndView = new ModelAndView("forward:/ticket/paymentProcessing");
 		return modelAndView;
 	}
 
-	@PostMapping("/payment")
-	public ModelAndView paymentRedirect(@RequestAttribute("ticket") Ticket ticket,
-			RedirectAttributes redirectAttributes) {
-		System.out.println("in payment");
-		ticketService.save(ticket);
-		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate.TicketEmailTemplateBuilder(ticket.getPnrNo(),
-				ticket.getSeatsBooked()).busName(ticket.getBus().getBusName())
-						.dateBought(ticket.getDateBought().toString()).dateofTravel(ticket.getDateOfTravel().toString())
-						.name(ticket.getUser().getName()).registrationNo(ticket.getBus().getRegistrationNo())
-						.busName(ticket.getBus().getBusName()).facilities(ticket.getBus().getFacilities().toString())
-						.startTime(ticket.getBus().getStartTime().toString())
-						.startName(ticket.getBus().getRoute().getStartName()).totalPaid(ticket.getTotalAmount())
-						.stopName(ticket.getBus().getRoute().getStopName()).build();
-		emailSenderService.sendEmail(ticket.getUser().getEmail(), ticketTemplate.toString());
-		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
-		redirectAttributes.addFlashAttribute("bookedTicket", ticket);
+	@PostMapping("/paymentProcessing")
+	public ModelAndView paymentRedirect(@RequestAttribute("ticket") Ticket ticket, HttpServletRequest request)
+			throws Exception {
+		System.out.println("in payment processing");
+		ModelAndView modelAndView = new ModelAndView("redirect:" + paytmDetails.getPaytmUrl());
+		TreeMap<String, String> parameters = new TreeMap<>();
+		paytmDetails.getDetails().forEach((k, v) -> parameters.put(k, v));
+		parameters.put("MOBILE_NO", "8961249128");
+		parameters.put("EMAIL", "beingakscool@gmail.com");
+		parameters.put("ORDER_ID", ticket.getPnrNo());
+		parameters.put("TXN_AMOUNT", String.valueOf(ticket.getTotalAmount()));
+		parameters.put("CUST_ID", String.valueOf(ticket.getUser().getUserid()));
+		String checkSum = getCheckSum(parameters);
+		parameters.put("CHECKSUMHASH", checkSum);
+		modelAndView.addAllObjects(parameters);
+		HttpSession session = request.getSession();
+		session.setAttribute("ticket", ticket);
+		return modelAndView;
+//		ticketService.save(ticket);
+//		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate.TicketEmailTemplateBuilder(ticket.getPnrNo(),
+//				ticket.getSeatsBooked()).busName(ticket.getBus().getBusName())
+//						.dateBought(ticket.getDateBought().toString()).dateofTravel(ticket.getDateOfTravel().toString())
+//						.name(ticket.getUser().getName()).registrationNo(ticket.getBus().getRegistrationNo())
+//						.busName(ticket.getBus().getBusName()).facilities(ticket.getBus().getFacilities().toString())
+//						.startTime(ticket.getBus().getStartTime().toString())
+//						.startName(ticket.getBus().getRoute().getStartName()).totalPaid(ticket.getTotalAmount())
+//						.stopName(ticket.getBus().getRoute().getStopName()).build();
+//		emailSenderService.sendEmail(ticket.getUser().getEmail(), ticketTemplate.toString());
+//		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
+//		redirectAttributes.addFlashAttribute("bookedTicket", ticket);
+//		return modelAndView;
+	}
+
+	@PostMapping("/paymentResponse")
+	public ModelAndView PaymentProcessed(HttpServletRequest request, RedirectAttributes redirectAttributes)
+			throws Exception {
+		System.out.println("in payment res");
+		HttpSession session = request.getSession(false);
+		System.out.println(session.getCreationTime());
+		Ticket ticket = (Ticket) session.getAttribute("ticket");
+		System.out.println(ticket.getPnrNo());
+		Map<String, String[]> mapData = request.getParameterMap();
+		TreeMap<String, String> parameters = new TreeMap<String, String>();
+		mapData.forEach((key, val) -> parameters.put(key, val[0]));
+		ModelAndView modelAndView = new ModelAndView();
+		System.out.println("RESULT : " + parameters.toString());
+		if (parameters.get("RESPCODE").equals("01")) {
+			System.out.println("suceess");
+			modelAndView.setViewName("redirect:/user/myTickets");
+			ticketService.save(ticket);
+			TicketEmailTemplate ticketTemplate = new TicketEmailTemplate.TicketEmailTemplateBuilder(ticket.getPnrNo(),
+					ticket.getSeatsBooked()).busName(ticket.getBus().getBusName())
+							.dateBought(ticket.getDateBought().toString())
+							.dateofTravel(ticket.getDateOfTravel().toString()).name(ticket.getUser().getName())
+							.registrationNo(ticket.getBus().getRegistrationNo()).busName(ticket.getBus().getBusName())
+							.facilities(ticket.getBus().getFacilities().toString())
+							.startTime(ticket.getBus().getStartTime().toString())
+							.startName(ticket.getBus().getRoute().getStartName()).totalPaid(ticket.getTotalAmount())
+							.stopName(ticket.getBus().getRoute().getStopName()).build();
+			emailSenderService.sendEmail(ticket.getUser().getEmail(), ticketTemplate.toString());
+			redirectAttributes.addFlashAttribute("bookedTicket", ticket);
+		} else {
+			System.out.println("fail");
+			modelAndView.setViewName("PaymentFailed");
+		}
 		return modelAndView;
 	}
 
@@ -190,6 +245,10 @@ public class TicketController {
 			return modelAndView;
 		}
 
+	}
+
+	private String getCheckSum(TreeMap<String, String> parameters) throws Exception {
+		return PaytmChecksum.generateSignature(parameters, paytmDetails.getMerchantKey());
 	}
 
 }

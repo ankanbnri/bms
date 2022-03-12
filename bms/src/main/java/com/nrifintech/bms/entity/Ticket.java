@@ -95,6 +95,13 @@ public class Ticket extends AbstractBaseEntity {
 		this.user = user;
 	}
 
+	@Override
+	public String toString() {
+		return "Ticket [pnrNo=" + pnrNo + ", seatsBooked=" + seatsBooked + ", totalAmount=" + totalAmount
+				+ ", dateBought=" + dateBought + ", dateOfTravel=" + dateOfTravel + ", bus=" + bus + ", user=" + user
+				+ "]";
+	}
+
 	
 
 	
