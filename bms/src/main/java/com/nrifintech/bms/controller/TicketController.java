@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -85,41 +86,50 @@ public class TicketController {
 //		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
 //		return modelAndView;
 //	}
-	
+
 	@PostMapping("/bookTicket/{regNo}/{travelDate}")
 	public ModelAndView saveBookingInfo(@PathVariable("regNo") String regNo,
 			@PathVariable("travelDate") String travelDate, @ModelAttribute("ticket") Ticket ticket,
-			HttpServletRequest request,
-			RedirectAttributes redirectAttributes) throws ParseException {
+			HttpServletRequest request, RedirectAttributes redirectAttributes) throws ParseException {
 
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userid");
 		User user = userService.getById(userId);
 		Bus bus = busService.getById(regNo);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = format.parse(travelDate);
-        java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
-        
-        
+		Date parsed = format.parse(travelDate);
+		java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
+
 		ticket.setPnrNo(ticketService.generatePnrNo(userId));
 		ticket.setDateOfTravel(dateOfTravel);
 		ticket.setDateBought(java.sql.Date.valueOf(LocalDate.now()));
 		ticket.setBus(bus);
 		ticket.setUser(user);
-		ticketService.save(ticket);
-		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate.TicketEmailTemplateBuilder(ticket.getPnrNo(),
-				ticket.getSeatsBooked()).busName(bus.getBusName()).dateBought(ticket.getDateBought().toString())
-						.dateofTravel(ticket.getDateOfTravel().toString()).name(user.getName())
-						.registrationNo(bus.getRegistrationNo()).busName(bus.getBusName())
-						.facilities(bus.getFacilities().toString()).startTime(bus.getStartTime().toString())
-						.startName(bus.getRoute().getStartName()).totalPaid(ticket.getTotalAmount())
-						.stopName(bus.getRoute().getStopName()).build();
-		emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString());
-		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
-		redirectAttributes.addFlashAttribute("bookedTicket",ticket);
+		request.setAttribute("ticket", ticket);
+		ModelAndView modelAndView = new ModelAndView("forward:/ticket/payment");
+		redirectAttributes.addFlashAttribute("bookedTicket", ticket);
 		return modelAndView;
 	}
-	
+
+	@PostMapping("/payment")
+	public ModelAndView paymentRedirect(@RequestAttribute("ticket") Ticket ticket,
+			RedirectAttributes redirectAttributes) {
+		System.out.println("in payment");
+		ticketService.save(ticket);
+		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate.TicketEmailTemplateBuilder(ticket.getPnrNo(),
+				ticket.getSeatsBooked()).busName(ticket.getBus().getBusName())
+						.dateBought(ticket.getDateBought().toString()).dateofTravel(ticket.getDateOfTravel().toString())
+						.name(ticket.getUser().getName()).registrationNo(ticket.getBus().getRegistrationNo())
+						.busName(ticket.getBus().getBusName()).facilities(ticket.getBus().getFacilities().toString())
+						.startTime(ticket.getBus().getStartTime().toString())
+						.startName(ticket.getBus().getRoute().getStartName()).totalPaid(ticket.getTotalAmount())
+						.stopName(ticket.getBus().getRoute().getStopName()).build();
+		emailSenderService.sendEmail(ticket.getUser().getEmail(), ticketTemplate.toString());
+		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
+		redirectAttributes.addFlashAttribute("bookedTicket", ticket);
+		return modelAndView;
+	}
+
 //	@GetMapping("/cancel/{pnrNo}")
 //	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo, HttpServletResponse response,
 //			HttpServletRequest request)  {
@@ -142,46 +152,44 @@ public class TicketController {
 //		}
 //		
 //	}
-	
+
 	@GetMapping("/cancel/{pnrNo}")
-	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo,
-			HttpServletResponse response,
-			HttpServletRequest request,
-			RedirectAttributes redirectAttributes)  {
-		
+	public ModelAndView cancelTicket(@PathVariable("pnrNo") String pnrNo, HttpServletResponse response,
+			HttpServletRequest request, RedirectAttributes redirectAttributes) {
+
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("isValidUser");
-		
+
 		if (attribute != (Object) true) {
 			return new ModelAndView("redirect:/user/login");
 		} else {
 			Optional<Ticket> optionalTicket = ticketService.findById(pnrNo);
 			Ticket ticket;
 			if (optionalTicket.isPresent()) {
-			    ticket = optionalTicket.get();
+				ticket = optionalTicket.get();
 			} else {
 				ticket = null;
 			}
-			
-			if(ticket != null) {
+
+			if (ticket != null) {
 				int userIdOfTicket = ticket.getUser().getUserid();
-				
-				if(userIdOfTicket == (Integer) session.getAttribute("userid")) {
-					redirectAttributes.addFlashAttribute("pnrNo",ticket.getPnrNo());
-					redirectAttributes.addFlashAttribute("source",ticket.getBus().getRoute().getStartName());
-					redirectAttributes.addFlashAttribute("dest",ticket.getBus().getRoute().getStopName());
-					redirectAttributes.addFlashAttribute("date",ticket.getDateOfTravel());
-					redirectAttributes.addFlashAttribute("validCancel","YES");
+
+				if (userIdOfTicket == (Integer) session.getAttribute("userid")) {
+					redirectAttributes.addFlashAttribute("pnrNo", ticket.getPnrNo());
+					redirectAttributes.addFlashAttribute("source", ticket.getBus().getRoute().getStartName());
+					redirectAttributes.addFlashAttribute("dest", ticket.getBus().getRoute().getStopName());
+					redirectAttributes.addFlashAttribute("date", ticket.getDateOfTravel());
+					redirectAttributes.addFlashAttribute("validCancel", "YES");
 					ticketService.deleteByID(pnrNo);
-				}else {
-					redirectAttributes.addFlashAttribute("validCancel","NO");
+				} else {
+					redirectAttributes.addFlashAttribute("validCancel", "NO");
 				}
 			}
-			
+
 			ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
 			return modelAndView;
 		}
-		
+
 	}
 
 }
