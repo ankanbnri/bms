@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 
@@ -56,33 +56,46 @@
 			<!-- Found Buses Details -->
 			<section class="container" id="listsection">
 				<c:forEach var="bus" items="${buses}">
-					<a  
-						href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
-						<div class="d-flex justify-content-between card-body details">
-							<div class="col-sm-2 text-center my-auto">
-								<p class="font-weight-bold h4 my-auto">${bus.getBusName()}</p>
-								<p class="badge badge-pill badge-success my-auto">${bus.getFacilities()}</p>
+					<a style="margin-bottom: 2%;" class="card" href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
+							<div class="card-body">
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-md-6">
+												<h4>
+													<i class="fas fa-bus text-bms-primary"></i>
+													${bus.getBusName()}
+													<span class="badge badge-pill badge-success my-auto">${bus.getFacilities()}</span>
+												</h4>
+											</div>
+											<div id="pnr" class="col-md-6">
+												<h4 class="float-md-right text-danger">Fare Per Ticket: Rs.&nbsp;${bus.getFare() *
+												bus.getRoute().getDistance()}</h4>
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-md-6">
+												<h5>
+													<i class="fas fa-chair"></i> Available Seats :
+													${bus.getAvailableSeats()}
+												</h5>
+											</div>
+	
+											<div class="col-md-6">
+												<h5 class="float-md-right">
+													<i class="fa fa-clock"></i>Departure Time :
+													${fn:substring(bus.getStartTime(),0,5)}
+												</h5>
+											</div>
+										</div>
+									</li>
+	
+								</ul>
 							</div>
-							<div class="col-sm-2 text-center my-auto h4">
-								<p class=" h4 my-auto">Departure Time</p>
-								<p class=" h4 my-auto">${fn:substring(bus.getStartTime(),0,5)}</p>
-							</div>
-							<div class="col-sm-2 text-center text-danger my-auto h4">
-								<p class="h4 my-auto">Available Seats</p>
-								<p class="h4 my-auto">${bus.getAvailableSeats()}</p>
-							</div>
-							<div class="col-sm-2 text-center my-auto h4">
-								<p class="h4 my-auto">Distance</p>
-								<p class="h4 my-auto">${bus.getRoute().getDistance()}&nbsp;km</p>
-							</div>
-							<div class="col-sm-2 b text-center my-auto font-weight-bold h4">
-								<p class="h4 my-auto">Fare Per Ticket</p>
-								<p class="h4 my-auto">Rs.&nbsp;${bus.getFare() *
-												bus.getRoute().getDistance()}</p>
-							</div>
-						</div>
-					</a>
-				</c:forEach>
+						</a>
+					</c:forEach>
 			</section>
 
 		</c:when>
