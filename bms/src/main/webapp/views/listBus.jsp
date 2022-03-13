@@ -49,7 +49,7 @@
 					</span> <span>&nbsp;found from</span> <span
 						class="font-weight-bold busFound">&nbsp;${buses.get(0).getRoute().getStartName()}
 					</span> <span>&nbsp;to</span> <span class="font-weight-bold busFound">&nbsp;${buses.get(0).getRoute().getStopName()}
-					</span> <span>&nbsp;on</span> <span class="font-weight-bold busFound">&nbsp;${travelDate}</span>
+					</span> <span>&nbsp;(${buses.get(0).getRoute().getDistance()} kms)</span> <span>&nbsp;on</span> <span class="font-weight-bold busFound">&nbsp;${travelDate}</span>
 				</div>
 			</section>
 
