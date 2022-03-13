@@ -56,7 +56,7 @@
 			<!-- Found Buses Details -->
 			<section class="container" id="listsection">
 				<c:forEach var="bus" items="${buses}">
-					<a style="margin-bottom: 2%;" class="card" href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
+					<a style="margin-bottom: 2%; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" class="card" href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
 							<div class="card-body">
 								<ul class="list-group list-group-flush">
 									<li class="list-group-item">
