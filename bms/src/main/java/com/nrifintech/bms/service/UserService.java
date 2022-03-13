@@ -83,4 +83,8 @@ public class UserService {
 	{
 		return userRepo.count();
 	}
+	
+	public void updateUser(String name, String mobile, int userid) {
+		userRepo.updateUser(name, mobile, userid);
+	}
 }

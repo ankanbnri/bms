@@ -46,9 +46,13 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ml-auto">
-				<li class=" mx-2"><span class="nav-link item">Hi,<c:out
-							value="${sessionScope.name}" />
-				</span></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">Hi, <c:out value="${sessionScope.name}" /> </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="/user/editaccount">Edit Account</a> 
+					</div></li>
 				<li class="nav-item mx-2"><a class="nav-link item"
 					href="/user/searchBus">Plan Journey</a></li>
 				<li class="nav-item mx-2"><a class="nav-link"

@@ -1,13 +1,17 @@
 package com.nrifintech.bms.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nrifintech.bms.entity.User;
+import com.nrifintech.bms.exporter.DepartureSheetExporter;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminPrivileges;
 import com.nrifintech.bms.entity.Bus;
@@ -276,5 +281,48 @@ public class UserController {
 		ModelAndView mv = new ModelAndView("UserAuth");
 		return mv;
 	}
-
+	
+	@GetMapping("/editaccount")
+	public ModelAndView accountInfo(HttpServletRequest request, @ModelAttribute("validChange") String validChange) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("isValidUser");
+		if (attribute != (Object) true) {
+			ModelAndView mv = new ModelAndView("redirect:/user/login");
+			return mv;
+		} else {
+			int userId = (int) session.getAttribute("userid");
+			User user = userService.getById(userId);
+			ModelAndView mv = new ModelAndView("UserAccountInfo");
+			mv.addObject("email", user.getEmail());
+			mv.addObject("name", user.getName());
+			mv.addObject("mobile", user.getMobileNo());
+			mv.addObject("validCancel", validChange);
+			return mv;
+		}
+	}
+	
+	@PostMapping("/editaccount")
+	public ModelAndView editAccount(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("userid");
+		User user = userService.getById(userId);
+		String userMobile = user.getMobileNo();
+		String name = request.getParameter("name");
+		String mobile = request.getParameter("mobileNo");
+		User userExists = userService.findByMobileNo(mobile);
+		if (!userMobile.equals(mobile) && (userExists != null)) {
+			ModelAndView mv = new ModelAndView("UserAccountInfo");
+			mv.addObject("error_msg", "Already registered user with this mobile number.");
+			mv.addObject("name", name);
+			mv.addObject("mobile", mobile);
+			return mv;
+		}
+		redirectAttributes.addFlashAttribute("validChange","YES");
+		userService.updateUser(name, mobile, userId);
+		user = userService.getById(userId);
+		session.setAttribute("name", user.getName());
+		ModelAndView mv = new ModelAndView("redirect:/user/editaccount");
+		return mv;
+	}
+	
 }

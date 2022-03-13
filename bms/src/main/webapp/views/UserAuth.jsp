@@ -25,7 +25,7 @@
 	crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="d-flex align-items-center justify-content-center">
 	<%-- <c:if test="${sessionScope.isValidUser == true}">
 		<%
 		response.sendRedirect(request.getContextPath() + "/user/searchBus");
