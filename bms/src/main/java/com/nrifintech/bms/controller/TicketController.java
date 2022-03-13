@@ -99,6 +99,7 @@ public class TicketController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date parsed = format.parse(travelDate);
         java.sql.Date dateOfTravel = new java.sql.Date(parsed.getTime());
+        String message = "Thank you For Using BMS Application For Ticket Booking.Your Booking Details are as follows :";
         
         
 		ticket.setPnrNo(ticketService.generatePnrNo(userId));
@@ -113,8 +114,8 @@ public class TicketController {
 						.registrationNo(bus.getRegistrationNo()).busName(bus.getBusName())
 						.facilities(bus.getFacilities().toString()).startTime(bus.getStartTime().toString())
 						.startName(bus.getRoute().getStartName()).totalPaid(ticket.getTotalAmount())
-						.stopName(bus.getRoute().getStopName()).build();
-		emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString());
+						.stopName(bus.getRoute().getStopName()).message(message).build();
+		emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString(),"TICKET CONFIRMATION");
 		ModelAndView modelAndView = new ModelAndView("redirect:/user/myTickets");
 		redirectAttributes.addFlashAttribute("bookedTicket",ticket);
 		return modelAndView;
@@ -172,6 +173,17 @@ public class TicketController {
 					redirectAttributes.addFlashAttribute("dest",ticket.getBus().getRoute().getStopName());
 					redirectAttributes.addFlashAttribute("date",ticket.getDateOfTravel());
 					redirectAttributes.addFlashAttribute("validCancel","YES");
+					Bus bus = ticket.getBus();
+					User user = ticket.getUser();
+					String message = "Your ticket cancellation is successful.Details of your cancelled ticket are as follows :";
+					TicketEmailTemplate ticketTemplate = new TicketEmailTemplate.TicketEmailTemplateBuilder(ticket.getPnrNo(),
+							ticket.getSeatsBooked()).busName(bus.getBusName()).dateBought(ticket.getDateBought().toString())
+									.dateofTravel(ticket.getDateOfTravel().toString()).name(user.getName())
+									.registrationNo(bus.getRegistrationNo()).busName(bus.getBusName())
+									.facilities(bus.getFacilities().toString()).startTime(bus.getStartTime().toString())
+									.startName(bus.getRoute().getStartName()).totalPaid(ticket.getTotalAmount())
+									.stopName(bus.getRoute().getStopName()).message(message).build();
+					emailSenderService.sendEmail(user.getEmail(), ticketTemplate.toString(),"TICKET CANCELLATION CONFIRMED");
 					ticketService.deleteByID(pnrNo);
 				}else {
 					redirectAttributes.addFlashAttribute("validCancel","NO");

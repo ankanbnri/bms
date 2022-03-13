@@ -14,6 +14,7 @@ public class TicketEmailTemplate {
 	private String stopName;
 	private int seatsBooked;
 	private int totalPaid;
+	private String message;
 
 	
 	private TicketEmailTemplate(TicketEmailTemplateBuilder builder)
@@ -30,11 +31,12 @@ public class TicketEmailTemplate {
 		this.stopName = builder.stopName;
 		this.seatsBooked = builder.seatsBooked;
 		this.totalPaid = builder.totalPaid;
+		this.message = builder.message;
 	}
 
 	@Override
 	public String toString() {
-		return "Dear " + name + ",\n" + "Thank you For Using BMS Application For Ticket Booking.Your Booking Details are as follows :" + "\n\n" + "PNRNO : " + pnrNo + "\n" + "Date of Booking : " + dateBought
+		return "Dear " + name + ",\n" + message + "\n\n" + "PNRNO : " + pnrNo + "\n" + "Date of Booking : " + dateBought
 				+ "\n" + " Date Of Travel : " + dateofTravel + "\n" + "Bus Registration No : " + registrationNo + "\n"
 				+ " Bus Name : " + busName + "\n" + " Facilities : " + facilities + "\n" + " Onboarding Time : "
 				+ startTime + "\n" + " Onboarding Point : " + startName + "\n" + " Departure Point : " + stopName + "\n"
@@ -55,6 +57,7 @@ public class TicketEmailTemplate {
 		private String stopName;
 		private int seatsBooked;
 		private int totalPaid;
+		private String message;
 		
 		public TicketEmailTemplateBuilder(String pnrNo,int seatsBooked)
 		{
@@ -110,6 +113,11 @@ public class TicketEmailTemplate {
 		public TicketEmailTemplateBuilder totalPaid(int totalPaid)
 		{
 			this.totalPaid=totalPaid;
+			return this;
+		}
+		public TicketEmailTemplateBuilder message(String message)
+		{
+			this.message=message;
 			return this;
 		}
 		public TicketEmailTemplate build()
