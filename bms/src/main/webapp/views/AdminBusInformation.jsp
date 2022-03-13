@@ -104,6 +104,12 @@
 					data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
 						<span class="nav-link-text">Generate Revenue Report</span>
 				</a></li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right"
+					title="Example Pages"><a class="nav-link"
+					href="/admin/download/underUtilizedBusReport.xlsx"
+					data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
+						<span class="nav-link-text">Generate Under Utilized Bus Report</span>
+				</a></li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
 

@@ -1,6 +1,7 @@
 package com.nrifintech.bms.service;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nrifintech.bms.entity.Bus;
+import com.nrifintech.bms.model.Revenue;
+import com.nrifintech.bms.model.UnderUtilizedBusInfo;
 import com.nrifintech.bms.repository.BusAndRouteRepository;
 import com.nrifintech.bms.util.AdminBusSortingUtils;
 
@@ -71,5 +74,15 @@ public class BusService {
 	public long countBuses()
 	{
 		return repository.count();
+	}
+
+	public List<UnderUtilizedBusInfo> getUnderUtilizedBusInfo() {
+		List<UnderUtilizedBusInfo> list = new ArrayList<>();
+		List<Object[]> underUtilizedBusDetails = repository.getUnderUtilizedBusInfo();
+		underUtilizedBusDetails.forEach(row -> {
+			UnderUtilizedBusInfo underUtilizedBus = new UnderUtilizedBusInfo(row[0] + "", row[1] + "", row[2] + "", row[3] + "",row[4] + "", row[5] + "", row[6] + "", row[7] + "",row[8] + "", row[9] + "");
+			list.add(underUtilizedBus);
+		});
+		return list;
 	}
 }
