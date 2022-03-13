@@ -49,53 +49,65 @@
 					</span> <span>&nbsp;found from</span> <span
 						class="font-weight-bold busFound">&nbsp;${buses.get(0).getRoute().getStartName()}
 					</span> <span>&nbsp;to</span> <span class="font-weight-bold busFound">&nbsp;${buses.get(0).getRoute().getStopName()}
-					</span> <span>&nbsp;(${buses.get(0).getRoute().getDistance()} kms)</span> <span>&nbsp;on</span> <span class="font-weight-bold busFound">&nbsp;${travelDate}</span>
+					</span> <span>&nbsp;(${buses.get(0).getRoute().getDistance()} kms)</span>
+					<span>&nbsp;on</span> <span class="font-weight-bold busFound">&nbsp;${travelDate}</span>
 				</div>
 			</section>
 
 			<!-- Found Buses Details -->
 			<section class="container" id="listsection">
 				<c:forEach var="bus" items="${buses}">
-					<a style="margin-bottom: 2%; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" class="card" href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
-							<div class="card-body">
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-md-6">
-												<h4>
-													<i class="fas fa-bus text-bms-primary"></i>
-													${bus.getBusName()}
-													<span class="badge badge-pill badge-success my-auto">${bus.getFacilities()}</span>
-												</h4>
-											</div>
-											<div id="pnr" class="col-md-6">
-												<h4 class="float-md-right text-danger">Fare Per Ticket: Rs.&nbsp;${bus.getFare() *
+					<a
+						style="margin-bottom: 2%; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
+						class="card"
+						href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
+						<div class="card-body">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-md-6">
+											<h4>
+												<i class="fas fa-bus text-bms-primary"></i>
+												${bus.getBusName()}
+												<c:choose>
+													<c:when test="${bus.getFacilities() == 'AC'}">
+													    <span class="badge badge-pill badge-success my-auto">${bus.getFacilities()}</span>
+													  </c:when>
+													<c:otherwise>
+													    <span class="badge badge-pill badge-warning my-auto">${bus.getFacilities()}</span>
+													  </c:otherwise>
+												</c:choose>
+											</h4>
+										</div>
+										<div id="pnr" class="col-md-6">
+											<h4 class="float-md-right text-danger">Fare Per Ticket:
+												Rs.&nbsp;${bus.getFare() *
 												bus.getRoute().getDistance()}</h4>
-											</div>
 										</div>
-									</li>
-									<li class="list-group-item">
-										<div class="row">
-											<div class="col-md-6">
-												<h5>
-													<i class="fas fa-chair"></i> Available Seats :
-													${bus.getAvailableSeats()}
-												</h5>
-											</div>
-	
-											<div class="col-md-6">
-												<h5 class="float-md-right">
-													<i class="fa fa-clock"></i>Departure Time :
-													${fn:substring(bus.getStartTime(),0,5)}
-												</h5>
-											</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-md-6">
+											<h5>
+												<i class="fas fa-chair"></i> Available Seats :
+												${bus.getAvailableSeats()}
+											</h5>
 										</div>
-									</li>
-	
-								</ul>
-							</div>
-						</a>
-					</c:forEach>
+
+										<div class="col-md-6">
+											<h5 class="float-md-right">
+												<i class="fa fa-clock"></i>Departure Time :
+												${fn:substring(bus.getStartTime(),0,5)}
+											</h5>
+										</div>
+									</div>
+								</li>
+
+							</ul>
+						</div>
+					</a>
+				</c:forEach>
 			</section>
 
 		</c:when>
