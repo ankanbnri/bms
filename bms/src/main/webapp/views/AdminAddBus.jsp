@@ -109,7 +109,7 @@
 									oninvalid="this.setCustomValidity('Registration number must contain 8 characters')"
 									oninput="setCustomValidity('')"
 										placeholder="Registration Number"
-										aria-describedby="basic-addon1">
+										aria-describedby="basic-addon1" required>
 								</div>
 							</div>
 							<div class="form-group col-md-6">
@@ -119,7 +119,7 @@
 											class="fas fa-bus form-icon text-bms-primary"></i></span>
 									</div>
 									<input type="text" name="busName" class="form-control" value="${bus.getBusName() }"
-										placeholder="Bus Name" aria-describedby="basic-addon1">
+										placeholder="Bus Name" aria-describedby="basic-addon1" required>
 								</div>
 							</div>
 						</div>
@@ -131,7 +131,7 @@
 											class="fas fa-chair form-icon text-bms-primary"></i></span>
 									</div>
 									<input type="number" name="seatCount" class="form-control" id="totalSeats"
-										placeholder="Totals seats" min="20" value="20" aria-describedby="basic-addon1">
+										placeholder="Totals seats" min="20" value="20" aria-describedby="basic-addon1" required>
 								</div>	
 							</div>
 							<div class="form-group col-md-6">
@@ -141,7 +141,7 @@
 											class="fas fa-clock form-icon text-bms-primary"></i></span>
 									</div>
 									<input type="time" name="startTimeForm" class="form-control" 
-										placeholder="Departure time" aria-describedby="basic-addon1">
+										placeholder="Departure time" aria-describedby="basic-addon1" required>
 								</div>
 							</div>
 						</div>
@@ -153,7 +153,7 @@
 											class="fas fa-rupee-sign form-icon text-bms-primary"></i></span>
 									</div>
 									<input type="number" name="fare" class="form-control" value="${bus.getFare() }"
-										placeholder="Fare per km" aria-describedby="basic-addon1">
+										placeholder="Fare per km" aria-describedby="basic-addon1" required>
 								</div>
 							</div>
 							<div class="form-group col-md-6">
@@ -175,7 +175,7 @@
 						<div class="form-group">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" name="facilities"
-									id="inlineRadio1" value="AC" required> <label
+									id="inlineRadio1" value="AC"> <label
 									class="form-check-label" for="inlineRadio1"><span
 									class="badge badge-success">AC</span></label>
 							</div>
