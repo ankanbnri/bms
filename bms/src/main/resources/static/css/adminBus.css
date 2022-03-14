@@ -483,3 +483,14 @@ table thead tr th a
 {
 	color:black;
 }
+.percentage-dropdown-menu{
+	background-color: rgba(0, 0, 0, 0.01);
+}
+.percentage-dropdown-menu > a{
+	  color: #868e96;
+}
+
+.percentage-dropdown-menu > a:hover{
+	background-color: rgba(0, 0, 0, 0.01);
+	color: #adb5bd;
+}

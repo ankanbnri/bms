@@ -105,11 +105,19 @@
 						<span class="nav-link-text">Generate Revenue Report</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Example Pages"><a class="nav-link"
-					href="/admin/download/underUtilizedBusReport.xlsx"
-					data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
-						<span class="nav-link-text">Generate Under Utilized Bus Report</span>
-				</a></li>
+					title="Example Pages"><a class="nav-link dropdown-toggle" href="#" id="percentageDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false" data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
+						<span class="nav-link-text">Generate Under Utilized Bus Report</span></a>
+					<div class="dropdown-menu percentage-dropdown-menu" aria-labelledby="percentageDropdown">
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/10">Under 10% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/20">Under 20% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/30">Under 30% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/40">Under 40% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/50">Under 50% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/60">Under 60% utilized</a> 
+					</div>
+				</li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
 

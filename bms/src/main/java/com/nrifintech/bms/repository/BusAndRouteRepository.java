@@ -22,9 +22,9 @@ public interface BusAndRouteRepository extends AbstractBaseRepository<Bus, Strin
 			+ "		left join ticket on bus.registration_no = ticket.registration_no\r\n"
 			+ "		where DATEDIFF(curdate(),date_bought) < 31 or date_bought is null group by registration_no \r\n"
 			+ "        ) t1\r\n"
-			+ "where Percentage_Seat_Utilization < 60 order by 10",
+			+ "where Percentage_Seat_Utilization < ?1 order by 10",
 			nativeQuery = true)
-	public List<Object[]> getUnderUtilizedBusInfo();
+	public List<Object[]> getUnderUtilizedBusInfo(int percentage);
 	
 	
 	

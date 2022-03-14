@@ -18,9 +18,9 @@ import com.nrifintech.bms.model.UnderUtilizedBusInfo;
 
 public class UnderUtilizedBusInfoExporter {
 
-	public static ByteArrayInputStream exportUnderUtilizedBusInfo(List<UnderUtilizedBusInfo> underUtilizedBusList) {
+	public static ByteArrayInputStream exportUnderUtilizedBusInfo(List<UnderUtilizedBusInfo> underUtilizedBusList, int percentage) {
 		try(Workbook workbook = new XSSFWorkbook()){
-			Sheet sheet = workbook.createSheet("underUtilizedBusList");
+			Sheet sheet = workbook.createSheet("under"+percentage+"PercentUtilizedBusList");
 			
 			Row row = sheet.createRow(0);
 	        CellStyle headerCellStyle = workbook.createCellStyle();
@@ -65,7 +65,7 @@ public class UnderUtilizedBusInfoExporter {
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(9);
-	        cell.setCellValue("Percentage Seat Utilization of last month (< 60% )");
+	        cell.setCellValue("Percentage Seat Utilization of last month (< "+percentage+"% )");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        
