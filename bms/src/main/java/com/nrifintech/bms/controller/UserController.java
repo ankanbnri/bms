@@ -1,17 +1,12 @@
 package com.nrifintech.bms.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nrifintech.bms.entity.User;
-import com.nrifintech.bms.exporter.DepartureSheetExporter;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminPrivileges;
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.service.BusService;
-import com.nrifintech.bms.service.EmailSenderService;
 import com.nrifintech.bms.service.RouteService;
 import com.nrifintech.bms.service.TicketService;
 

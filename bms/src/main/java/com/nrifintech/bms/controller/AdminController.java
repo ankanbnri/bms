@@ -2,13 +2,11 @@ package com.nrifintech.bms.controller;
 
 
 import java.io.ByteArrayInputStream;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,22 +24,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.nrifintech.bms.entity.Bus;
 import com.nrifintech.bms.entity.Route;
 import com.nrifintech.bms.entity.Ticket;
-import com.nrifintech.bms.service.BusService;
-import com.nrifintech.bms.service.RouteService;
-import com.nrifintech.bms.service.TicketService;
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.exporter.DepartureSheetExporter;
 import com.nrifintech.bms.exporter.RevenueReportExporter;
 import com.nrifintech.bms.exporter.UnderUtilizedBusInfoExporter;
 import com.nrifintech.bms.model.Revenue;
 import com.nrifintech.bms.model.RouteInfo;
-import com.nrifintech.bms.model.RouteRevenue;
 import com.nrifintech.bms.model.UnderUtilizedBusInfo;
+import com.nrifintech.bms.service.BusService;
+import com.nrifintech.bms.service.RouteService;
+import com.nrifintech.bms.service.TicketService;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminBusSortingUtils;
 import com.nrifintech.bms.util.BusActiveStatus;
