@@ -18,7 +18,6 @@ import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.model.Revenue;
 import com.nrifintech.bms.model.RouteInfo;
-import com.nrifintech.bms.model.RouteRevenue;
 import com.nrifintech.bms.repository.TicketRepository;
 
 @Service
@@ -45,18 +44,12 @@ public class TicketService {
 		str.append(suffix);
 
 		String sha256hex = Hashing.sha256().hashString(str, StandardCharsets.UTF_8).toString().substring(0, 10);
-		System.out.println("From generate pnr........");
-		System.out.println(sha256hex);
 		return sha256hex.toUpperCase();
 	}
 
 	public void save(Ticket ticket) {
 		ticketRepository.save(ticket);
 	}
-
-//	public List<Ticket> getTicketsWithUser(User user) {
-//		return ticketRepository.findAllTicketsWithUser(user); 
-//	}
 
 	public int getTotalSeatsByBusAndDate(Bus bus, String travelDate) throws ParseException {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -90,30 +83,11 @@ public class TicketService {
 		List<Object[]> revenueDetails = ticketRepository.getRevenue();
 		revenueDetails.forEach(revRow -> {
 			Revenue revenue = new Revenue(revRow[0] + "", revRow[1] + "", revRow[2] + "", revRow[3] + "");
-//			revenue.setRoutecode(revRow[0]+"");
-//			revenue.setSource(revRow[1]+"");
-//			revenue.setDestination(revRow[2]+"");
-//			revenue.setTotalrevenue(revRow[3]+"");
 			list.add(revenue);
 		});
 		return list;
 	}
 
-	public List<RouteRevenue> getAllRouteRevenue() {
-		List<RouteRevenue> list = new ArrayList<>();
-		List<Object[]> revenueDetails = ticketRepository.getAllRoutesRevenue();
-		revenueDetails.forEach(revRow -> {
-			RouteRevenue revenue = new RouteRevenue();
-			revenue.setRoutecode(revRow[0] + "");
-			revenue.setSource(revRow[1] + "");
-			revenue.setDestination(revRow[2] + "");
-			revenue.setDistance(revRow[3] + "");
-			revenue.setTotalrevenue(revRow[4] + "");
-			list.add(revenue);
-		});
-		return list;
-	}
-	
 	public List<RouteInfo> getBusCountPerRoute() {
 		List<RouteInfo> list = new ArrayList<>();
 		List<Object[]> routeDetails = ticketRepository.getBusCountPerRoute();

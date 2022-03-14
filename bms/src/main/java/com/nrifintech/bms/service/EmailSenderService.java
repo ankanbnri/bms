@@ -26,12 +26,7 @@ public class EmailSenderService {
 
 			@Override
 			public void run() {
-				try {
-					javaMailSender.send(mailMessage);
-					System.out.println("Mail sent");
-				} catch (Exception e) {
-					System.out.println("Exception Occured while sending mail");
-				}
+				javaMailSender.send(mailMessage);
 
 			}
 
