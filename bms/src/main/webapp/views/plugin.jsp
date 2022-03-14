@@ -3,8 +3,7 @@
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous" /> -->
 
-<link rel="stylesheet" href="/plugin/bootstrap.min.css"
-	crossorigin="anonymous" />
+<link rel="stylesheet" href="/plugin/bootstrap.min.css" />
 
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
@@ -16,7 +15,7 @@
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	crossorigin="anonymous"></script> -->
 
-<script src="/plugin/popper.min.js" crossorigin="anonymous"></script>
+<script src="/plugin/popper.min.js"></script>
 
 <!-- 	
 <script
@@ -24,15 +23,15 @@
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script> -->
 
-<script src="/plugin/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="/plugin/bootstrap.min.js"></script>
 
-<!-- <link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-	rel="stylesheet" /> -->
+<!-- <link -->
+<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" -->
+<!-- 	rel="stylesheet" />  -->
 
-<link rel="stylesheet" type="text/css" href="/plugin/all.min.css" />
 
-<link href="/plugin/fontawesome.min.css" rel="stylesheet" />
+<!-- <link href="/plugin/fontawesome.min.css" rel="stylesheet" /> -->
+<link rel="stylesheet" href="/css/all.min.css">
 
 <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
 
