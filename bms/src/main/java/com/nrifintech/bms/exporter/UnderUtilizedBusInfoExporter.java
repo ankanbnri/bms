@@ -57,7 +57,7 @@ public class UnderUtilizedBusInfoExporter {
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(7);
-	        cell.setCellValue("Total Seats of last month");
+	        cell.setCellValue("Maximum available bokkings of last month");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(8);
@@ -65,7 +65,7 @@ public class UnderUtilizedBusInfoExporter {
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        cell = row.createCell(9);
-	        cell.setCellValue("Percentage Seat Utilization of last month");
+	        cell.setCellValue("Percentage Seat Utilization of last month (< 60% )");
 	        cell.setCellStyle(headerCellStyle);
 	        
 	        
