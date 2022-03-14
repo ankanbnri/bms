@@ -11,36 +11,31 @@ import javax.persistence.Table;
 
 import com.nrifintech.bms.util.AdminPrivileges;
 
-
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User extends AbstractBaseEntity {
 	private static final long serialVersionUID = 6715094082833854125L;
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="userid")
-    private Integer userid;
-	
-	@Column(name="name", nullable = false)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "userid")
+	private Integer userid;
+
+	@Column(name = "name", nullable = false)
 	private String name;
-	
-	@Column(name="password", nullable = false)
+
+	@Column(name = "password", nullable = false)
 	private String password;
-	
-	@Column(name="email", nullable = false, unique = true)
+
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	
-	@Column(name="phone_no")
+
+	@Column(name = "phone_no")
 	private String mobileNo;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="isadmin")
+	@Column(name = "isadmin")
 	private AdminPrivileges adminPrivileges;
-
-	@Override
-	public String toString() {
-		return "User [userid=" + userid + ", name=" + name + ", password=" + password + ", email=" + email
-				+ ", mobileNo=" + mobileNo + ", adminPrivileges=" + adminPrivileges + "]";
-	}
 
 	public Integer getUserid() {
 		return userid;
@@ -90,6 +85,9 @@ public class User extends AbstractBaseEntity {
 		this.adminPrivileges = adminPrivileges;
 	}
 
-
-	
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", name=" + name + ", password=" + password + ", email=" + email
+				+ ", mobileNo=" + mobileNo + ", adminPrivileges=" + adminPrivileges + "]";
+	}
 }

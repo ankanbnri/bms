@@ -32,6 +32,7 @@ public class UserService {
 		}
 		return false;
 	}
+
 	public boolean isValidAdmin(User user, String password) {
 		String userPassword = decrypt(user.getPassword());
 		if (userPassword.equals(password)) {
@@ -60,30 +61,30 @@ public class UserService {
 		}
 		return null;
 	}
+
 	public User getById(Integer id) {
 		return userRepo.getById(id);
 	}
-	
+
 	public String encrypt(String originalString) {
-		
+
 		Encoder encoder = Base64.getEncoder();
 		String encodedString = encoder.encodeToString(originalString.getBytes());
 		return encodedString;
 	}
-	
+
 	public String decrypt(String originalString) {
 		Decoder decoder = Base64.getDecoder();
 		byte[] bytes = decoder.decode(originalString);
-		String decoded= new String(bytes);
+		String decoded = new String(bytes);
 		return decoded;
-		
+
 	}
 
-	public long countUsers()
-	{
+	public long countUsers() {
 		return userRepo.count();
 	}
-	
+
 	public void updateUser(String name, String mobile, int userid) {
 		userRepo.updateUser(name, mobile, userid);
 	}

@@ -55,12 +55,11 @@ public class BusService {
 			return repository.findAll(Sort.by("route.stopName"));
 		return repository.findAll(Sort.by("registrationNo"));
 	}
-	
+
 	public void setAllAvailableSeatsForDate(List<Bus> buses, String travelDate) throws ParseException {
 		int availableSeats;
 		for (Bus bus : buses) {
 			availableSeats = bus.getSeatCount() - ticketService.getTotalSeatsByBusAndDate(bus, travelDate);
-//			System.out.println(availableSeats);
 			bus.setAvailableSeats(availableSeats);
 
 		}
@@ -69,17 +68,17 @@ public class BusService {
 	public Bus findByRegistrationNo(String registrationNo) {
 		return repository.findByRegistrationNo(registrationNo);
 	}
-	
-	public long countBuses()
-	{
+
+	public long countBuses() {
 		return repository.count();
 	}
-	
+
 	public List<UnderUtilizedBusInfo> getUnderUtilizedBusInfo(int percentage) {
 		List<UnderUtilizedBusInfo> list = new ArrayList<>();
 		List<Object[]> underUtilizedBusDetails = repository.getUnderUtilizedBusInfo(percentage);
 		underUtilizedBusDetails.forEach(row -> {
-			UnderUtilizedBusInfo underUtilizedBus = new UnderUtilizedBusInfo(row[0] + "", row[1] + "", row[2] + "", row[3] + "",row[4] + "", row[5] + "", row[6] + "", row[7] + "",row[8] + "", row[9] + "");
+			UnderUtilizedBusInfo underUtilizedBus = new UnderUtilizedBusInfo(row[0] + "", row[1] + "", row[2] + "",
+					row[3] + "", row[4] + "", row[5] + "", row[6] + "", row[7] + "", row[8] + "", row[9] + "");
 			list.add(underUtilizedBus);
 		});
 		return list;

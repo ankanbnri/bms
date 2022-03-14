@@ -7,9 +7,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import com.nrifintech.bms.entity.AbstractBaseEntity;
 
-
 @NoRepositoryBean
 public interface AbstractBaseRepository<T extends AbstractBaseEntity, ID extends Serializable>
-extends JpaRepository<T, ID>{
-    
+		extends JpaRepository<T, ID> {
+
 }

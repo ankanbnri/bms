@@ -25,12 +25,10 @@ import com.nrifintech.bms.service.BusService;
 import com.nrifintech.bms.service.RouteService;
 import com.nrifintech.bms.service.TicketService;
 
-
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -39,14 +37,14 @@ public class UserController {
 	private RouteService routeService;
 	@Autowired
 	private TicketService ticketService;
-	
+
 	@GetMapping("/welcome")
 	public ModelAndView welcomeUser() {
 		ModelAndView mv = new ModelAndView("welcome");
 		long busCount = busService.countBuses();
 		long routeCount = routeService.countRoutes();
 		long userCount = userService.countUsers();
-		mv.addObject("busCount",busCount);
+		mv.addObject("busCount", busCount);
 		mv.addObject("routeCount", routeCount);
 		mv.addObject("userCount", userCount);
 		return mv;
@@ -57,7 +55,7 @@ public class UserController {
 		ModelAndView mv = new ModelAndView("UserAuth");
 		return mv;
 	}
-	
+
 	@PostMapping("/login")
 	public ModelAndView doLogin(HttpServletRequest request, Model model) {
 		String email = request.getParameter("email");
@@ -106,124 +104,58 @@ public class UserController {
 	public ModelAndView showSearchBusForm() {
 		List<String> startNames = routeService.getDistinctRouteStartName();
 		List<String> stopNames = routeService.getDistinctRouteStopName();
-		
+
 		ModelAndView modelAndView = new ModelAndView("searchBus");
 		modelAndView.addObject("startNames", startNames);
 		modelAndView.addObject("stopNames", stopNames);
 		return modelAndView;
 	}
 
-//	@PostMapping("/searchBus")
-//	public ModelAndView searchBus(@ModelAttribute("source") String source,
-//								  @ModelAttribute("destination") String destination,
-//								  @ModelAttribute("travelDate") String travelDate) throws ParseException {
-//		
-//
-//		List<Bus> buses = busService.getBusWithSourceDest(source,destination);
-//		if(buses.size()>0) {
-//			busService.setAllAvailableSeatsForDate(buses,travelDate);
-//		}
-//		for(Bus bus: buses) {
-//			if(bus.getAvailableSeats()==0)
-//				buses.remove(bus);
-//		}
-//
-//		ModelAndView modelAndView = new ModelAndView("listBus");
-//		if (buses.size() > 0) {
-//			modelAndView.addObject("buses", buses);
-//			modelAndView.addObject("travelDate", travelDate);
-//			modelAndView.addObject("busFound", true);
-//		}else {
-//			modelAndView.addObject("busFound", false);
-//		}
-//		return modelAndView;
-//	}
-	
 	@PostMapping("/searchBus")
 	public ModelAndView searchBus(@ModelAttribute("source") String source,
-								  @ModelAttribute("destination") String destination,
-								  @ModelAttribute("travelDate") String travelDate) throws ParseException {
-		
+			@ModelAttribute("destination") String destination, @ModelAttribute("travelDate") String travelDate)
+			throws ParseException {
 
-		List<Bus> buses = busService.getBusWithSourceDest(source,destination);
-		if(buses.size()>0) {
-			busService.setAllAvailableSeatsForDate(buses,travelDate);
+		List<Bus> buses = busService.getBusWithSourceDest(source, destination);
+		if (buses.size() > 0) {
+			busService.setAllAvailableSeatsForDate(buses, travelDate);
 		}
 		Iterator<Bus> itr = buses.iterator();
-        while (itr.hasNext())
-        {
-            Bus bus = itr.next();
-            if (bus.getAvailableSeats()==0) {
-                itr.remove();
-            }
-        }
+		while (itr.hasNext()) {
+			Bus bus = itr.next();
+			if (bus.getAvailableSeats() == 0) {
+				itr.remove();
+			}
+		}
 
 		ModelAndView modelAndView = new ModelAndView("listBus");
 		if (buses.size() > 0) {
 			modelAndView.addObject("buses", buses);
 			modelAndView.addObject("travelDate", travelDate);
 			modelAndView.addObject("busFound", true);
-		}else {
+		} else {
 			modelAndView.addObject("busFound", false);
 		}
 		return modelAndView;
 	}
-	
-//	@GetMapping("/myTickets")
-//	public ModelAndView showTickets(HttpServletRequest request) {
-//		HttpSession session = request.getSession();
-//		
-//		if(session.getAttribute("userid")==null) {
-//			ModelAndView mv = new ModelAndView("redirect:/user/login");
-//			return mv;
-//		}else {
-//			int userId = (int)session.getAttribute("userid");
-//			User user = userService.getById(userId);
-//			
-//			List<Ticket> upcomingTickets = ticketService.getUpcomingTicketsWithUser(user);
-//			List<Ticket> oldTickets = ticketService.getOldTicketsWithUser(user);
-//			
-//			ModelAndView modelAndView = new ModelAndView("myTickets");
-//			
-//			// Setting upcoming tickets
-//			if(upcomingTickets.size()>0) {
-//				modelAndView.addObject("upcomingTickets", upcomingTickets);
-//				modelAndView.addObject("upcomingTicketFound", true);
-//			}else {
-//				modelAndView.addObject("upcomingTicketFound", false);
-//			}
-//			
-//			// Setting old tickets
-//			if(oldTickets.size()>0) {
-//				modelAndView.addObject("oldTickets", oldTickets);
-//				modelAndView.addObject("oldTicketFound", true);
-//			}else {
-//				modelAndView.addObject("oldTicketFound", false);
-//			}
-//			
-//			return modelAndView;
-//		}
-//	}
-	
+
 	@GetMapping("/myTickets")
-	public ModelAndView showTickets(HttpServletRequest request,@ModelAttribute("bookedTicket") Ticket ticket,
-			@ModelAttribute("pnrNo") String pnrNo,
-			@ModelAttribute("source") String source,
-			@ModelAttribute("dest") String dest,
-			@ModelAttribute("date") String date,
+	public ModelAndView showTickets(HttpServletRequest request, @ModelAttribute("bookedTicket") Ticket ticket,
+			@ModelAttribute("pnrNo") String pnrNo, @ModelAttribute("source") String source,
+			@ModelAttribute("dest") String dest, @ModelAttribute("date") String date,
 			@ModelAttribute("validCancel") String validCancel) {
 		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("userid")==null) {
+
+		if (session.getAttribute("userid") == null) {
 			ModelAndView mv = new ModelAndView("redirect:/user/login");
 			return mv;
-		}else {
-			int userId = (int)session.getAttribute("userid");
+		} else {
+			int userId = (int) session.getAttribute("userid");
 			User user = userService.getById(userId);
-			
+
 			List<Ticket> upcomingTickets = ticketService.getUpcomingTicketsWithUser(user);
 			List<Ticket> oldTickets = ticketService.getOldTicketsWithUser(user);
-			
+
 			ModelAndView modelAndView = new ModelAndView("myTickets");
 			modelAndView.addObject("bookedTicket", ticket);
 			modelAndView.addObject("pnrNo", pnrNo);
@@ -231,27 +163,26 @@ public class UserController {
 			modelAndView.addObject("dest", dest);
 			modelAndView.addObject("date", date);
 			modelAndView.addObject("validCancel", validCancel);
-			
+
 			// Setting upcoming tickets
-			if(upcomingTickets.size()>0) {
+			if (upcomingTickets.size() > 0) {
 				modelAndView.addObject("upcomingTickets", upcomingTickets);
 				modelAndView.addObject("upcomingTicketFound", true);
-			}else {
+			} else {
 				modelAndView.addObject("upcomingTicketFound", false);
 			}
-			
+
 			// Setting old tickets
-			if(oldTickets.size()>0) {
+			if (oldTickets.size() > 0) {
 				modelAndView.addObject("oldTickets", oldTickets);
 				modelAndView.addObject("oldTicketFound", true);
-			}else {
+			} else {
 				modelAndView.addObject("oldTicketFound", false);
 			}
-			
+
 			return modelAndView;
 		}
 	}
-
 
 	@PostMapping("/signUp")
 	public ModelAndView addUser(@ModelAttribute("user") User user) {
@@ -275,13 +206,13 @@ public class UserController {
 		userService.save(user);
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/signUp")
 	public ModelAndView signup() {
 		ModelAndView mv = new ModelAndView("UserAuth");
 		return mv;
 	}
-	
+
 	@GetMapping("/editaccount")
 	public ModelAndView accountInfo(HttpServletRequest request, @ModelAttribute("validChange") String validChange) {
 		HttpSession session = request.getSession();
@@ -300,7 +231,7 @@ public class UserController {
 			return mv;
 		}
 	}
-	
+
 	@PostMapping("/editaccount")
 	public ModelAndView editAccount(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		HttpSession session = request.getSession();
@@ -317,12 +248,12 @@ public class UserController {
 			mv.addObject("mobile", mobile);
 			return mv;
 		}
-		redirectAttributes.addFlashAttribute("validChange","YES");
+		redirectAttributes.addFlashAttribute("validChange", "YES");
 		userService.updateUser(name, mobile, userId);
 		user = userService.getById(userId);
 		session.setAttribute("name", user.getName());
 		ModelAndView mv = new ModelAndView("redirect:/user/editaccount");
 		return mv;
 	}
-	
+
 }

@@ -139,9 +139,7 @@ public class TicketEmailTemplate {
 	private int totalPaid;
 	private String message;
 
-	
-	private TicketEmailTemplate(TicketEmailTemplateBuilder builder)
-	{
+	private TicketEmailTemplate(TicketEmailTemplateBuilder builder) {
 		this.name = builder.name;
 		this.pnrNo = builder.pnrNo;
 		this.dateBought = builder.dateBought;
@@ -165,9 +163,8 @@ public class TicketEmailTemplate {
 				+ startTime + "\n" + " Onboarding Point : " + startName + "\n" + " Departure Point : " + stopName + "\n"
 				+ " No Of Seats Booked : " + seatsBooked + "\n" + " Total Paid : " + totalPaid + "\n";
 	}
-	
-	public static class TicketEmailTemplateBuilder
-	{
+
+	public static class TicketEmailTemplateBuilder {
 		private String name;
 		private String pnrNo;
 		private String dateBought;
@@ -181,70 +178,68 @@ public class TicketEmailTemplate {
 		private int seatsBooked;
 		private int totalPaid;
 		private String message;
-		
-		public TicketEmailTemplateBuilder(String pnrNo,int seatsBooked)
-		{
-			this.pnrNo=pnrNo;
-			this.seatsBooked=seatsBooked;
+
+		public TicketEmailTemplateBuilder(String pnrNo, int seatsBooked) {
+			this.pnrNo = pnrNo;
+			this.seatsBooked = seatsBooked;
 		}
-		
-		public TicketEmailTemplateBuilder name(String name)
-		{
-			this.name=name;
+
+		public TicketEmailTemplateBuilder name(String name) {
+			this.name = name;
 			return this;
 		}
-		public TicketEmailTemplateBuilder dateBought(String dateBought)
-		{
-			this.dateBought=dateBought;
+
+		public TicketEmailTemplateBuilder dateBought(String dateBought) {
+			this.dateBought = dateBought;
 			return this;
 		}
-		public TicketEmailTemplateBuilder dateofTravel(String dateofTravel)
-		{
-			this.dateofTravel=dateofTravel;
+
+		public TicketEmailTemplateBuilder dateofTravel(String dateofTravel) {
+			this.dateofTravel = dateofTravel;
 			return this;
 		}
-		public TicketEmailTemplateBuilder registrationNo(String registrationNo)
-		{
-			this.registrationNo=registrationNo;
+
+		public TicketEmailTemplateBuilder registrationNo(String registrationNo) {
+			this.registrationNo = registrationNo;
 			return this;
 		}
-		public TicketEmailTemplateBuilder busName(String busName)
-		{
-			this.busName=busName;
+
+		public TicketEmailTemplateBuilder busName(String busName) {
+			this.busName = busName;
 			return this;
 		}
-		public TicketEmailTemplateBuilder facilities(String facilities)
-		{
-			this.facilities=facilities;
+
+		public TicketEmailTemplateBuilder facilities(String facilities) {
+			this.facilities = facilities;
 			return this;
 		}
-		public TicketEmailTemplateBuilder startTime(String startTime)
-		{
-			this.startTime=startTime;
+
+		public TicketEmailTemplateBuilder startTime(String startTime) {
+			this.startTime = startTime;
 			return this;
 		}
-		public TicketEmailTemplateBuilder stopName(String stopName)
-		{
-			this.stopName=stopName;
+
+		public TicketEmailTemplateBuilder stopName(String stopName) {
+			this.stopName = stopName;
 			return this;
 		}
-		public TicketEmailTemplateBuilder startName(String startName)
-		{
-			this.startName=startName;
+
+		public TicketEmailTemplateBuilder startName(String startName) {
+			this.startName = startName;
 			return this;
 		}
-		public TicketEmailTemplateBuilder totalPaid(int totalPaid)
-		{
-			this.totalPaid=totalPaid;
+
+		public TicketEmailTemplateBuilder totalPaid(int totalPaid) {
+			this.totalPaid = totalPaid;
 			return this;
 		}
-		public TicketEmailTemplateBuilder message(String message)
-		{
-			this.message=message;
+
+		public TicketEmailTemplateBuilder message(String message) {
+			this.message = message;
 			return this;
 		}
-		public TicketEmailTemplate build()
-		{
+
+		public TicketEmailTemplate build() {
 			TicketEmailTemplate template = new TicketEmailTemplate(this);
 			return template;
 		}

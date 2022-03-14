@@ -11,32 +11,30 @@ import com.nrifintech.bms.repository.RouteRepository;
 
 @Service
 public class RouteService {
-	
+
 	@Autowired
 	private RouteRepository repository;
-	
+
 	@Cacheable("sources")
 	public List<String> getDistinctRouteStartName() {
 		return repository.findDistinctRouteStartName();
 	}
-	
+
 	@Cacheable("destinations")
 	public List<String> getDistinctRouteStopName() {
 		return repository.findDistinctRouteStopName();
 	}
-	
-	public Route getById(int id){
+
+	public Route getById(int id) {
 		return repository.getById(id);
 	}
-	
-	public long countRoutes()
-	{
+
+	public long countRoutes() {
 		return repository.count();
 	}
-	
-	public List<Route> findAll(){
+
+	public List<Route> findAll() {
 		return repository.findAll();
 	}
-	
-	
+
 }

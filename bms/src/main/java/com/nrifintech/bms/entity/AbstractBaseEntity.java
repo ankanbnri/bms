@@ -11,23 +11,19 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-
 @MappedSuperclass
-public class AbstractBaseEntity implements Serializable{
-
+public class AbstractBaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-  
-    @CreationTimestamp
-    @Column(name="createdat",updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-    
-    @UpdateTimestamp
-    @Column(name="updatedat",updatable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+	@CreationTimestamp
+	@Column(name = "createdat", updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
 
-    
+	@UpdateTimestamp
+	@Column(name = "updatedat", updatable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt;
+
 }

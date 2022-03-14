@@ -63,6 +63,5 @@ public class Route extends AbstractBaseEntity {
 		return "Route [routeCode=" + routeCode + ", startName=" + startName + ", stopName=" + stopName + ", distance="
 				+ distance + "]";
 	}
-	
 
 }

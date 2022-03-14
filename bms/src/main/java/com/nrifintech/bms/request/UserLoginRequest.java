@@ -3,13 +3,10 @@ package com.nrifintech.bms.request;
 import javax.validation.constraints.Pattern;
 
 public class UserLoginRequest {
-	
+
 	@Pattern(regexp = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$", message = "Username must be 8-20 characters long with allowed characters - a-z, A-Z, 0-9, ., _")
 	private String email;
-	
-//	@Pattern(regexp = "^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", message = "Password must be 8-20 characters long with allowed characters - a-z, A-Z, 0-9, ., _")
-//	private String password;
-	
+
 	@Pattern(regexp = "^{3,20}$", message = "Password must be 3-20 characters long")
 	private String password;
 
@@ -28,6 +25,5 @@ public class UserLoginRequest {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+
 }

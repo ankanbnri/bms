@@ -1,18 +1,15 @@
 package com.nrifintech.bms.dto;
 
-
-
 import com.nrifintech.bms.util.AdminPrivileges;
 
 public class UserRequest {
 	private Long userid;
-	
-	
-	private String name;
-	
-	private String password;	
 
-	private String email;	
+	private String name;
+
+	private String password;
+
+	private String email;
 
 	private String mobileNo;
 
@@ -65,5 +62,5 @@ public class UserRequest {
 	public void setAdminPrivileges(AdminPrivileges adminPrivileges) {
 		this.adminPrivileges = adminPrivileges;
 	}
-	
+
 }

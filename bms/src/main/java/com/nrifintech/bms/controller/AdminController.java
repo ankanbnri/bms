@@ -1,6 +1,5 @@
 package com.nrifintech.bms.controller;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -54,8 +53,7 @@ public class AdminController {
 	private TicketService ticketService;
 	@Autowired
 	private RouteService routeService;
-	
-	
+
 	@GetMapping("/login")
 	public ModelAndView adminLogin() {
 		ModelAndView mv = new ModelAndView("AdminLogin");
@@ -70,7 +68,7 @@ public class AdminController {
 		long userCount = userService.countUsers();
 		List<RouteInfo> routeRevenues = ticketService.getBusCountPerRoute();
 		ModelAndView mv = new ModelAndView("AdminDashboard");
-		mv.addObject("busCount",busCount);
+		mv.addObject("busCount", busCount);
 		mv.addObject("routeCount", routeCount);
 		mv.addObject("ticketCount", ticketCount);
 		mv.addObject("userCount", userCount);
@@ -79,7 +77,8 @@ public class AdminController {
 	}
 
 	@GetMapping("/displayBusInformation")
-	public ModelAndView displayBusInformation(@RequestParam(required = false, name = "sort") String sort, @ModelAttribute("busAddMsg") String busAddMsg) {
+	public ModelAndView displayBusInformation(@RequestParam(required = false, name = "sort") String sort,
+			@ModelAttribute("busAddMsg") String busAddMsg) {
 		List<Bus> buses = null;
 		if (sort != null) {
 			int theSortField = Integer.parseInt(sort);
@@ -89,8 +88,6 @@ public class AdminController {
 		}
 		ModelAndView mv = new ModelAndView("AdminBusInformation");
 		mv.addObject("busAddMsg", busAddMsg);
-//		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
-//        String busAddMsg =  (String) flashMap.get("busAddMsg");
 		Date today = new Date();
 		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
 		String tmrDate = tomorrow.toString().substring(0, 10);
@@ -196,8 +193,6 @@ public class AdminController {
 			String tmrDate = tomorrow.toString().substring(0, 10);
 			Bus bus = busService.getById(registrationNo);
 			List<Ticket> tickets = ticketService.findAllTicketsByBusAndDateBought(bus, tomorrow);
-
-			// DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 			String file_name = bus.getBusName() + tmrDate + ".xlsx";
 			response.setContentType("application/vnd.ms-excel");
 			response.setHeader("Content-Disposition", "attachment; filename=" + file_name);
@@ -211,29 +206,30 @@ public class AdminController {
 	// For calling admin add bus form
 	@GetMapping("/addBus")
 	public ModelAndView welcomeUser() {
-		ModelAndView mv= new ModelAndView("AdminAddBus");
+		ModelAndView mv = new ModelAndView("AdminAddBus");
 		List<Route> routes = routeService.findAll();
 		mv.addObject("routes", routes);
 		return mv;
 	}
-	
-     // For saving the data in database after getting from form
+
+	// For saving the data in database after getting from form
 	@PostMapping("/addBus")
-	public ModelAndView addBus(@ModelAttribute("bus") Bus bus, @ModelAttribute("startTimeForm") String startTimeForm , @ModelAttribute("routeCode") int routeCode, RedirectAttributes redirectAttributes )
-	{
+	public ModelAndView addBus(@ModelAttribute("bus") Bus bus, @ModelAttribute("startTimeForm") String startTimeForm,
+			@ModelAttribute("routeCode") int routeCode, RedirectAttributes redirectAttributes) {
 		Bus busExists = busService.findByRegistrationNo(bus.getRegistrationNo());
-		if(busExists != null) {
+		if (busExists != null) {
 			ModelAndView mv = new ModelAndView("AdminAddBus");
 			System.out.println(bus);
-			mv.addObject("bus",bus);
+			mv.addObject("bus", bus);
 			List<Route> routes = routeService.findAll();
 			mv.addObject("routes", routes);
 			mv.addObject("error_msg", "Registration number already exists!");
 			return mv;
 		}
-		ModelAndView modelAndView  = new ModelAndView("redirect:/admin/displayBusInformation");
+		ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayBusInformation");
 		Route route = routeService.getById(routeCode);
-		String busAddMsg = "Bus with registration no. " + bus.getRegistrationNo() + " on route " + route.getStartName() + " to " + route.getStopName() + " added successfully" ;
+		String busAddMsg = "Bus with registration no. " + bus.getRegistrationNo() + " on route " + route.getStartName()
+				+ " to " + route.getStopName() + " added successfully";
 		redirectAttributes.addFlashAttribute("busAddMsg", busAddMsg);
 		bus.setRoute(route);
 		bus.setActiveStatus(BusActiveStatus.YES);
@@ -245,57 +241,56 @@ public class AdminController {
 		busService.saveOrUpdate(bus);
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/download/revenueReport.xlsx")
 	public void getRevenueReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("isValidAdmin");
-		if(attribute != (Object)true) {
-			response.sendRedirect(request.getContextPath()+"/admin/login");
-		}
-		else {
+		if (attribute != (Object) true) {
+			response.sendRedirect(request.getContextPath() + "/admin/login");
+		} else {
 			List<Revenue> revenueList = ticketService.getRevenue();
-			
+
 			response.setContentType("application/octet-stream");
 			Date date = new Date();
-	        SimpleDateFormat df  = new SimpleDateFormat("YYYY-MM-dd");
-	        Calendar c1 = Calendar.getInstance();
-	        String currentDate = df.format(date);
-	        c1.add(Calendar.DAY_OF_YEAR, -30);
-	        df = new SimpleDateFormat("yyyy-MM-dd");
-	        Date resultDate = c1.getTime();
-	        String prevDate = df.format(resultDate);
-			String filename="Revenue_"+prevDate+"_"+currentDate+".xlsx";
-			response.setHeader("Content-Disposition", "attachment; filename="+filename);
-	        ByteArrayInputStream stream = RevenueReportExporter.exportRevenueReport(revenueList);
-	        IOUtils.copy(stream, response.getOutputStream());
+			SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+			Calendar c1 = Calendar.getInstance();
+			String currentDate = df.format(date);
+			c1.add(Calendar.DAY_OF_YEAR, -30);
+			df = new SimpleDateFormat("yyyy-MM-dd");
+			Date resultDate = c1.getTime();
+			String prevDate = df.format(resultDate);
+			String filename = "Revenue_" + prevDate + "_" + currentDate + ".xlsx";
+			response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+			ByteArrayInputStream stream = RevenueReportExporter.exportRevenueReport(revenueList);
+			IOUtils.copy(stream, response.getOutputStream());
 		}
 	}
-	
+
 	@GetMapping("/download/underUtilizedBusReport.xlsx/{percentage}")
 	public void getUnderUtilizedBusReport(HttpServletRequest request, HttpServletResponse response,
-										@PathVariable("percentage") int percentage) throws IOException {
+			@PathVariable("percentage") int percentage) throws IOException {
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("isValidAdmin");
-		if(attribute != (Object)true) {
-			response.sendRedirect(request.getContextPath()+"/admin/login");
-		}
-		else {
+		if (attribute != (Object) true) {
+			response.sendRedirect(request.getContextPath() + "/admin/login");
+		} else {
 			List<UnderUtilizedBusInfo> underUtilizedBusList = busService.getUnderUtilizedBusInfo(percentage);
-			
+
 			response.setContentType("application/octet-stream");
 			Date date = new Date();
-	        SimpleDateFormat df  = new SimpleDateFormat("YYYY-MM-dd");
-	        Calendar c1 = Calendar.getInstance();
-	        String currentDate = df.format(date);
-	        c1.add(Calendar.DAY_OF_YEAR, -30);
-	        df = new SimpleDateFormat("yyyy-MM-dd");
-	        Date resultDate = c1.getTime();
-	        String prevDate = df.format(resultDate);
-			String filename="Under_"+percentage+"_PercentUtilizedBus_"+prevDate+"_"+currentDate+".xlsx";
-			response.setHeader("Content-Disposition", "attachment; filename="+filename);
-	        ByteArrayInputStream stream = UnderUtilizedBusInfoExporter.exportUnderUtilizedBusInfo(underUtilizedBusList,percentage);
-	        IOUtils.copy(stream, response.getOutputStream());
+			SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+			Calendar c1 = Calendar.getInstance();
+			String currentDate = df.format(date);
+			c1.add(Calendar.DAY_OF_YEAR, -30);
+			df = new SimpleDateFormat("yyyy-MM-dd");
+			Date resultDate = c1.getTime();
+			String prevDate = df.format(resultDate);
+			String filename = "Under_" + percentage + "_PercentUtilizedBus_" + prevDate + "_" + currentDate + ".xlsx";
+			response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+			ByteArrayInputStream stream = UnderUtilizedBusInfoExporter.exportUnderUtilizedBusInfo(underUtilizedBusList,
+					percentage);
+			IOUtils.copy(stream, response.getOutputStream());
 		}
 	}
 }

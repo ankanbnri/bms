@@ -6,7 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class WelcomeController {
-	
+
 	@GetMapping("/")
 	public ModelAndView welcomePage() {
 		ModelAndView mv = new ModelAndView("redirect:/user/welcome");

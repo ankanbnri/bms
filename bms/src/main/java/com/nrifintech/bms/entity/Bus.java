@@ -34,12 +34,11 @@ public class Bus extends AbstractBaseEntity {
 
 	@Column(name = "totalseats")
 	private int seatCount;
-	
+
 	@Transient
 	private int availableSeats;
-	
 
-	@Column(name="starttime")
+	@Column(name = "starttime")
 	private Time startTime;
 
 	@Column(name = "facilities")
@@ -53,7 +52,7 @@ public class Bus extends AbstractBaseEntity {
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "routecode", foreignKey = @ForeignKey(name = "routecode_fk"), nullable = false)
 	private Route route;
-	
+
 	public String getRegistrationNo() {
 		return registrationNo;
 	}
@@ -89,7 +88,7 @@ public class Bus extends AbstractBaseEntity {
 	public Time getStartTime() {
 		return startTime;
 	}
-	
+
 	public int getAvailableSeats() {
 		return availableSeats;
 	}
@@ -132,6 +131,5 @@ public class Bus extends AbstractBaseEntity {
 				+ seatCount + ", availableSeats=" + availableSeats + ", startTime=" + startTime + ", facilities="
 				+ facilities + ", activeStatus=" + activeStatus + ", route=" + route + "]";
 	}
-	
 
 }
