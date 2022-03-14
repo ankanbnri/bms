@@ -1,37 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	crossorigin="anonymous"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-	crossorigin="anonymous"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-	rel="stylesheet" />
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<%@ include file="plugin.jsp"%>
 
 <link rel="stylesheet" href="/css/util.css" />
 <link rel="stylesheet" href="/css/myTickets.css" />
 <link rel="stylesheet" href="/css/navbar.css" />
 
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript">
 	function addClassShow() {
 		console.log("js....");
@@ -46,37 +28,46 @@
 
 	<!-- NAVBAR -->
 	<%@ include file="userNavbar.jsp"%>
-	
+
 	<section class="container">
 		<c:if test="${validCancel == 'YES'}">
-			<div class="alert alert-danger alert-dismissible fade show" role="alert">
-				  Your ticket from <b>${source}</b> to <b>${dest}</b> on <b>${date}</b> with PNR No: <b>${pnrNo}</b> is cancelled successfully.
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			    <span aria-hidden="true">&times;</span>
-			  </button>
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+				Your ticket from <b>${source}</b> to <b>${dest}</b> on <b>${date}</b>
+				with PNR No: <b>${pnrNo}</b> is cancelled successfully.
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 		</c:if>
 		<c:if test="${validCancel == 'NO'}">
-			<div class="alert alert-danger alert-dismissible fade show" role="alert">
-				  Unauthorized cancel operation.
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			    <span aria-hidden="true">&times;</span>
-			  </button>
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+				Unauthorized cancel operation.
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 		</c:if>
 		<c:if test="${fn:length(bookedTicket.getPnrNo()) > 0}">
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
 				<div class="book-success-mssg">
-				  <strong>Success!</strong> Your ticket from <b>${bookedTicket.getBus().getRoute().getStartName()}</b>
-				  to <b>${bookedTicket.getBus().getRoute().getStopName()}</b> on <b>${bookedTicket.getDateOfTravel()}</b> with 
-				  <b>${bookedTicket.getSeatsBooked()}</b> seats is booked successfully. Email is sent to your email address.
-				  <p>PNR No: <b>${bookedTicket.getPnrNo()}</b><br/>
-				  Bus Number: <b>${bookedTicket.getBus().getRegistrationNo()}</b></p>
+					<strong>Success!</strong> Your ticket from <b>${bookedTicket.getBus().getRoute().getStartName()}</b>
+					to <b>${bookedTicket.getBus().getRoute().getStopName()}</b> on <b>${bookedTicket.getDateOfTravel()}</b>
+					with <b>${bookedTicket.getSeatsBooked()}</b> seats is booked
+					successfully. Email is sent to your email address.
+					<p>
+						PNR No: <b>${bookedTicket.getPnrNo()}</b><br /> Bus Number: <b>${bookedTicket.getBus().getRegistrationNo()}</b>
+					</p>
 				</div>
 				<div>Please find your ticket below.</div>
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			    <span aria-hidden="true">&times;</span>
-			  </button>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 		</c:if>
 	</section>
@@ -314,8 +305,8 @@
 							Your ticket from <b>${upcomingTicket.getBus().getRoute().getStartName()}</b>
 							to <b>${upcomingTicket.getBus().getRoute().getStopName()}</b> on
 							<b>${upcomingTicket.getDateOfTravel()}</b> with PNR No. <span
-								class="text-red">${upcomingTicket.getPnrNo()}</span> will
-							be cancelled.
+								class="text-red">${upcomingTicket.getPnrNo()}</span> will be
+							cancelled.
 						</div>
 						<div class="modal-footer">
 							<a class="btn btn-primary"

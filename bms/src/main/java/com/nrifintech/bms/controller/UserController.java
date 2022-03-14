@@ -48,8 +48,15 @@ public class UserController {
 	private TicketService ticketService;
 	
 	@GetMapping("/welcome")
-	public String welcomeUser() {
-		return "welcome";
+	public ModelAndView welcomeUser() {
+		ModelAndView mv = new ModelAndView("welcome");
+		long busCount = busService.countBuses();
+		long routeCount = routeService.countRoutes();
+		long userCount = userService.countUsers();
+		mv.addObject("busCount",busCount);
+		mv.addObject("routeCount", routeCount);
+		mv.addObject("userCount", userCount);
+		return mv;
 	}
 
 	@GetMapping("/login")

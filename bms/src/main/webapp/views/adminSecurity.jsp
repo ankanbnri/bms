@@ -4,9 +4,6 @@
 		response.setHeader("Expires", "0"); // Proxies
 %>
 	
-<%-- <c:if test="${sessionScope.isValidAdmin != true}">
-	<%response.sendRedirect(request.getContextPath()+"/admin/login");%>
-</c:if> --%>
 
 <c:choose>
 	<c:when test="${sessionScope.isValidUser == true}">

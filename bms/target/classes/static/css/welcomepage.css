@@ -1,8 +1,13 @@
 /* TAGS */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 
 *{
     font-family: 'Montserrat', sans-serif;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 section{
@@ -10,6 +15,9 @@ section{
 }
 
 /* CAROUSAL */
+#carousel-section{
+	background-color: #e3e3e3;
+}
 
 .carousel .carousel-inner{
     height:600px

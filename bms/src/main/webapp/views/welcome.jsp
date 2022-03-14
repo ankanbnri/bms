@@ -10,25 +10,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%@ include file="plugin.jsp"%>
-<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="/css/util.css">
     <link rel="stylesheet" href="/css/welcomepage.css">
     <link rel="stylesheet" href="/css/navbar.css">
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
-    
-    
 
+      
     <title>BMS | Welcome</title>
 </head>
 
@@ -45,7 +31,7 @@
 	<!-- NAVBAR -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-bms-primary">
         <div class="container nav-container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/user/welcome">
                 <div class="font-weight-bold"><i class="fas fa-bus"></i> BMS</div>
             </a>
 
@@ -66,12 +52,11 @@
         </div>
     </nav>
     <!-- CAROUSEL -->
-    <section>
+    <section id="carousel-section">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -84,14 +69,6 @@
                 </div>
                 <div class="carousel-item">
                     <img class="d-block w-100" src="/images/2.jpg" alt="Second slide">
-                    <div class="carousel-caption trickcenter">
-                        <div>
-                            <h1>Our Premium Range of Services</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="/images/3.jpg" alt="Third slide">
                     <div class="carousel-caption trickcenter">
                         <div>
                             <h1>Our Premium Range of Services</h1>
@@ -158,20 +135,20 @@
                     <div class="row no-gutters">
                         <div class="col-md text-center" data-aos="fade-up">
                             <div class="route-count-img"></div>
-                            <h4 class="mt-2"><strong>100+</strong></h4>
+                            <h4 class="mt-2"><strong>${routeCount }+</strong></h4>
                             <h5 class="text-uppercase text-gray">ROUTES</h5>
                         </div>
                         <div class="col-md text-center" data-aos="fade-up" data-aos-delay="200">
                             <div class="bus-services-img"></div>
-                            <h4 class="mt-2"><strong>25+</strong></h4>
-                            <h5 class="text-uppercase text-gray">BUS PARTNERS</h5>
+                            <h4 class="mt-2"><strong>${busCount }+</strong></h4>
+                            <h5 class="text-uppercase text-gray">BUSES</h5>
                         </div>
                         <div class="col-md text-center" data-aos="fade-up" data-aos-delay="400">
                             <h4 class="mt-2"><strong>30 SEC</strong></h4>
-                            <h5 class="text-uppercase text-gray">INSTANT E-TICKET &amp;</h5>
+                            <h5 class="text-uppercase text-gray">INSTANT E-TICKET &amp; CANCELLATION</h5>
                         </div>
                         <div class="col-md text-center" data-aos="fade-up" data-aos-delay="600">
-                            <h4 class="mt-2"><strong>1000+</strong></h4>
+                            <h4 class="mt-2"><strong>${userCount }+</strong></h4>
                             <h5 class="text-uppercase text-gray">Happy customers</h5>
                         </div>
                         <div class="col-md text-center" data-aos="fade-up" data-aos-delay="800">
@@ -309,7 +286,7 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="/plugin/aos.js"></script>
     <script>
         AOS.init();
     </script>

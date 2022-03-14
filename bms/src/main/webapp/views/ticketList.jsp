@@ -7,11 +7,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="/css/ticketList.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<title>Ticket List</title>
+<link rel="stylesheet" href="/css/util.css">
+<%@ include file="plugin.jsp"%>
+<title>BMS Admin | Ticket List</title>
 </head>
 <body>
 	<%@ include file="adminSecurity.jsp"%>
@@ -40,7 +38,6 @@
 				${bus.getRoute().getStopName()}
 			</h3>
 			<h3 class="text-info">Bus Start Time:- ${bus.getStartTime()}</h3>
-			<!-- <h3 class="text-success">Date of Travel:- ${ticket.getDateOfTravel()}</h3> -->
 			<h3 class="text-danger">Seats Booked : ${!ticketFound ? 0 : tickets.stream().map(it -> it.getSeatsBooked()).reduce(0, (acc, it) -> acc+it)}</h3>
 		</div>
 		<table class="table table-striped table-bordered">

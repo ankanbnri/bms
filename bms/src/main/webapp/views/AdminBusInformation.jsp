@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.nrifintech.bms.util.*"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,28 +11,9 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<%@ include file="plugin.jsp"%>
 <link rel="stylesheet" href="/css/util.css">
 <link rel="stylesheet" href="/css/adminBus.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	crossorigin="anonymous"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <title>BMS ADMIN | DASHBOARD</title>
 </head>
@@ -105,11 +86,19 @@
 						<span class="nav-link-text">Generate Revenue Report</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Example Pages"><a class="nav-link"
-					href="/admin/download/underUtilizedBusReport.xlsx"
-					data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
-						<span class="nav-link-text">Generate Under Utilized Bus Report</span>
-				</a></li>
+					title="Example Pages"><a class="nav-link dropdown-toggle" href="#" id="percentageDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false" data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
+						<span class="nav-link-text">Generate Under Utilized Bus Report</span></a>
+					<div class="dropdown-menu percentage-dropdown-menu" aria-labelledby="percentageDropdown">
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/10">Under 10% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/20">Under 20% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/30">Under 30% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/40">Under 40% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/50">Under 50% utilized</a> 
+						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/60">Under 60% utilized</a> 
+					</div>
+				</li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
 
@@ -146,21 +135,24 @@
 					<table class="table align-middle mb-0 bg-white">
 						<thead class="bg-light">
 							<tr>
-								<th title="Sort Alphabetically By Registration Number"><a href="${sortLinkRegistrationNumber}">Registration
-										number<i class="fas fa-sort"></i>
+								<th title="Sort Alphabetically By Registration Number"><a
+									href="${sortLinkRegistrationNumber}">Registration number<i
+										class="fas fa-sort"></i>
 								</a></th>
-								<th title="Sort Alphabetically By Bus Name"><a href="${sortLinkBusName}">Bus Name<i
+								<th title="Sort Alphabetically By Bus Name"><a
+									href="${sortLinkBusName}">Bus Name<i class="fas fa-sort"></i></a></th>
+								<th title="Sort Alphabetically By Source"><a
+									href="${sortLinkFrom}">From<i class="fas fa-sort"></i></a></th>
+								<th title="Sort Alphabetically By Destination"><a
+									href="${sortLinkTo}">To<i class="fas fa-sort"></i></a></th>
+								<th title="Sort By Seat Count"><a
+									href="${sortLinkSeatCount}">Seat Count<i
 										class="fas fa-sort"></i></a></th>
-								<th title="Sort Alphabetically By Source"><a href="${sortLinkFrom}">From<i
-										class="fas fa-sort"></i></a></th>
-								<th title="Sort Alphabetically By Destination"><a href="${sortLinkTo}">To<i
-										class="fas fa-sort"></i></a></th>
-								<th title="Sort By Seat Count"><a href="${sortLinkSeatCount}">Seat Count<i
-										class="fas fa-sort"></i></a></th>
-								<th title="Sort By Fare"><a href="${sortLinkFare}">Fare(per KM)<i
-										class="fas fa-sort"></i></a></th>
-								<th title="Show Disabled Buses First"><a href="${sortLinkStatus}">Status<i
-										class="fas fa-sort"></i></a></th>
+								<th title="Sort By Fare"><a href="${sortLinkFare}">Fare(per
+										KM)<i class="fas fa-sort"></i>
+								</a></th>
+								<th title="Show Disabled Buses First"><a
+									href="${sortLinkStatus}">Status<i class="fas fa-sort"></i></a></th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -253,10 +245,6 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready
 					to end your current session.</div>

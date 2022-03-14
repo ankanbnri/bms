@@ -276,15 +276,16 @@ public class AdminController {
 		}
 	}
 	
-	@GetMapping("/download/underUtilizedBusReport.xlsx")
-	public void getUnderUtilizedBusReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	@GetMapping("/download/underUtilizedBusReport.xlsx/{percentage}")
+	public void getUnderUtilizedBusReport(HttpServletRequest request, HttpServletResponse response,
+										@PathVariable("percentage") int percentage) throws IOException {
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("isValidAdmin");
 		if(attribute != (Object)true) {
 			response.sendRedirect(request.getContextPath()+"/admin/login");
 		}
 		else {
-			List<UnderUtilizedBusInfo> underUtilizedBusList = busService.getUnderUtilizedBusInfo();
+			List<UnderUtilizedBusInfo> underUtilizedBusList = busService.getUnderUtilizedBusInfo(percentage);
 			
 			response.setContentType("application/octet-stream");
 			Date date = new Date();
@@ -295,9 +296,9 @@ public class AdminController {
 	        df = new SimpleDateFormat("yyyy-MM-dd");
 	        Date resultDate = c1.getTime();
 	        String prevDate = df.format(resultDate);
-			String filename="UnderUtilizedBus_"+prevDate+"_"+currentDate+".xlsx";
+			String filename="Under_"+percentage+"_PercentUtilizedBus_"+prevDate+"_"+currentDate+".xlsx";
 			response.setHeader("Content-Disposition", "attachment; filename="+filename);
-	        ByteArrayInputStream stream = UnderUtilizedBusInfoExporter.exportUnderUtilizedBusInfo(underUtilizedBusList);
+	        ByteArrayInputStream stream = UnderUtilizedBusInfoExporter.exportUnderUtilizedBusInfo(underUtilizedBusList,percentage);
 	        IOUtils.copy(stream, response.getOutputStream());
 		}
 	}

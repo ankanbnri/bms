@@ -1,8 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
-*{
-    font-family: 'Montserrat', sans-serif;
-}
 html {
   position: relative;
   min-height: 100%;
@@ -482,4 +477,16 @@ footer.sticky-footer {
 table thead tr th a
 {
 	color:black;
+}
+
+.percentage-dropdown-menu{
+	background-color: #343a40;
+}
+.percentage-dropdown-menu > a{
+	  color:#868e96 ;
+}
+
+.percentage-dropdown-menu > a:hover{
+	background-color: #343a40;
+	color: #adb5bd;
 }
