@@ -28,7 +28,7 @@ public interface TicketRepository extends AbstractBaseRepository<Ticket, String>
 	@Query("SELECT coalesce(sum(t.seatsBooked),0) FROM Ticket t where t.bus=?1 and t.dateOfTravel=?2")
 	int getTotalSeatsByBusAndDate(Bus bus, Date dateOfTravel);
 	
-	@Query("SELECT t FROM Ticket t where t.user=?1 and t.dateOfTravel >= CURRENT_DATE() ORDER BY t.dateOfTravel")
+	@Query("SELECT t FROM Ticket t where t.user=?1 and t.dateOfTravel >= CURRENT_DATE() ORDER BY t.dateOfTravel, t.bus.startTime, t.createdAt DESC")
 	List<Ticket> findAllUpcomingTicketsWithUser(User user);
 	
 	@Query("SELECT t FROM Ticket t where t.user=?1 and t.dateOfTravel < CURRENT_DATE() ORDER BY t.dateOfTravel DESC")

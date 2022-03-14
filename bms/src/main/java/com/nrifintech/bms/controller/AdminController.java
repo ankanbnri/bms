@@ -37,9 +37,11 @@ import com.nrifintech.bms.service.TicketService;
 import com.nrifintech.bms.entity.User;
 import com.nrifintech.bms.exporter.DepartureSheetExporter;
 import com.nrifintech.bms.exporter.RevenueReportExporter;
+import com.nrifintech.bms.exporter.UnderUtilizedBusInfoExporter;
 import com.nrifintech.bms.model.Revenue;
 import com.nrifintech.bms.model.RouteInfo;
 import com.nrifintech.bms.model.RouteRevenue;
+import com.nrifintech.bms.model.UnderUtilizedBusInfo;
 import com.nrifintech.bms.service.UserService;
 import com.nrifintech.bms.util.AdminBusSortingUtils;
 import com.nrifintech.bms.util.BusActiveStatus;
@@ -270,6 +272,32 @@ public class AdminController {
 			String filename="Revenue_"+prevDate+"_"+currentDate+".xlsx";
 			response.setHeader("Content-Disposition", "attachment; filename="+filename);
 	        ByteArrayInputStream stream = RevenueReportExporter.exportRevenueReport(revenueList);
+	        IOUtils.copy(stream, response.getOutputStream());
+		}
+	}
+	
+	@GetMapping("/download/underUtilizedBusReport.xlsx")
+	public void getUnderUtilizedBusReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("isValidAdmin");
+		if(attribute != (Object)true) {
+			response.sendRedirect(request.getContextPath()+"/admin/login");
+		}
+		else {
+			List<UnderUtilizedBusInfo> underUtilizedBusList = busService.getUnderUtilizedBusInfo();
+			
+			response.setContentType("application/octet-stream");
+			Date date = new Date();
+	        SimpleDateFormat df  = new SimpleDateFormat("YYYY-MM-dd");
+	        Calendar c1 = Calendar.getInstance();
+	        String currentDate = df.format(date);
+	        c1.add(Calendar.DAY_OF_YEAR, -30);
+	        df = new SimpleDateFormat("yyyy-MM-dd");
+	        Date resultDate = c1.getTime();
+	        String prevDate = df.format(resultDate);
+			String filename="UnderUtilizedBus_"+prevDate+"_"+currentDate+".xlsx";
+			response.setHeader("Content-Disposition", "attachment; filename="+filename);
+	        ByteArrayInputStream stream = UnderUtilizedBusInfoExporter.exportUnderUtilizedBusInfo(underUtilizedBusList);
 	        IOUtils.copy(stream, response.getOutputStream());
 		}
 	}

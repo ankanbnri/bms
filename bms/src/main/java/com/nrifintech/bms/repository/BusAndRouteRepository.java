@@ -16,6 +16,15 @@ public interface BusAndRouteRepository extends AbstractBaseRepository<Bus, Strin
 	Bus findByRegistrationNo(String registrationNo);
 	
 	
-	
+	@Query(value = "select * from(\r\n"
+			+ "		select bus.registration_no, busname, fare_per_km, facilities, routecode, startname, stopname, \r\n"
+			+ "		(totalseats*30) as total_seats, coalesce(sum(seats_booked),0) as total_seats_booked, \r\n"
+			+ "		round((coalesce(sum(seats_booked),0)/(totalseats*30)*100)) as Percentage_Seat_Utilization from bus  join route using(routecode) \r\n"
+			+ "		left join ticket on bus.registration_no = ticket.registration_no\r\n"
+			+ "		where DATEDIFF(curdate(),date_bought) < 31 or date_bought is null group by registration_no \r\n"
+			+ "        ) t1\r\n"
+			+ "where Percentage_Seat_Utilization < 60 order by 10",
+			nativeQuery = true)
+	public List<Object[]> getUnderUtilizedBusInfo();
 	
 }

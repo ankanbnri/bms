@@ -312,7 +312,7 @@
 							Your ticket from <b>${upcomingTicket.getBus().getRoute().getStartName()}</b>
 							to <b>${upcomingTicket.getBus().getRoute().getStopName()}</b> on
 							<b>${upcomingTicket.getDateOfTravel()}</b> with PNR No. <span
-								class="modal-body-pnr">${upcomingTicket.getPnrNo()}</span> will
+								class="text-red">${upcomingTicket.getPnrNo()}</span> will
 							be cancelled.
 						</div>
 						<div class="modal-footer">

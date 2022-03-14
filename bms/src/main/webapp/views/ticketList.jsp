@@ -41,7 +41,7 @@
 			</h3>
 			<h3 class="text-info">Bus Start Time:- ${bus.getStartTime()}</h3>
 			<!-- <h3 class="text-success">Date of Travel:- ${ticket.getDateOfTravel()}</h3> -->
-			<h3 class="text-danger">Ticket Sold: ${!ticketFound ? 0 : tickets.stream().map(it -> it.getSeatsBooked()).reduce(0, (acc, it) -> acc+it)}</h3>
+			<h3 class="text-danger">Seats Booked : ${!ticketFound ? 0 : tickets.stream().map(it -> it.getSeatsBooked()).reduce(0, (acc, it) -> acc+it)}</h3>
 		</div>
 		<table class="table table-striped table-bordered">
 			<thead class="table-dark">

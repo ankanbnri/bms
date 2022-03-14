@@ -16,11 +16,11 @@ public class EmailSenderService {
 
 	private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(20);
 
-	public void sendEmail(String toEmail, String body) {
+	public void sendEmail(String toEmail, String body, String subject) {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setFrom("beingakscool@gmail.com");
 		mailMessage.setTo(toEmail);
-		mailMessage.setSubject("TICKET CONFIRMATION");
+		mailMessage.setSubject(subject);
 		mailMessage.setText(body);
 		executorService.submit(new Runnable() {
 
