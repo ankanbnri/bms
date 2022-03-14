@@ -25,9 +25,11 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 	rel="stylesheet" />
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
 <link rel="stylesheet" href="/css/util.css" />
 <link rel="stylesheet" href="/css/myTickets.css" />
 <link rel="stylesheet" href="/css/navbar.css" />
+
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript">
