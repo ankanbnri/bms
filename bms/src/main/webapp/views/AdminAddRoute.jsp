@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,7 +88,7 @@
 			<!-- Breadcrumbs-->
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-				<li class="breadcrumb-item active">Add New Bus</li>
+				<li class="breadcrumb-item active">Add New Route</li>
 			</ol>
 
 			<!-- Example DataTables Card-->
@@ -99,65 +96,19 @@
 				<img class="card-img-top" src="/images/bus_form_img.jpg"
 					alt="Card image cap">
 				<div class="card-body">
-					<h5 class="card-title font-weight-bold">Add a new Bus</h5>
+					<h5 class="card-title font-weight-bold">Add a new Route</h5>
 					<p class="card-text">
-					<form action="/admin/saveBus" method="post">
+					<form action="/admin/saveRoute" method="post">
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<div class="input-group mb-3 my-auto search-element">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="basic-addon1"><i
-											class="fas fa-registered form-icon text-bms-primary"></i></span>
+											class="fas fa-road form-icon text-bms-primary"></i></span>
 									</div>
-									<input type="text" name="registrationNo" class="form-control"
-										placeholder="Registration Number"
+									<input type="text" name="startName" class="form-control"
+										placeholder="Start Name"
 										aria-describedby="basic-addon1">
-								</div>
-							</div>
-							<div class="form-group col-md-6">
-								<div class="input-group mb-3 my-auto search-element">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="basic-addon1"><i
-											class="fas fa-bus form-icon text-bms-primary"></i></span>
-									</div>
-									<input type="text" name="busName" class="form-control"
-										placeholder="Bus Name" aria-describedby="basic-addon1">
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<div class="input-group mb-3 my-auto search-element">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="basic-addon1"><i
-											class="fas fa-chair form-icon text-bms-primary"></i></span>
-									</div>
-									<input type="number" name="seatCount" class="form-control"
-										id="totalSeats" placeholder="Totals seats" min="20" value="20"
-										aria-describedby="basic-addon1">
-								</div>
-
-							</div>
-							<div class="form-group col-md-6">
-								<div class="input-group mb-3 my-auto search-element">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="basic-addon1"><i
-											class="fas fa-clock form-icon text-bms-primary"></i></span>
-									</div>
-									<input type="time" name="startTimeForm" class="form-control"
-										placeholder="Departure time" aria-describedby="basic-addon1">
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<div class="input-group mb-3 my-auto search-element">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="basic-addon1"><i
-											class="fas fa-rupee-sign form-icon text-bms-primary"></i></span>
-									</div>
-									<input type="number" name="fare" class="form-control"
-										placeholder="Fare per km" aria-describedby="basic-addon1">
 								</div>
 							</div>
 							<div class="form-group col-md-6">
@@ -166,45 +117,23 @@
 										<span class="input-group-text" id="basic-addon1"><i
 											class="fas fa-road form-icon text-bms-primary"></i></span>
 									</div>
-									<select class="form-select form-control"
-										aria-label="Default select example" name="routeCode" required>
-
-										<!-- Use forEach loop from JSTL to populate these options.   -->
-										<c:forEach var="route" items="${routes}">
-											<option
-												value="${route.getRouteCode()}">
-												${route.getRouteCode()}-${route.getStartName()}-${route.getStopName()}
-											</option>
-										</c:forEach>
-									</select>
+									<input type="text" name="stopName" class="form-control"
+										placeholder="Stop Name" aria-describedby="basic-addon1">
 								</div>
 							</div>
-
 						</div>
 						<div class="form-group">
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="facilities"
-									id="inlineRadio1" value="AC"> <label
-									class="form-check-label" for="inlineRadio1"><span
-									class="badge badge-success">AC</span></label>
-							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="facilities"
-									id="inlineRadio2" value="NONAC"> <label
-									class="form-check-label" for="inlineRadio2"><span
-									class="badge badge-primary">NON AC</span></label>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="text-danger" id="seat_error"></div>
-						</div>
-
-						<div class="pass-link text-center">
-							<span class="text-danger">${error_msg }</span>
+							<div class="input-group mb-3 my-auto search-element">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1"><i
+											class="fas fa-bus form-icon text-bms-primary"></i></span>
+									</div>
+									<input type="number" name="distance" class="form-control"
+										placeholder="Distance (in km)" aria-describedby="basic-addon1">
+								</div>
 						</div>
 						<button type="submit" class="btn btn-add" id="add-btn">ADD
-							BUS</button>
+							Route</button>
 					</form>
 				</div>
 			</div>

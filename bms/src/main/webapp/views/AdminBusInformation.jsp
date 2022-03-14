@@ -83,6 +83,11 @@
 							Bus Information</span>
 				</a>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
+					title="Tables"><a class="nav-link" href="/admin/addRoute"> <i
+						class="fa fa-fw fa-wrench"></i> <span class="nav-link-text">Add
+							New Route</span>
+				</a></li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right"
 					title="Tables"><a class="nav-link" href="/admin/addBus">
 						<i class="fa fa-fw fa-wrench"></i> <span class="nav-link-text">Add
 							New Bus</span>

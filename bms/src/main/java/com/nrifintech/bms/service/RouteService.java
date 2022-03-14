@@ -34,8 +34,13 @@ public class RouteService {
 		return repository.count();
 	}
 
+	public List<Route> getAll(){
+		return repository.findAll();
+	}
 	
-	
+	public void save(Route route) {
+		repository.save(route);
+	}
 	
 	
 }

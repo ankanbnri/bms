@@ -106,4 +106,7 @@ public class TicketService {
 		return list;
 	}
 	
+	public List<Ticket> getAll() {
+		return ticketRepository.findAll();
+	}
 }

@@ -207,6 +207,8 @@ public class AdminController {
 		@GetMapping("/addBus")
 		public ModelAndView welcomeUser() {
 			ModelAndView mv= new ModelAndView("AdminAddBus");
+			List<Route> routes = routeService.getAll();
+			mv.addObject("routes", routes);
 			return mv;
 		}
 	
@@ -258,5 +260,32 @@ public class AdminController {
 	        ByteArrayInputStream stream = RevenueReportExporter.exportRevenueReport(revenueList);
 	        IOUtils.copy(stream, response.getOutputStream());
 		}
+	}
+	
+	@RequestMapping("/allTickets")
+	public ModelAndView allTickets() {
+		List<Ticket> tickets = ticketService.getAll();
+		ModelAndView modelAndView = new ModelAndView("AdminAllTickets");
+		if (tickets.isEmpty()) {
+			modelAndView.addObject("ticketFound", false);
+		} else {
+			modelAndView.addObject("ticketFound", true);
+			modelAndView.addObject("tickets", tickets);
+		}
+		return modelAndView;
+	}
+	
+	@GetMapping("/addRoute")
+	public ModelAndView addRoute() {
+		ModelAndView mv= new ModelAndView("AdminAddRoute");
+		return mv;
+	}
+	
+	@PostMapping("/saveRoute")
+	public ModelAndView saveRoute(@ModelAttribute("route") Route route)
+	{
+			ModelAndView modelAndView  = new ModelAndView("redirect:/admin/displayBusInformation");
+			routeService.save(route);
+			return modelAndView;
 	}
 }
