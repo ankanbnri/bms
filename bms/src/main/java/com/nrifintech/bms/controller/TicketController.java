@@ -72,6 +72,11 @@ public class TicketController {
 		ticket.setDateBought(java.sql.Date.valueOf(LocalDate.now()));
 		ticket.setBus(bus);
 		ticket.setUser(user);
+		// Changes for Fare Edit Bug in FrontEnd
+		int fare = busService.getById(bus.getRegistrationNo()).getFare();
+		int distance = busService.getById(bus.getRegistrationNo()).getRoute().getDistance();
+		int seatsBooked = ticket.getSeatsBooked();
+		ticket.setTotalAmount(fare * distance * seatsBooked);
 		ticketService.save(ticket);
 		TicketEmailTemplate ticketTemplate = new TicketEmailTemplate.TicketEmailTemplateBuilder(ticket.getPnrNo(),
 				ticket.getSeatsBooked()).busName(bus.getBusName()).dateBought(ticket.getDateBought().toString())
