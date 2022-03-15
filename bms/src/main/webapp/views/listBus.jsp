@@ -10,9 +10,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@ include file="plugin.jsp"%>
-<link rel="stylesheet" href="/css/util.css" />
-<link rel="stylesheet" href="/css/listBus.css" />
-<link rel="stylesheet" href="/css/navbar.css" />
+<link rel="stylesheet" href="${context}/css/util.css" />
+<link rel="stylesheet" href="${context}/css/listBus.css" />
+<link rel="stylesheet" href="${context}/css/navbar.css" />
 
 <title>Available Bus</title>
 </head>
@@ -44,7 +44,7 @@
 					<a
 						style="margin-bottom: 2%; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
 						class="card"
-						href="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
+						href="${context}/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}/${bus.getAvailableSeats()}">
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item">

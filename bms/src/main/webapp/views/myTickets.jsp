@@ -10,9 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@ include file="plugin.jsp"%>
 
-<link rel="stylesheet" href="/css/util.css" />
-<link rel="stylesheet" href="/css/myTickets.css" />
-<link rel="stylesheet" href="/css/navbar.css" />
+<link rel="stylesheet" href="${context}/css/util.css" />
+<link rel="stylesheet" href="${context}/css/myTickets.css" />
+<link rel="stylesheet" href="${context}/css/navbar.css" />
 
 <script type="text/javascript">
 	function addClassShow() {
@@ -309,7 +309,7 @@
 						</div>
 						<div class="modal-footer">
 							<a class="btn btn-primary"
-								href="/ticket/cancel/${upcomingTicket.getPnrNo()}">Cancel
+								href="${context}/ticket/cancel/${upcomingTicket.getPnrNo()}">Cancel
 								Ticket</a>
 						</div>
 					</div>

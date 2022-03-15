@@ -10,11 +10,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@ include file="plugin.jsp"%>
-<link rel="stylesheet" href="/css/util.css">
-<link rel="stylesheet" href="/css/searchBus.css">
-<link rel="stylesheet" href="/css/navbar.css">
+<link rel="stylesheet" href="${context}/css/util.css">
+<link rel="stylesheet" href="${context}/css/searchBus.css">
+<link rel="stylesheet" href="${context}/css/navbar.css">
 
-<script src="/js/searchBus.js"></script>
+<script src="${context}/js/searchBus.js"></script>
 
 <title>BMS | Plan your journey</title>
 </head>

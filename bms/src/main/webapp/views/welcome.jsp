@@ -10,9 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%@ include file="plugin.jsp"%>
-    <link rel="stylesheet" href="/css/util.css">
-    <link rel="stylesheet" href="/css/welcomepage.css">
-    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="${context}/css/util.css">
+    <link rel="stylesheet" href="${context}/css/welcomepage.css">
+    <link rel="stylesheet" href="${context}/css/navbar.css">
 
       
     <title>BMS | Welcome</title>
@@ -31,7 +31,7 @@
 	<!-- NAVBAR -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-bms-primary">
         <div class="container nav-container">
-            <a class="navbar-brand" href="/user/welcome">
+            <a class="navbar-brand" href="${context}/user/welcome">
                 <div class="font-weight-bold"><i class="fas fa-bus"></i> BMS</div>
             </a>
 
@@ -43,7 +43,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item pl-2 pr-2">
-                        <a class="nav-link btn" href="/user/login"><span class="fas fa-sign-in-alt"></span>
+                        <a class="nav-link btn" href="${context}/user/login"><span class="fas fa-sign-in-alt"></span>
                             Login</a>
                     </li>
                 </ul>
@@ -60,7 +60,7 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="/images/1.jpg" alt="First slide">
+                    <img class="d-block w-100" src="${context}/images/1.jpg" alt="First slide">
                     <div class="carousel-caption trickcenter">
                         <div>
                             <h1>Our Premium Range of Services</h1>
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="/images/2.jpg" alt="Second slide">
+                    <img class="d-block w-100" src="${context}/images/2.jpg" alt="Second slide">
                     <div class="carousel-caption trickcenter">
                         <div>
                             <h1>Our Premium Range of Services</h1>
@@ -279,14 +279,14 @@
                         Copyright © Bus Management System 2022
                     </div>
                     <div class="col-md-6 col-lg-7 text-center text-md-right">
-                        <a class="text-white" href="/admin/login">Admin Login</a>
+                        <a class="text-white" href="${context}/admin/login">Admin Login</a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="/plugin/aos.js"></script>
+    <script src="${context}/plugin/aos.js"></script>
     <script>
         AOS.init();
     </script>

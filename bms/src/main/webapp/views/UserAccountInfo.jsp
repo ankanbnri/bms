@@ -10,10 +10,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@ include file="plugin.jsp"%>
-<link rel="stylesheet" href="/css/util.css">
-<link rel="stylesheet" href="/css/UserAuth.css">
-<link rel="stylesheet" href="/css/navbar.css">
-<script src="/js/searchBus.js"></script>
+<link rel="stylesheet" href="${context}/css/util.css">
+<link rel="stylesheet" href="${context}/css/UserAuth.css">
+<link rel="stylesheet" href="${context}/css/navbar.css">
+<script src="${context}/js/searchBus.js"></script>
 
 <title><c:out value="${sessionScope.name}" /> | Edit Account</title>
 </head>
@@ -30,7 +30,7 @@
 			</div>
 			<div class="form-container">
 				<div class="form-inner">
-					<form action="/user/editaccount" class="signup" method="post">
+					<form action="${context}/user/editaccount" class="signup" method="post">
 						<div class="field">
 							<input type="email" id="email" name="email" value="${email }"
 								placeholder="Email Address" required disabled>
@@ -72,7 +72,7 @@
 	</div>
 
 
-	<script src="/js/UserAuth.js"></script>
+	<script src="${context}/js/UserAuth.js"></script>
 	<div style="position: absolute; bottom: 0; width: 100%">
 		<%@ include file="userFooter.jsp"%>
 	</div>

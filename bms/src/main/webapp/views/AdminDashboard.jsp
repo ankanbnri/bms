@@ -11,8 +11,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@ include file="plugin.jsp"%>
-<link rel="stylesheet" href="/css/util.css">
-<link rel="stylesheet" href="/css/adminBus.css">
+<link rel="stylesheet" href="${context}/css/util.css">
+<link rel="stylesheet" href="${context}/css/adminBus.css">
 
 <title>BMS ADMIN | DASHBOARD</title>
 </head>
@@ -24,7 +24,7 @@
 
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
-		<a class="navbar-brand" href="/admin/dashboard">Bus Management
+		<a class="navbar-brand" href="${context}/admin/dashboard">Bus Management
 			System </a>
 		<button class="navbar-toggler navbar-toggler-right" type="button"
 			data-toggle="collapse" data-target="#navbarResponsive"
@@ -35,25 +35,25 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav " id="exampleAccordion">
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Dashboard"><a class="nav-link" href="/admin/dashboard">
+					title="Dashboard"><a class="nav-link" href="${context}/admin/dashboard">
 						<i class="fa fa-fw fa-sign-in-alt"></i> <span
 						class="nav-link-text">Dashboard</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
 					title="Tables"><a class="nav-link"
-					href="/admin/displayBusInformation"> <i
+					href="${context}/admin/displayBusInformation"> <i
 						class="fa fa-fw fa-table"></i> <span class="nav-link-text">Display
 							Bus Information</span>
 				</a>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Tables"><a class="nav-link" href="/admin/addBus"> <i
+					title="Tables"><a class="nav-link" href="${context}/admin/addBus"> <i
 						class="fa fa-fw fa-wrench"></i> <span class="nav-link-text">Add
 							New Bus</span>
 				</a></li>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
 					title="Example Pages"><a class="nav-link"
-					href="/admin/download/revenueReport.xlsx"
+					href="${context}/admin/download/revenueReport.xlsx"
 					data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
 						<span class="nav-link-text">Generate Revenue Report</span>
 				</a></li>
@@ -63,12 +63,12 @@
 					aria-expanded="false" data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
 						<span class="nav-link-text">Generate Under Utilized Bus Report</span></a>
 					<div class="dropdown-menu percentage-dropdown-menu" aria-labelledby="percentageDropdown">
-						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/10">Under 10% utilized</a> 
-						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/20">Under 20% utilized</a> 
-						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/30">Under 30% utilized</a> 
-						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/40">Under 40% utilized</a> 
-						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/50">Under 50% utilized</a> 
-						<a class="dropdown-item" href="/admin/download/underUtilizedBusReport.xlsx/60">Under 60% utilized</a> 
+						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/10">Under 10% utilized</a> 
+						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/20">Under 20% utilized</a> 
+						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/30">Under 30% utilized</a> 
+						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/40">Under 40% utilized</a> 
+						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/50">Under 50% utilized</a> 
+						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/60">Under 60% utilized</a> 
 					</div>
 				</li>
 			</ul>
@@ -84,7 +84,7 @@
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+				<li class="breadcrumb-item"><a href="${context}/admin/dashboard">Dashboard</a></li>
 				<li class="breadcrumb-item active">Admin Dashboard</li>
 			</ol>
 			<!-- Icon Cards-->
@@ -211,7 +211,7 @@
 					<div class="modal-footer">
 						<button class="btn btn-secondary" type="button"
 							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="/admin/logout">Logout</a>
+						<a class="btn btn-primary" href="${context}/admin/logout">Logout</a>
 					</div>
 				</div>
 			</div>

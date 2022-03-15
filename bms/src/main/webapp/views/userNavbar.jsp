@@ -2,7 +2,7 @@
 	<div class="container nav-container">
 		<div class="brand">
 			<a class="navbar-brand text-bms-yellow font-weight-bold"
-				href="/user/welcome"><i class="fas fa-bus"></i> BMS</a>
+				href="${context}/user/welcome"><i class="fas fa-bus"></i> BMS</a>
 		</div>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -17,16 +17,18 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false">Hi, <c:out value="${sessionScope.name}" /> </a>
+					aria-expanded="false">Hi, <c:out value="${sessionScope.name}" />
+				</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="/user/editaccount">Edit Account</a> 
+						<a class="dropdown-item" href="${context}/user/editaccount">Edit Account</a>
 					</div></li>
 				<li class="nav-item mx-2"><a class="nav-link item"
-					href="/user/searchBus">Plan Journey</a></li>
+					href="${context}/user/searchBus">Plan Journey</a></li>
 				<li class="nav-item mx-2"><a class="nav-link"
-					href="/user/myTickets">My Tickets</a></li>
+					href="${context}/user/myTickets">My Tickets</a></li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0" action="/user/logout">
+			<form class="form-inline my-2 my-lg-0"
+				action="${context}/user/logout">
 				<button
 					class="btn bg-bms-primary my-2 my-sm-0 logout-btn text-bms-secondary font-weight-bold"
 					type="submit">LOG OUT</button>

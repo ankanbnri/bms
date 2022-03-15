@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <%@ include file="plugin.jsp"%>
-<link rel="stylesheet" href="/css/util.css">
+<link rel="stylesheet" href="${context}/css/util.css">
 
 <title>BMS | Registration Successful</title>
 </head>
@@ -54,7 +57,7 @@
 				<h3>Dear, ${name }</h3>
 				<p style="font-size: 20px; color: #5C5C5C;">Thank you for
 					choosing BMS. You have been successfully registered.</p>
-				<a href="/user/login" style="width: 200px" class="btn btn-success">
+				<a href="${context}/user/login" style="width: 200px" class="btn btn-success">
 					Log in </a> <br>
 				<br>
 			</div>

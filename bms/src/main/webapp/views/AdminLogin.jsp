@@ -8,9 +8,10 @@
 <meta charset="utf-8">
 <title>Admin Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/AdminLogin.css">
-<link rel="stylesheet" href="/css/util.css">
 <%@ include file="plugin.jsp"%>
+<link rel="stylesheet" href="${context}/css/AdminLogin.css">
+<link rel="stylesheet" href="${context}/css/util.css">
+
 </head>
 
 <body>
@@ -20,12 +21,12 @@
 			System.out.println("inside admin");
 			%>
 			<%
-			response.sendRedirect(request.getContextPath() + "/user/searchBus");
+			response.sendRedirect(request.getContextPath() + "${context}/user/searchBus");
 			%>
 		</c:when>
 		<c:when test="${sessionScope.isValidAdmin == true}">
 			<%
-			response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+			response.sendRedirect(request.getContextPath() + "${context}/admin/dashboard");
 			%>
 		</c:when>
 	</c:choose>

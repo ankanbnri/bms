@@ -10,9 +10,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%@ include file="plugin.jsp"%>
-<link rel="stylesheet" href="/css/util.css">
-<link rel="stylesheet" href="/css/bookTicket.css">
-<link rel="stylesheet" href="/css/navbar.css">
+<link rel="stylesheet" href="${context}/css/util.css">
+<link rel="stylesheet" href="${context}/css/bookTicket.css">
+<link rel="stylesheet" href="${context}/css/navbar.css">
 <title>BMS | Book Ticket</title>
 </head>
 <body>
@@ -73,7 +73,7 @@
 						</li>
 						<li class="list-group-item">
 							<form class="form"
-								action="/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}"
+								action="${context}/ticket/bookTicket/${bus.getRegistrationNo()}/${travelDate}"
 								method="post">
 								<input type="hidden" id="dist_km" name="dist_km"
 									value="${bus.getRoute().getDistance()}"> <input
@@ -118,7 +118,7 @@
 				<div class="modal-header"
 					style="background-color: transparent; border: none">
 					<img id="spinner" style="width: 250px" alt="spinner"
-						src="/images/loading.gif" />
+						src="${context}/images/loading.gif" />
 				</div>
 			</div>
 		</div>
@@ -126,6 +126,6 @@
 
 
 	<%@ include file="userFooter.jsp"%>
-	<script src="/js/bookTicket.js"></script>
+	<script src="${context}/js/bookTicket.js"></script>
 </body>
 </html>

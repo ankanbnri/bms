@@ -8,9 +8,9 @@
 <meta charset="utf-8">
 <title>BMS | Login and Registration</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/UserAuth.css">
-<link rel="stylesheet" href="/css/util.css">
 <%@ include file="plugin.jsp"%>
+<link rel="stylesheet" href="${context}/css/UserAuth.css">
+<link rel="stylesheet" href="${context}/css/util.css">
 <body class="d-flex align-items-center justify-content-center">
 	<c:choose>
 		<c:when test="${sessionScope.isValidAdmin == true}">
@@ -42,7 +42,7 @@
 				<div class="slider-tab"></div>
 			</div>
 			<div class="form-inner">
-				<form action="login" class="login" method="post">
+				<form action="${context}/user/login" class="login" method="post">
 					<div class="field">
 						<input type="email" id="email" name="email"
 							placeholder="Email Address" value="${email }" required>
@@ -62,7 +62,7 @@
 						Not a member? <a href="">Signup now</a>
 					</div>
 				</form>
-				<form action="/user/signUp" class="signup" method="post">
+				<form action="${context}/user/signUp" class="signup" method="post">
 					<div class="field">
 						<input type="text" id="name" name="name" placeholder="Full Name"
 							pattern="^[a-zA-Z ]{2,50}$"
@@ -101,7 +101,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="/js/UserAuth.js"></script>
+	<script src="${context}/js/UserAuth.js"></script>
 
 </body>
 

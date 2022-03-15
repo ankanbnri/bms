@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%@ include file="plugin.jsp"%>
-    <link rel="stylesheet" href="/css/error.css">
-    <link rel="stylesheet" href="/css/util.css">
+    <link rel="stylesheet" href="${context}/css/error.css">
+    <link rel="stylesheet" href="${context}/css/util.css">
     
 
     <title>BMS | Not Found</title>
@@ -20,7 +20,7 @@
                 <div class="col-md-12 text-center">
                     <span class="display-1 d-block">404</span>
                     <div class="mb-4 lead">The page you are looking for was not found.</div>
-                    <a href="/user/welcome" class="btn btn-link">Back to Home</a>
+                    <a href="${context}/user/welcome" class="btn btn-link">Back to Home</a>
                 </div>
             </div>
         </div>
