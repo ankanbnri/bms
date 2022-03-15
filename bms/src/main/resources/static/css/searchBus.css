@@ -37,8 +37,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-image : url("/bms/images/bus-inside-img.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

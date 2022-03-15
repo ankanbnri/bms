@@ -26,7 +26,7 @@
 	<!-- NAVBAR -->
 	<%@ include file="userNavbar.jsp"%>
 	<!-- SEARCH SECTION -->
-	<section class="container-fluid search-section">
+	<section class="container-fluid search-section" style="background-image : url('${context}/images/bus-inside-img.jpg');">
 		<div class="container">
 			<form class="search-form" method="post">
 				<div class="input-group mb-3 my-auto search-element">
