@@ -47,7 +47,7 @@
 					<th>PNR Number</th>
 					<th>Name</th>
 					<th>Seats Booked</th>
-					<th>Date of bought</th>
+					<th>Booking Date</th>
 					<th>Fare</th>
 				</tr>
 			</thead>

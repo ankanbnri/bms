@@ -172,7 +172,7 @@ public class DepartureSheetExporter {
 		cell.setCellStyle(style);
 
 		cell = row.createCell(3);
-		cell.setCellValue("Date of bought");
+		cell.setCellValue("Booking Date");
 		cell.setCellStyle(style);
 
 		cell = row.createCell(4);

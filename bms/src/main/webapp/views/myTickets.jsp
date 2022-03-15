@@ -16,7 +16,6 @@
 
 <script type="text/javascript">
 	function addClassShow() {
-		console.log("js....");
 		document.querySelector(".upcoming-ticket-parent .collapse").classList
 				.add("show");
 	}
@@ -34,7 +33,7 @@
 			<div class="alert alert-danger alert-dismissible fade show"
 				role="alert">
 				Your ticket from <b>${source}</b> to <b>${dest}</b> on <b>${date}</b>
-				with PNR No: <b>${pnrNo}</b> is cancelled successfully.
+				with PNR No: <b>${pnrNo}</b> is cancelled successfully.An Email will be sent to your email address shortly.
 				<button type="button" class="close" data-dismiss="alert"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -58,7 +57,7 @@
 					<strong>Success!</strong> Your ticket from <b>${bookedTicket.getBus().getRoute().getStartName()}</b>
 					to <b>${bookedTicket.getBus().getRoute().getStopName()}</b> on <b>${bookedTicket.getDateOfTravel()}</b>
 					with <b>${bookedTicket.getSeatsBooked()}</b> seats is booked
-					successfully. Email is sent to your email address.
+					successfully.An Email will be sent to your email address shortly.
 					<p>
 						PNR No: <b>${bookedTicket.getPnrNo()}</b><br /> Bus Number: <b>${bookedTicket.getBus().getRegistrationNo()}</b>
 					</p>

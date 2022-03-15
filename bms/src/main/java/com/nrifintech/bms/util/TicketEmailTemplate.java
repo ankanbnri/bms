@@ -161,7 +161,7 @@ public class TicketEmailTemplate {
 				+ "\n" + " Date Of Travel : " + dateofTravel + "\n" + "Bus Registration No : " + registrationNo + "\n"
 				+ " Bus Name : " + busName + "\n" + " Facilities : " + facilities + "\n" + " Onboarding Time : "
 				+ startTime + "\n" + " Onboarding Point : " + startName + "\n" + " Departure Point : " + stopName + "\n"
-				+ " No Of Seats Booked : " + seatsBooked + "\n" + " Total Paid : " + totalPaid + "\n";
+				+ " No Of Seats Booked : " + seatsBooked + "\n" + " Total Paid : " + totalPaid + "\n\n\n" +"With Regards,\nBMS Team.\n";
 	}
 
 	public static class TicketEmailTemplateBuilder {
