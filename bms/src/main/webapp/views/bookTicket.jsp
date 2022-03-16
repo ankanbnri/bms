@@ -66,7 +66,7 @@
 										class="info-placeholder info-date">${travelDate}</span>
 								</div>
 								<div class="col-lg-6">
-									<i class="fa fa-clock text-bms-primary"></i> Time: <span
+									<i class="fa fa-clock text-bms-primary"></i> Time (24 Hr Format): <span
 										class="info-placeholder info-time">${fn:substring(bus.getStartTime(),0,5)}</span>
 								</div>
 							</div>

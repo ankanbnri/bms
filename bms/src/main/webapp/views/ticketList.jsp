@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.lang.Math"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +41,8 @@
 				</svg>
 				${bus.getRoute().getStopName()}
 			</h3>
-			<h3 class="text-info">Bus Start Time:- ${bus.getStartTime()}</h3>
+			<h3 class="text-info">Bus Start Time (24 Hr Format):-
+				${fn:substring(bus.getStartTime(),0,5)}</h3>
 			<h3 class="text-danger">Seats Booked : ${!ticketFound ? 0 : tickets.stream().map(it -> it.getSeatsBooked()).reduce(0, (acc, it) -> acc+it)}</h3>
 		</div>
 		<table class="table table-striped table-bordered">

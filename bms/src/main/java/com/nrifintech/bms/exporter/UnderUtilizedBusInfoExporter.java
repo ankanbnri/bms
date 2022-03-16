@@ -58,15 +58,15 @@ public class UnderUtilizedBusInfoExporter {
 			cell.setCellStyle(headerCellStyle);
 
 			cell = row.createCell(7);
-			cell.setCellValue("Maximum available bokkings of last month");
+			cell.setCellValue("Maximum available bookings of last 30 days");
 			cell.setCellStyle(headerCellStyle);
 
 			cell = row.createCell(8);
-			cell.setCellValue("Total Seats Booked of last month");
+			cell.setCellValue("Total Seats Booked of last 30 days");
 			cell.setCellStyle(headerCellStyle);
 
 			cell = row.createCell(9);
-			cell.setCellValue("Percentage Seat Utilization of last month (< " + percentage + "% )");
+			cell.setCellValue("Percentage Seat Utilization of last 30 days (< " + percentage + "% )");
 			cell.setCellStyle(headerCellStyle);
 
 			// Creating data rows for each bus
