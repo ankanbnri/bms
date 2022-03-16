@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="java.time.LocalDate"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,8 @@
 			<div class="alert alert-danger alert-dismissible fade show"
 				role="alert">
 				Your ticket from <b>${source}</b> to <b>${dest}</b> on <b>${date}</b>
-				with PNR No: <b>${pnrNo}</b> is cancelled successfully.An Email will be sent to your email address shortly.
+				with PNR No: <b>${pnrNo}</b> is cancelled successfully.An Email will
+				be sent to your email address shortly.
 				<button type="button" class="close" data-dismiss="alert"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -159,15 +161,18 @@
 														${upcomingTicket.getTotalAmount()}
 													</h5>
 												</div>
-											</div>
-											<div class="row">
-												<div class="col text-center">
-													<a href="#" data-toggle="modal"
-														data-target="#modal${upcomingTicket.getPnrNo()}">
-														<button class="btn btn-primary">Cancel Ticket</button>
-													</a>
+											</div> <c:if
+												test="${ upcomingTicket.getDateOfTravel() ne todayDate }">
+												<div class="row">
+													<div class="col text-center">
+														<a href="#" data-toggle="modal"
+															data-target="#modal${upcomingTicket.getPnrNo()}">
+															<button class="btn btn-primary">Cancel Ticket</button>
+														</a>
+													</div>
 												</div>
-											</div>
+											</c:if>
+
 
 										</li>
 

@@ -24,7 +24,8 @@ import com.nrifintech.bms.entity.Ticket;
 import com.nrifintech.bms.service.BusService;
 import com.nrifintech.bms.service.RouteService;
 import com.nrifintech.bms.service.TicketService;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -143,7 +144,7 @@ public class UserController {
 	public ModelAndView showTickets(HttpServletRequest request, @ModelAttribute("bookedTicket") Ticket ticket,
 			@ModelAttribute("pnrNo") String pnrNo, @ModelAttribute("source") String source,
 			@ModelAttribute("dest") String dest, @ModelAttribute("date") String date,
-			@ModelAttribute("validCancel") String validCancel) {
+			@ModelAttribute("validCancel") String validCancel) throws ParseException {
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("userid") == null) {
@@ -155,7 +156,9 @@ public class UserController {
 
 			List<Ticket> upcomingTickets = ticketService.getUpcomingTicketsWithUser(user);
 			List<Ticket> oldTickets = ticketService.getOldTicketsWithUser(user);
-
+			LocalDate dateObj = LocalDate.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        String todayDate = dateObj.format(formatter);
 			ModelAndView modelAndView = new ModelAndView("myTickets");
 			modelAndView.addObject("bookedTicket", ticket);
 			modelAndView.addObject("pnrNo", pnrNo);
@@ -163,6 +166,7 @@ public class UserController {
 			modelAndView.addObject("dest", dest);
 			modelAndView.addObject("date", date);
 			modelAndView.addObject("validCancel", validCancel);
+			modelAndView.addObject("todayDate",todayDate);
 
 			// Setting upcoming tickets
 			if (upcomingTickets.size() > 0) {
