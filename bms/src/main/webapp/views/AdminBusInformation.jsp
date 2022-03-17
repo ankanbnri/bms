@@ -27,23 +27,28 @@
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.REGISTRATION_NO)%>" />
 	</c:url>
-	<c:url var="sortLinkBusName" value="${context}/admin/displayBusInformation">
+	<c:url var="sortLinkBusName"
+		value="${context}/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.BUS_NAME)%>" />
 	</c:url>
-	<c:url var="sortLinkSeatCount" value="${context}/admin/displayBusInformation">
+	<c:url var="sortLinkSeatCount"
+		value="${context}/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.SEAT_COUNT)%>" />
 	</c:url>
-	<c:url var="sortLinkFare" value="${context}/admin/displayBusInformation">
+	<c:url var="sortLinkFare"
+		value="${context}/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.FARE)%>" />
 	</c:url>
-	<c:url var="sortLinkStatus" value="${context}/admin/displayBusInformation">
+	<c:url var="sortLinkStatus"
+		value="${context}/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.IS_ACTIVE)%>" />
 	</c:url>
-	<c:url var="sortLinkFrom" value="${context}/admin/displayBusInformation">
+	<c:url var="sortLinkFrom"
+		value="${context}/admin/displayBusInformation">
 		<c:param name="sort"
 			value="<%=Integer.toString(AdminBusSortingUtils.FROM)%>" />
 	</c:url>
@@ -63,9 +68,9 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav " id="exampleAccordion">
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Dashboard"><a class="nav-link" href="${context}/admin/dashboard">
-						<i class="fa fa-fw fa-sign-in-alt"></i> <span
-						class="nav-link-text">Dashboard</span>
+					title="Dashboard"><a class="nav-link"
+					href="${context}/admin/dashboard"> <i
+						class="fa fa-fw fa-sign-in-alt"></i> <span class="nav-link-text">Dashboard</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
 					title="Tables"><a class="nav-link"
@@ -74,9 +79,9 @@
 							Bus Information</span>
 				</a>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Tables"><a class="nav-link" href="${context}/admin/addBus"> <i
-						class="fa fa-fw fa-wrench"></i> <span class="nav-link-text">Add
-							New Bus</span>
+					title="Tables"><a class="nav-link"
+					href="${context}/admin/addBus"> <i class="fa fa-fw fa-wrench"></i>
+						<span class="nav-link-text">Add New Bus</span>
 				</a></li>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
@@ -86,19 +91,27 @@
 						<span class="nav-link-text">Generate Revenue Report</span>
 				</a></li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
-					title="Example Pages"><a class="nav-link dropdown-toggle" href="#" id="percentageDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false" data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
-						<span class="nav-link-text">Generate Under Utilized Bus Report</span></a>
-					<div class="dropdown-menu percentage-dropdown-menu" aria-labelledby="percentageDropdown">
-						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/10">Under 10% utilized</a> 
-						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/20">Under 20% utilized</a> 
-						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/30">Under 30% utilized</a> 
-						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/40">Under 40% utilized</a> 
-						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/50">Under 50% utilized</a> 
-						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/60">Under 60% utilized</a> 
-					</div>
-				</li>
+					title="Example Pages"><a class="nav-link dropdown-toggle"
+					href="#" id="percentageDropdown" role="button"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
+						<span class="nav-link-text">Generate Bus Utilization Report</span></a>
+					<div class="dropdown-menu percentage-dropdown-menu"
+						aria-labelledby="percentageDropdown">
+						<a class="dropdown-item"
+							href="${context}/admin/download/underUtilizedBusReport.xlsx/10">Under
+							10% utilized</a> <a class="dropdown-item"
+							href="${context}/admin/download/underUtilizedBusReport.xlsx/20">Under
+							20% utilized</a> <a class="dropdown-item"
+							href="${context}/admin/download/underUtilizedBusReport.xlsx/30">Under
+							30% utilized</a> <a class="dropdown-item"
+							href="${context}/admin/download/underUtilizedBusReport.xlsx/40">Under
+							40% utilized</a> <a class="dropdown-item"
+							href="${context}/admin/download/underUtilizedBusReport.xlsx/50">Under
+							50% utilized</a> <a class="dropdown-item"
+							href="${context}/admin/download/underUtilizedBusReport.xlsx/60">Under
+							60% utilized</a>
+					</div></li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
 
@@ -112,7 +125,8 @@
 		<div class="container-fluid">
 			<!-- Breadcrumbs-->
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="${context}/admin/dashboard">Dashboard</a></li>
+				<li class="breadcrumb-item"><a
+					href="${context}/admin/dashboard">Dashboard</a></li>
 				<li class="breadcrumb-item active">Displaying All Bus
 					Information</li>
 			</ol>
@@ -190,15 +204,22 @@
 												</c:choose></td>
 											<td><c:choose>
 													<c:when test="${bus.getActiveStatus() eq 'YES'}">
-														<a href="${context}/admin/ticketList/${bus.getRegistrationNo()}"
+														<a
+															href="${context}/admin/ticketList/${bus.getRegistrationNo()}"
 															title="Download PNR Report for ${tmrDate }"><span
 															class="fa fa-download pr-2"></span></a>
-														<a href="${context}/admin/disableBus/${bus.getRegistrationNo() }"
+														<a
+															href="${context}/admin/disableBus/${bus.getRegistrationNo() }"
 															title="Disable the bus"><span
 															class="fas fa-toggle-on"></span></a>
 													</c:when>
 													<c:otherwise>
-														<a href="${context}/admin/enableBus/${bus.getRegistrationNo() }"
+														<a
+															href="${context}/admin/ticketList/${bus.getRegistrationNo()}"
+															title="Download PNR Report for ${tmrDate }"><span
+															class="fa fa-download pr-2"></span></a>
+														<a
+															href="${context}/admin/enableBus/${bus.getRegistrationNo() }"
 															title="Enable the bus"><span
 															class="fas fa-toggle-off"></span></a>
 													</c:otherwise>

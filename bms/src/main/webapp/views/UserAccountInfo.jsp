@@ -62,7 +62,7 @@
 		<div class="container mx-auto" style="margin: 5%;">
 			<c:if test="${validChange == 'YES'}">
 				<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-					  You account information is updated successfully.
+					  Your account information is updated successfully.
 				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				    <span aria-hidden="true">&times;</span>
 				  </button>

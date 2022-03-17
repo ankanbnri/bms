@@ -61,7 +61,7 @@
 					with <b>${bookedTicket.getSeatsBooked()}</b> seats is booked
 					successfully.An Email will be sent to your email address shortly.
 					<p>
-						PNR No: <b>${bookedTicket.getPnrNo()}</b><br /> Bus Number: <b>${bookedTicket.getBus().getRegistrationNo()}</b>
+						PNR No: <b>${bookedTicket.getPnrNo()}</b><br /> Bus Registration Number: <b>${bookedTicket.getBus().getRegistrationNo()}</b>
 					</p>
 				</div>
 				<div>Please find your ticket below.</div>
@@ -142,7 +142,7 @@
 
 												<div class="col-md-6">
 													<h5 class="float-md-right">
-														<i class="fa fa-clock"></i> Time :
+														<i class="fa fa-clock"></i> Time (24 Hr Format):
 														${fn:substring(upcomingTicket.getBus().getStartTime(),0,5)}
 													</h5>
 												</div>
@@ -257,7 +257,7 @@
 
 												<div class="col-md-6">
 													<h5 class="float-md-right">
-														<i class="fa fa-clock"></i> Time :
+														<i class="fa fa-clock"></i> Time (24 Hr Format):
 														${fn:substring(oldTicket.getBus().getStartTime(),0,5)}
 													</h5>
 												</div>

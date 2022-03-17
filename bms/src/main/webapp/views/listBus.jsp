@@ -81,7 +81,7 @@
 
 										<div class="col-md-6">
 											<h5 class="float-md-right">
-												<i class="fa fa-clock"></i>Departure Time :
+												<i class="fa fa-clock"></i>Departure Time (24 Hr Format):
 												${fn:substring(bus.getStartTime(),0,5)}
 											</h5>
 										</div>

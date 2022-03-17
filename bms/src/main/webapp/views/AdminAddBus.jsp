@@ -56,7 +56,7 @@
 					title="Example Pages"><a class="nav-link dropdown-toggle" href="#" id="percentageDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false" data-parent="#exampleAccordion"> <i class="fa fa-fw fa-file"></i>
-						<span class="nav-link-text">Generate Under Utilized Bus Report</span></a>
+						<span class="nav-link-text">Generate Bus Utilization Report</span></a>
 					<div class="dropdown-menu percentage-dropdown-menu" aria-labelledby="percentageDropdown">
 						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/10">Under 10% utilized</a> 
 						<a class="dropdown-item" href="${context}/admin/download/underUtilizedBusReport.xlsx/20">Under 20% utilized</a> 
