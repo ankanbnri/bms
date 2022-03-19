@@ -165,7 +165,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${routeRevenues }" var="route">
+								<c:forEach items="${routeInfo }" var="route">
 									<tr>
 										<td>${route.routecode }</td>
 										<td>${route.source }</td>

@@ -66,13 +66,13 @@ public class AdminController {
 		long routeCount = routeService.countRoutes();
 		long ticketCount = ticketService.countTickets();
 		long userCount = userService.countUsers();
-		List<RouteInfo> routeRevenues = ticketService.getBusCountPerRoute();
+		List<RouteInfo> routeInfo = ticketService.getBusCountPerRoute();
 		ModelAndView mv = new ModelAndView("AdminDashboard");
 		mv.addObject("busCount", busCount);
 		mv.addObject("routeCount", routeCount);
 		mv.addObject("ticketCount", ticketCount);
 		mv.addObject("userCount", userCount);
-		mv.addObject("routeRevenues", routeRevenues);
+		mv.addObject("routeInfo", routeInfo);
 		return mv;
 	}
 
