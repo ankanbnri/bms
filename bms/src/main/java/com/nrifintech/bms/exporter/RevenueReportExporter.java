@@ -19,7 +19,7 @@ import com.nrifintech.bms.model.Revenue;
 public class RevenueReportExporter {
 	public static ByteArrayInputStream exportRevenueReport(List<Revenue> revenueList) {
 		try (Workbook workbook = new XSSFWorkbook()) {
-			Sheet sheet = workbook.createSheet("Customers");
+			Sheet sheet = workbook.createSheet("Revenue Report");
 
 			Row row = sheet.createRow(0);
 			CellStyle headerCellStyle = workbook.createCellStyle();

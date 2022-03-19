@@ -146,7 +146,7 @@
 											class="fas fa-rupee-sign form-icon text-bms-primary"></i></span>
 									</div>
 									<input type="number" name="fare" class="form-control" value="${bus.getFare() }"
-										placeholder="Fare per km" aria-describedby="basic-addon1" required>
+										placeholder="Fare per km" aria-describedby="basic-addon1" min="1" required>
 								</div>
 							</div>
 							<div class="form-group col-md-6">
