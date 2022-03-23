@@ -73,8 +73,8 @@ public class TicketController {
 		ticket.setBus(bus);
 		ticket.setUser(user);
 		// Changes for Fare Edit Bug in FrontEnd
-		int fare = busService.getById(bus.getRegistrationNo()).getFare();
-		int distance = busService.getById(bus.getRegistrationNo()).getRoute().getDistance();
+		int fare = bus.getFare();
+		int distance = bus.getRoute().getDistance();
 		int seatsBooked = ticket.getSeatsBooked();
 		ticket.setTotalAmount(fare * distance * seatsBooked);
 		ticketService.save(ticket);
